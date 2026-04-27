@@ -1092,9 +1092,81 @@ function generateResults() {
     <div style="text-align:center;margin-top:2rem;padding:1.5rem;background:var(--bg2);border-radius:16px;border:1px solid var(--border)">
       <div style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem">Finanzas Personales · UNICESMAG · 2026-1</div>
       <div style="font-size:.78rem;color:var(--text3)">Grupo registrado: ${state.groupName} · ${new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})}</div>
-      <button class="btn btn-secondary" style="margin-top:1rem" onclick="window.print()">Imprimir resultados</button>
+      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:1rem">
+        <button class="btn btn-secondary" onclick="window.print()">🖨 Imprimir resultados</button>
+        <button class="btn btn-success" onclick="exportCSV()">⬇ Exportar CSV para Moodle</button>
+      </div>
+      <div style="margin-top:1rem;font-size:.75rem;color:var(--text3);line-height:1.6">
+        El archivo CSV generado es compatible con Moodle.<br>
+        Ir a: <strong style="color:var(--text2)">Calificaciones → Importar → Archivo CSV</strong> y sube el archivo descargado.
+      </div>
     </div>
   `;
+}
+
+// ── CSV EXPORT FOR MOODLE ──
+function exportCSV() {
+  const s1=scoreAct1(), s2=scoreAct2(), s3=scoreAct3(), s4=scoreAct4();
+  const total=Math.round((s1*0.2+s2*0.3+s3*0.25+s4*0.25));
+  const notaFinal=nota(total);
+  const fecha=new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'});
+
+  // Moodle CSV header — columns it expects
+  const headers = [
+    'Nombre completo',
+    'Programa',
+    'Semestre',
+    'Grupo',
+    'Salon',
+    'Actividad 1 - Mi Foto Financiera (20%)',
+    'Actividad 2 - Reto del Semestre (30%)',
+    'Actividad 3 - Simulador de Crisis (25%)',
+    'Actividad 4 - Mi Compromiso (25%)',
+    'Puntaje Total (100)',
+    'Nota Final (0-5)',
+    'Fecha',
+    'App elegida fondo',
+    'Meta fondo minimo (COP)',
+    'Ahorro semanal (COP)'
+  ];
+
+  const rows = [headers];
+
+  // One row per member
+  state.members.forEach((m, i) => {
+    const c = state.act4.members?.[i] || {};
+    rows.push([
+      `"${m.name}"`,
+      `"${m.program}"`,
+      `"${m.semester}"`,
+      `"${state.groupName}"`,
+      `"${state.groupSalon}"`,
+      s1,
+      s2,
+      s3,
+      s4,
+      total,
+      notaFinal,
+      `"${fecha}"`,
+      `"${c.app||''}"`,
+      Math.round(c.meta||0),
+      Math.round(c.ahorro||0)
+    ]);
+  });
+
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const bom = '\uFEFF'; // UTF-8 BOM so Excel/Moodle reads accents correctly
+  const blob = new Blob([bom + csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const safeName = state.groupName.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();
+  a.href = url;
+  a.download = `calificaciones_${safeName}_FP_U2_${fecha.replace(/\//g,'-')}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('CSV descargado — listo para subir a Moodle');
 }
 
 // ── NAVIGATION ──
