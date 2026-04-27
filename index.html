@@ -383,7 +383,13 @@
       <span class="dot"></span>
       Sesión activa · Grupo de hasta 4 estudiantes
     </div>
+    <div style="margin-top:1.2rem">
+      <button onclick="docenteAccess()" style="background:rgba(45,66,113,0.3);border:1px solid rgba(91,125,184,0.4);border-radius:20px;padding:6px 18px;color:#9ab5dd;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.5px;transition:all .2s" onmouseover="this.style.background='rgba(45,66,113,0.6)'" onmouseout="this.style.background='rgba(45,66,113,0.3)'">
+        🔐 Acceso docente — Ver resultados y exportar
+      </button>
+    </div>
   </header>
+  <div id="removeModal"></div>
 
   <!-- STEP NAV -->
   <nav class="step-nav" id="stepNav">
@@ -707,7 +713,38 @@ function renderMembers() {
 }
 function newMember() { return {name:'',program:'Contaduría Pública',semester:'1ro'}; }
 function addMember() { if(state.members.length<4){state.members.push(newMember());renderMembers();} }
-function removeMember() { if(state.members.length>1){state.members.pop();renderMembers();} }
+function removeMember() {
+  if(state.members.length<=1){showToast('El grupo debe tener al menos 1 integrante','#B21937');return;}
+  // Save current field values first so we don't lose what was typed
+  state.members = state.members.map((_,i)=>({
+    name: document.getElementById('m_name_'+i)?.value.trim()||state.members[i].name||'',
+    program: document.getElementById('m_prog_'+i)?.value||state.members[i].program||'Contaduría Pública',
+    semester: document.getElementById('m_sem_'+i)?.value||state.members[i].semester||'1ro'
+  }));
+  const memberColors = [COLORS.azul,COLORS.rojo,COLORS.naranja,COLORS.celeste];
+  const opts = state.members.map((m,i)=>`
+    <button onclick="confirmRemove(${i})" style="display:flex;align-items:center;gap:10px;width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;color:var(--text);font-family:inherit;font-size:.9rem;cursor:pointer;margin-bottom:.5rem;transition:border-color .2s;" onmouseover="this.style.borderColor='#B21937'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'">
+      <span style="width:24px;height:24px;border-radius:50%;background:${memberColors[i]};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">${i+1}</span>
+      <span style="flex:1;text-align:left">${m.name||'Integrante '+(i+1)}</span>
+      <span style="font-size:.78rem;color:var(--text2)">${m.program}</span>
+    </button>`).join('');
+  document.getElementById('removeModal').innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:1.5rem;max-width:400px;width:100%">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:.4rem">¿A quién deseas eliminar?</div>
+        <div style="font-size:.82rem;color:var(--text2);margin-bottom:1rem">Selecciona el integrante que quieres quitar del grupo.</div>
+        ${opts}
+        <button onclick="closeRemoveModal()" style="width:100%;background:none;border:1px solid var(--border2);border-radius:10px;padding:9px;color:var(--text2);font-family:inherit;cursor:pointer;margin-top:.3rem">Cancelar</button>
+      </div>
+    </div>`;
+}
+function confirmRemove(idx) {
+  state.members.splice(idx,1);
+  closeRemoveModal();
+  renderMembers();
+  showToast('Integrante eliminado correctamente');
+}
+function closeRemoveModal() { document.getElementById('removeModal').innerHTML=''; }
 
 function saveGroup() {
   state.members = state.members.map((_,i)=>({
@@ -916,7 +953,39 @@ function saveAct4() {
   }
   state.act4={members:members4,compromisoGrupal:compromisoG,acompañamiento:acompaña,selfRating:selfRatingVal};
   generateResults();
-  goTo(5);
+  // Show confirmation modal before revealing results
+  showConfirmModal();
+}
+
+function showConfirmModal() {
+  const s1=scoreAct1(),s2=scoreAct2(),s3=scoreAct3(),s4=scoreAct4();
+  const total=Math.round((s1*0.2+s2*0.3+s3*0.25+s4*0.25));
+  const notaFinal=nota(total);
+  const notaColor=total>=80?COLORS.verde:total>=60?COLORS.naranja:COLORS.rojo;
+  document.getElementById('removeModal').innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
+      <div style="background:var(--bg2);border:1px solid rgba(26,122,74,0.5);border-radius:20px;padding:2rem;max-width:440px;width:100%;text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:.8rem">✅</div>
+        <div style="font-weight:700;font-size:1.3rem;margin-bottom:.5rem;color:var(--verde)">¡Actividades completadas!</div>
+        <div style="font-size:.88rem;color:var(--text2);margin-bottom:1.5rem;line-height:1.6">
+          Todas las respuestas del grupo <strong style="color:var(--text)">${state.groupName}</strong> han sido guardadas correctamente.<br>
+          A continuación verán sus resultados y calificación.
+        </div>
+        <div style="background:var(--bg3);border-radius:12px;padding:1rem;margin-bottom:1.5rem">
+          <div style="font-size:.78rem;color:var(--text2);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:1px">Vista previa de calificación</div>
+          <div style="font-size:2.8rem;font-weight:700;color:${notaColor};line-height:1">${notaFinal}</div>
+          <div style="font-size:.8rem;color:var(--text2);margin-top:.2rem">sobre 5.0  ·  Puntaje: ${total}/100</div>
+        </div>
+        <div style="display:flex;gap:.75rem;flex-direction:column">
+          <button onclick="closeRemoveModal();goTo(5);" style="background:var(--verde);color:#fff;border:none;border-radius:10px;padding:13px 24px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:filter .2s" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='none'">
+            Ver resultados completos →
+          </button>
+          <button onclick="closeRemoveModal();" style="background:none;border:1px solid var(--border2);border-radius:10px;padding:10px 24px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">
+            Revisar respuestas antes de continuar
+          </button>
+        </div>
+      </div>
+    </div>`;
 }
 
 // ── EVALUATION ENGINE ──
@@ -1196,6 +1265,77 @@ function showToast(msg,bg='#1A7A4A') {
 }
 
 init();
+
+// ── DOCENTE ACCESS ──
+function docenteAccess() {
+  const PIN = '2026';
+  document.getElementById('removeModal').innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
+      <div style="background:var(--bg2);border:1px solid rgba(45,66,113,0.6);border-radius:20px;padding:2rem;max-width:400px;width:100%;text-align:center">
+        <div style="font-size:2rem;margin-bottom:.6rem">🔐</div>
+        <div style="font-weight:700;font-size:1.1rem;margin-bottom:.3rem">Acceso Docente</div>
+        <div style="font-size:.82rem;color:var(--text2);margin-bottom:1.2rem">Ingresa el PIN para ver resultados y exportar calificaciones sin completar el cuestionario.</div>
+        <input type="password" id="docentePin" placeholder="PIN de acceso" maxlength="6"
+          style="width:100%;padding:12px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:inherit;font-size:1.1rem;text-align:center;letter-spacing:4px;outline:none;margin-bottom:1rem"
+          onkeydown="if(event.key==='Enter')checkDocentePin('${PIN}')">
+        <div id="pinError" style="font-size:.82rem;color:#B21937;margin-bottom:.8rem;display:none">PIN incorrecto. Intenta nuevamente.</div>
+        <div style="display:flex;gap:.75rem">
+          <button onclick="checkDocentePin('${PIN}')" style="flex:1;background:var(--azul);color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer">Ingresar</button>
+          <button onclick="closeRemoveModal()" style="flex:1;background:none;border:1px solid var(--border2);border-radius:10px;padding:11px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">Cancelar</button>
+        </div>
+        <div style="margin-top:1rem;font-size:.75rem;color:var(--text3)">PIN por defecto: 2026 — puedes cambiarlo en el código fuente</div>
+      </div>
+    </div>`;
+  setTimeout(()=>document.getElementById('docentePin')?.focus(), 100);
+}
+
+function checkDocentePin(correctPin) {
+  const val = document.getElementById('docentePin')?.value;
+  if(val === correctPin) {
+    closeRemoveModal();
+    // Build a minimal demo state if no real data exists yet
+    if(!state.members.length || !state.members[0].name) {
+      showDocenteEmpty();
+      return;
+    }
+    // If real data exists, generate and show results
+    if(Object.keys(state.act4).length && state.act4.members) {
+      generateResults();
+      goTo(5);
+    } else {
+      showDocenteEmpty();
+    }
+  } else {
+    document.getElementById('pinError').style.display='block';
+    document.getElementById('docentePin').value='';
+    document.getElementById('docentePin').focus();
+  }
+}
+
+function showDocenteEmpty() {
+  document.getElementById('removeModal').innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
+      <div style="background:var(--bg2);border:1px solid rgba(45,66,113,0.5);border-radius:20px;padding:2rem;max-width:440px;width:100%;text-align:center">
+        <div style="font-size:2rem;margin-bottom:.6rem">📋</div>
+        <div style="font-weight:700;font-size:1.1rem;margin-bottom:.8rem">Panel Docente</div>
+        <div style="background:var(--bg3);border-radius:12px;padding:1.2rem;margin-bottom:1.2rem;text-align:left">
+          <div style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1px">Estado actual</div>
+          <div style="font-size:.88rem;color:var(--text);line-height:1.8">
+            <span style="color:${Object.keys(state.act1).length?'#1A7A4A':'#B21937'}">${Object.keys(state.act1).length?'✓':'✗'}</span> Actividad 1 — Mi Foto Financiera<br>
+            <span style="color:${state.act2.perfil?'#1A7A4A':'#B21937'}">${state.act2.perfil?'✓':'✗'}</span> Actividad 2 — Reto del Semestre<br>
+            <span style="color:${state.act3.reflexion?'#1A7A4A':'#B21937'}">${state.act3.reflexion?'✓':'✗'}</span> Actividad 3 — Simulador de Crisis<br>
+            <span style="color:${state.act4.compromisoGrupal?'#1A7A4A':'#B21937'}">${state.act4.compromisoGrupal?'✓':'✗'}</span> Actividad 4 — Mi Compromiso
+          </div>
+        </div>
+        ${state.act4.compromisoGrupal ? `<button onclick="closeRemoveModal();generateResults();goTo(5);" style="width:100%;background:#1A7A4A;color:#fff;border:none;border-radius:10px;padding:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.5rem">Ver resultados y exportar CSV</button>` : ''}
+        ${state.act4.compromisoGrupal ? `<button onclick="closeRemoveModal();exportCSV();" style="width:100%;background:var(--azul);color:#fff;border:none;border-radius:10px;padding:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.5rem">Exportar CSV directamente</button>` : ''}
+        <div style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;padding:.8rem;background:var(--bg3);border-radius:8px">
+          ${!state.act4.compromisoGrupal ? 'El grupo aun no ha completado todas las actividades.' : 'Datos listos para exportar.'}
+        </div>
+        <button onclick="closeRemoveModal()" style="width:100%;background:none;border:1px solid var(--border2);border-radius:10px;padding:10px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">Cerrar</button>
+      </div>
+    </div>`;
+}
 </script>
 </body>
 </html>
