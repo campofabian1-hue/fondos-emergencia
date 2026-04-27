@@ -369,6 +369,9 @@
     .step-label { display: none; }
   }
 </style>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -382,10 +385,15 @@
     <div class="unicesmag-tag">
       <span class="dot"></span>
       Sesión activa · Grupo de hasta 4 estudiantes
+      &nbsp;·&nbsp;
+      <span id="fbStatus" style="color:var(--text3)">&#9679; sin conexion nube</span>
     </div>
-    <div style="margin-top:1.2rem">
+    <div style="margin-top:1.2rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
       <button onclick="docenteAccess()" style="background:rgba(45,66,113,0.3);border:1px solid rgba(91,125,184,0.4);border-radius:20px;padding:6px 18px;color:#9ab5dd;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.5px;transition:all .2s" onmouseover="this.style.background='rgba(45,66,113,0.6)'" onmouseout="this.style.background='rgba(45,66,113,0.3)'">
-        🔐 Acceso docente — Ver resultados y exportar
+        &#128274; Acceso docente
+      </button>
+      <button onclick="loadGroupModal()" style="background:rgba(26,122,74,0.2);border:1px solid rgba(26,122,74,0.4);border-radius:20px;padding:6px 18px;color:#7ecfa3;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(26,122,74,0.4)'" onmouseout="this.style.background='rgba(26,122,74,0.2)'">
+        &#128260; Continuar desde otro dispositivo
       </button>
     </div>
   </header>
@@ -654,7 +662,212 @@ const COLORS = {azul:'#2D4271',rojo:'#B21937',naranja:'#F26A25',celeste:'#5B7DB8
 const PROGRAMS = ['Contaduría Pública','Administración de Empresas','Diseño Gráfico','Ingeniería de Sistemas','Otro'];
 const SEMESTERS = ['1ro','2do','3ro','4to','5to','6to','7mo','8vo','9no','10mo'];
 
-let state = {
+// ── FIREBASE CONFIG ── Replace with YOUR project values ──────────────────
+// Instrucciones: ve a console.firebase.google.com → tu proyecto →
+// Configuracion del proyecto → Tus apps → Config
+const firebaseConfig = {
+  apiKey: "// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDpaM6H9X9GePwjlN1LRd1iE3xEC8EFPvs",
+  authDomain: "unicesmag-fondos-emergencia.firebaseapp.com",
+  databaseURL: "https://unicesmag-fondos-emergencia-default-rtdb.firebaseio.com",
+  projectId: "unicesmag-fondos-emergencia",
+  storageBucket: "unicesmag-fondos-emergencia.firebasestorage.app",
+  messagingSenderId: "784560979565",
+  appId: "1:784560979565:web:14083c77dafe977d33c964",
+  measurementId: "G-JJJGKQLPP9"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);",
+  authDomain: "// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDpaM6H9X9GePwjlN1LRd1iE3xEC8EFPvs",
+  authDomain: "unicesmag-fondos-emergencia.firebaseapp.com",
+  databaseURL: "https://unicesmag-fondos-emergencia-default-rtdb.firebaseio.com",
+  projectId: "unicesmag-fondos-emergencia",
+  storageBucket: "unicesmag-fondos-emergencia.firebasestorage.app",
+  messagingSenderId: "784560979565",
+  appId: "1:784560979565:web:14083c77dafe977d33c964",
+  measurementId: "G-JJJGKQLPP9"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);",
+  databaseURL: "// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDpaM6H9X9GePwjlN1LRd1iE3xEC8EFPvs",
+  authDomain: "unicesmag-fondos-emergencia.firebaseapp.com",
+  databaseURL: "https://unicesmag-fondos-emergencia-default-rtdb.firebaseio.com",
+  projectId: "unicesmag-fondos-emergencia",
+  storageBucket: "unicesmag-fondos-emergencia.firebasestorage.app",
+  messagingSenderId: "784560979565",
+  appId: "1:784560979565:web:14083c77dafe977d33c964",
+  measurementId: "G-JJJGKQLPP9"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);",
+  projectId: "// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDpaM6H9X9GePwjlN1LRd1iE3xEC8EFPvs",
+  authDomain: "unicesmag-fondos-emergencia.firebaseapp.com",
+  databaseURL: "https://unicesmag-fondos-emergencia-default-rtdb.firebaseio.com",
+  projectId: "unicesmag-fondos-emergencia",
+  storageBucket: "unicesmag-fondos-emergencia.firebasestorage.app",
+  messagingSenderId: "784560979565",
+  appId: "1:784560979565:web:14083c77dafe977d33c964",
+  measurementId: "G-JJJGKQLPP9"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);",
+  storageBucket: "// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDpaM6H9X9GePwjlN1LRd1iE3xEC8EFPvs",
+  authDomain: "unicesmag-fondos-emergencia.firebaseapp.com",
+  databaseURL: "https://unicesmag-fondos-emergencia-default-rtdb.firebaseio.com",
+  projectId: "unicesmag-fondos-emergencia",
+  storageBucket: "unicesmag-fondos-emergencia.firebasestorage.app",
+  messagingSenderId: "784560979565",
+  appId: "1:784560979565:web:14083c77dafe977d33c964",
+  measurementId: "G-JJJGKQLPP9"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);",
+  messagingSenderId: "// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDpaM6H9X9GePwjlN1LRd1iE3xEC8EFPvs",
+  authDomain: "unicesmag-fondos-emergencia.firebaseapp.com",
+  databaseURL: "https://unicesmag-fondos-emergencia-default-rtdb.firebaseio.com",
+  projectId: "unicesmag-fondos-emergencia",
+  storageBucket: "unicesmag-fondos-emergencia.firebasestorage.app",
+  messagingSenderId: "784560979565",
+  appId: "1:784560979565:web:14083c77dafe977d33c964",
+  measurementId: "G-JJJGKQLPP9"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);",
+  appId: "PEGA_AQUI_TU_appId"
+};
+
+// ── Firebase init (safe: no crash if config not yet filled) ─────────────────
+let db = null;
+let firebaseReady = false;
+try {
+  if (!firebaseConfig.apiKey.includes('PEGA_AQUI')) {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    firebaseReady = true;
+  }
+} catch(e) { console.warn('Firebase no configurado todavia:', e); }
+
+// ── Storage key for localStorage fallback ───────────────────────────────────
+const STORAGE_KEY = 'unicesmag_fondo_emergencia_v1';
+
+// ── Current session group ID (set when group registers) ─────────────────────
+let currentGroupId = null;
+
+function generateGroupId(groupName, salon) {
+  const clean = (str) => str.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,20);
+  const ts = Date.now().toString(36);
+  return clean(groupName) + '_' + clean(salon) + '_' + ts;
+}
+
+// ── Save to Firebase AND localStorage ───────────────────────────────────────
+function saveState() {
+  // Always save locally as backup
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+  // Save to Firebase if ready and group has an ID
+  if (firebaseReady && db && currentGroupId) {
+    const payload = Object.assign({}, state, {
+      _savedAt: new Date().toISOString(),
+      _groupId: currentGroupId
+    });
+    db.ref('grupos/' + currentGroupId).set(payload)
+      .catch(e => console.warn('Firebase save error:', e));
+  }
+}
+
+// ── Load from localStorage (initial fast load) ──────────────────────────────
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return null;
+}
+
+// ── Load from Firebase by groupId ───────────────────────────────────────────
+async function loadFromFirebase(groupId) {
+  if (!firebaseReady || !db) return null;
+  try {
+    const snap = await db.ref('grupos/' + groupId).get();
+    if (snap.exists()) return snap.val();
+  } catch(e) { console.warn('Firebase load error:', e); }
+  return null;
+}
+
+function clearState() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  if (firebaseReady && db && currentGroupId) {
+    db.ref('grupos/' + currentGroupId).remove()
+      .catch(e => console.warn('Firebase remove error:', e));
+  }
+  currentGroupId = null;
+}
+
+const defaultState = {
   step: 0,
   maxUnlocked: 0,
   members: [],
@@ -666,6 +879,8 @@ let state = {
   act4: {},
   selfRating: 0
 };
+
+let state = loadState() || Object.assign({}, defaultState);
 
 const crisisScenarios = [
   {
@@ -692,8 +907,128 @@ const crisisScenarios = [
 
 // INIT
 function init() {
-  renderMembers();
-  renderCrisisCards();
+  const saved = loadState();
+  if (saved && saved.members && saved.members.length) {
+    // Restore full state from localStorage
+    state = saved;
+    // Restore Firebase group ID
+    if (state._groupId) currentGroupId = state._groupId;
+    renderMembers();
+    renderCrisisCards();
+    // Restore group name fields
+    const gn = document.getElementById('groupName');
+    const gs = document.getElementById('groupSalon');
+    if(gn) gn.value = state.groupName || '';
+    if(gs) gs.value = state.groupSalon || '';
+    // Rebuild activity forms now that members are loaded
+    buildAct1Forms();
+    buildAct4Forms();
+    // Restore act1 field values if they exist
+    if(state.act1 && Object.keys(state.act1).length) {
+      state.members.forEach((_,i) => {
+        const d = state.act1[i];
+        if(!d) return;
+        const set = (id,val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+        set('a1_saldo_'+i, d.saldo);
+        set('a1_fuente_'+i, d.fuente);
+        set('a1_pasado_'+i, d.pasado);
+        set('a1_calculo_'+i, d.calculo);
+        set('a1_obstaculo_'+i, d.obstaculo);
+      });
+    }
+    // Restore act2 selections
+    if(state.act2 && state.act2.perfil) {
+      selectedPerfil = state.act2.perfil;
+      const el = document.querySelector('[data-perfil="'+state.act2.perfil+'"]');
+      if(el) {
+        el.classList.add('selected');
+        const p = perfiles[state.act2.perfil];
+        const pi = document.getElementById('perfilIngresos');
+        if(pi) pi.innerHTML = '<strong style="color:var(--text)">'+p.nombre+'</strong> · '+p.programa+'<br>'+p.semestre+'<br><br><span style="color:var(--celeste)">'+p.ingresos+'</span>';
+        const pd = document.getElementById('perfilDetails');
+        if(pd) pd.style.display='block';
+        const d = state.act2;
+        const setv = (id,val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+        setv('g_transporte', d.gastos?.transporte);
+        setv('g_alimentacion', d.gastos?.alimentacion);
+        setv('g_materiales', d.gastos?.materiales);
+        setv('g_otros', d.gastos?.otros);
+        setv('ahorroSemanal', d.ahorroSemanal);
+        setv('mesesEstimados', d.mesesEstimados);
+        setv('estrategiaAhorro', d.estrategia);
+        setv('obstaculos', d.obstaculos);
+        setv('herramienta', d.herramienta);
+        setv('aprendizaje2', d.aprendizaje);
+        const tg = document.getElementById('totalGastos');
+        const fm = document.getElementById('fondoMinimo');
+        if(tg && d.gastos) {
+          const t = (d.gastos.transporte||0)+(d.gastos.alimentacion||0)+(d.gastos.materiales||0)+(d.gastos.otros||0);
+          tg.textContent = '$'+Math.round(t).toLocaleString();
+          if(fm) fm.textContent = '$'+Math.round(d.fondoMinimo||0).toLocaleString();
+        }
+      }
+    }
+    // Restore act3 crisis fields
+    if(state.act3 && state.act3.crisis) {
+      const setv = (id,val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+      const scenarios = ['dental','celular','transporte','familiar'];
+      scenarios.forEach(sid => {
+        const d = state.act3.crisis[sid];
+        if(!d) return;
+        setv('crisis_sin_'+sid, d.sin);
+        setv('crisis_con_'+sid, d.con);
+        setv('crisis_impacto_'+sid, d.impacto);
+      });
+      setv('crisisReflexion', state.act3.reflexion);
+      setv('crisisConsejo', state.act3.consejo);
+      setv('crisisCarrera', state.act3.carrera);
+    }
+    // Restore act4 fields
+    if(state.act4 && state.act4.members) {
+      state.members.forEach((_,i) => {
+        const c = state.act4.members[i];
+        if(!c) return;
+        const setv = (id,val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+        setv('a4_fecha_'+i, c.fecha);
+        setv('a4_ahorro_'+i, c.ahorro);
+        setv('a4_meta_'+i, c.meta);
+        setv('a4_app_'+i, c.app);
+        setv('a4_insight_'+i, c.insight);
+        setv('a4_profesional_'+i, c.profesional);
+      });
+      const setv = (id,val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+      setv('compromisoGrupal', state.act4.compromisoGrupal);
+      setv('compromisoAcompañamiento', state.act4.acompañamiento);
+      if(state.act4.selfRating) setSelfRating(state.act4.selfRating);
+    }
+    // Restore navigation step
+    const step = state.step || 0;
+    const maxU = state.maxUnlocked || 0;
+    document.querySelectorAll('.screen').forEach((s,i)=>s.classList.toggle('active',i===step));
+    document.querySelectorAll('.step-btn').forEach((b,i)=>{
+      b.classList.remove('active','done','locked');
+      if(i===step)b.classList.add('active');
+      else if(i<=maxU)b.classList.add('done');
+      else b.classList.add('locked');
+    });
+    // If results were already generated, regenerate them
+    if(state.act4 && state.act4.compromisoGrupal && step===5) {
+      generateResults();
+    }
+    // Show a welcome back banner
+    showRestoredBanner();
+  } else {
+    renderMembers();
+    renderCrisisCards();
+  }
+}
+
+function showRestoredBanner() {
+  const banner = document.createElement('div');
+  banner.style.cssText = 'position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#2D4271;color:#fff;padding:10px 20px;border-radius:20px;font-size:.85rem;font-weight:600;z-index:800;box-shadow:0 4px 20px rgba(0,0,0,0.4);display:flex;align-items:center;gap:8px;white-space:nowrap';
+  banner.innerHTML = '<span style="color:#5B7DB8">&#128190;</span> Progreso restaurado automaticamente &nbsp;<button onclick="this.parentNode.remove()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:10px;padding:2px 8px;cursor:pointer;font-size:.8rem">X</button>';
+  document.body.appendChild(banner);
+  setTimeout(()=>{ if(banner.parentNode) banner.style.opacity='0'; banner.style.transition='opacity .5s'; setTimeout(()=>banner.remove(),500); }, 4000);
 }
 
 // ── MEMBERS ──
@@ -757,6 +1092,12 @@ function saveGroup() {
   if(!state.members[0].name||!state.groupName||!state.groupSalon) { showToast('⚠ Completa todos los campos obligatorios','#B21937'); return; }
   buildAct1Forms();
   buildAct4Forms();
+  // Assign a unique group ID for Firebase (only on first registration)
+  if (!currentGroupId) {
+    currentGroupId = generateGroupId(state.groupName, state.groupSalon);
+    state._groupId = currentGroupId;
+  }
+  saveState();
   goTo(1);
 }
 
@@ -799,7 +1140,7 @@ function saveAct1() {
     data[i]={saldo:saldo||'0',fuente,pasado,calculo,obstaculo:obs};
   });
   if(!ok){showToast('⚠ Completa todos los campos de cada integrante','#B21937');return;}
-  state.act1=data; goTo(2);
+  state.act1=data; saveState(); goTo(2);
 }
 
 // ── ACT 2 ──
@@ -852,6 +1193,7 @@ function saveAct2() {
     herramienta:document.getElementById('herramienta').value.trim(),
     aprendizaje:document.getElementById('aprendizaje2').value.trim()
   };
+  saveState();
   goTo(3);
 }
 
@@ -897,6 +1239,7 @@ function saveAct3() {
   const carrera=document.getElementById('crisisCarrera')?.value.trim();
   if(!reflexion||!consejo||!carrera){showToast('⚠ Completa la reflexión final','#B21937');return;}
   state.act3={crisis:crisisData,reflexion,consejo,carrera};
+  saveState();
   goTo(4);
 }
 
@@ -952,6 +1295,7 @@ function saveAct4() {
     members4[i]={fecha,ahorro:parseFloat(ahorro)||0,meta:parseFloat(meta)||0,app,insight,profesional:prof};
   }
   state.act4={members:members4,compromisoGrupal:compromisoG,acompañamiento:acompaña,selfRating:selfRatingVal};
+  saveState();
   generateResults();
   // Show confirmation modal before revealing results
   showConfirmModal();
@@ -1161,9 +1505,10 @@ function generateResults() {
     <div style="text-align:center;margin-top:2rem;padding:1.5rem;background:var(--bg2);border-radius:16px;border:1px solid var(--border)">
       <div style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem">Finanzas Personales · UNICESMAG · 2026-1</div>
       <div style="font-size:.78rem;color:var(--text3)">Grupo registrado: ${state.groupName} · ${new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})}</div>
+      ${getGroupCodeBadge()}
       <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:1rem">
-        <button class="btn btn-secondary" onclick="window.print()">🖨 Imprimir resultados</button>
-        <button class="btn btn-success" onclick="exportCSV()">⬇ Exportar CSV para Moodle</button>
+        <button class="btn btn-secondary" onclick="window.print()">&#128424; Imprimir resultados</button>
+        <button class="btn btn-success" onclick="exportCSV()">&#8675; Exportar CSV para Moodle</button>
       </div>
       <div style="margin-top:1rem;font-size:.75rem;color:var(--text3);line-height:1.6">
         El archivo CSV generado es compatible con Moodle.<br>
@@ -1242,6 +1587,7 @@ function exportCSV() {
 function goTo(n) {
   state.step=n;
   if(n>state.maxUnlocked)state.maxUnlocked=n;
+  saveState();
   document.querySelectorAll('.screen').forEach((s,i)=>s.classList.toggle('active',i===n));
   document.querySelectorAll('.step-btn').forEach((b,i)=>{
     b.classList.remove('active','done','locked');
@@ -1265,6 +1611,102 @@ function showToast(msg,bg='#1A7A4A') {
 }
 
 init();
+updateFbStatus();
+
+// ── FIREBASE STATUS ──────────────────────────────────────────────────────────
+function updateFbStatus() {
+  const el = document.getElementById('fbStatus');
+  if (!el) return;
+  if (firebaseReady) {
+    el.style.color = '#1A7A4A';
+    el.textContent = '● conectado a nube';
+  } else {
+    el.style.color = '#F5A623';
+    el.textContent = '● solo local (configura Firebase)';
+  }
+}
+
+// ── LOAD GROUP FROM FIREBASE (otro dispositivo) ──────────────────────────────
+function loadGroupModal() {
+  if (!firebaseReady) {
+    document.getElementById('removeModal').innerHTML = `
+      <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
+        <div style="background:var(--bg2);border:1px solid rgba(245,166,35,0.4);border-radius:20px;padding:2rem;max-width:420px;width:100%;text-align:center">
+          <div style="font-size:2rem;margin-bottom:.6rem">&#9888;&#65039;</div>
+          <div style="font-weight:700;font-size:1.1rem;margin-bottom:.8rem;color:var(--amarillo)">Firebase no configurado</div>
+          <div style="font-size:.88rem;color:var(--text2);line-height:1.7;margin-bottom:1.2rem">
+            Para usar la app desde cualquier dispositivo necesitas configurar Firebase.<br><br>
+            Sigue la guia de configuracion que te entrego el docente y pega tus credenciales en el archivo <code style="background:var(--bg3);padding:2px 6px;border-radius:4px">index.html</code>.
+          </div>
+          <button onclick="closeRemoveModal()" style="width:100%;background:var(--azul);color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer">Entendido</button>
+        </div>
+      </div>`;
+    return;
+  }
+  document.getElementById('removeModal').innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
+      <div style="background:var(--bg2);border:1px solid rgba(26,122,74,0.4);border-radius:20px;padding:2rem;max-width:420px;width:100%">
+        <div style="font-weight:700;font-size:1.1rem;margin-bottom:.3rem">&#128260; Continuar desde otro dispositivo</div>
+        <div style="font-size:.82rem;color:var(--text2);margin-bottom:1.2rem;line-height:1.6">
+          Ingresa el <strong style="color:var(--text)">Codigo de grupo</strong> que aparece en la pantalla del dispositivo original para cargar el progreso guardado en la nube.
+        </div>
+        <div class="field-row">
+          <label>Codigo de grupo</label>
+          <input type="text" id="loadGroupId" placeholder="Ej: los_ahorradores_salon3_abc123"
+            style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:inherit;font-size:.88rem;outline:none;font-family:monospace"
+            onkeydown="if(event.key==='Enter')doLoadGroup()">
+        </div>
+        <div id="loadGroupError" style="font-size:.82rem;color:#B21937;margin-bottom:.8rem;display:none">Grupo no encontrado. Verifica el codigo e intenta de nuevo.</div>
+        <div id="loadGroupLoading" style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;display:none">Buscando en la nube...</div>
+        <div style="display:flex;gap:.75rem">
+          <button onclick="doLoadGroup()" style="flex:1;background:#1A7A4A;color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer">Cargar progreso</button>
+          <button onclick="closeRemoveModal()" style="flex:1;background:none;border:1px solid var(--border2);border-radius:10px;padding:11px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">Cancelar</button>
+        </div>
+      </div>
+    </div>`;
+  setTimeout(()=>document.getElementById('loadGroupId')?.focus(), 100);
+}
+
+async function doLoadGroup() {
+  const gid = document.getElementById('loadGroupId')?.value.trim();
+  if (!gid) return;
+  const errEl = document.getElementById('loadGroupError');
+  const loadEl = document.getElementById('loadGroupLoading');
+  if(errEl) errEl.style.display='none';
+  if(loadEl) loadEl.style.display='block';
+  const data = await loadFromFirebase(gid);
+  if(loadEl) loadEl.style.display='none';
+  if (!data) {
+    if(errEl) errEl.style.display='block';
+    return;
+  }
+  // Restore state
+  state = data;
+  currentGroupId = gid;
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+  closeRemoveModal();
+  // Reinit with restored data
+  location.reload();
+}
+
+// ── DOCENTE PANEL: show all groups from Firebase ──────────────────────────────
+async function loadAllGroupsForDocente() {
+  if (!firebaseReady || !db) return null;
+  try {
+    const snap = await db.ref('grupos').get();
+    if (snap.exists()) return snap.val();
+  } catch(e) {}
+  return null;
+}
+
+// ── SHOW GROUP CODE in results screen ─────────────────────────────────────────
+function getGroupCodeBadge() {
+  if (!currentGroupId) return '';
+  return `<div style="background:var(--bg3);border-radius:10px;padding:.7rem 1rem;margin:.8rem 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span style="font-size:.78rem;color:var(--text2)">Codigo de grupo (para continuar desde otro dispositivo):</span>
+    <code style="font-size:.8rem;color:var(--naranja);background:var(--bg);padding:3px 8px;border-radius:6px;word-break:break-all">${currentGroupId}</code>
+  </div>`;
+}
 
 // ── DOCENTE ACCESS ──
 function docenteAccess() {
@@ -1329,12 +1771,180 @@ function showDocenteEmpty() {
         </div>
         ${state.act4.compromisoGrupal ? `<button onclick="closeRemoveModal();generateResults();goTo(5);" style="width:100%;background:#1A7A4A;color:#fff;border:none;border-radius:10px;padding:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.5rem">Ver resultados y exportar CSV</button>` : ''}
         ${state.act4.compromisoGrupal ? `<button onclick="closeRemoveModal();exportCSV();" style="width:100%;background:var(--azul);color:#fff;border:none;border-radius:10px;padding:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.5rem">Exportar CSV directamente</button>` : ''}
+        ${firebaseReady ? `<button onclick="showAllGroups();" style="width:100%;background:rgba(242,106,37,0.2);border:1px solid rgba(242,106,37,0.4);border-radius:10px;padding:12px;color:#F26A25;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.5rem">Ver TODOS los grupos (Firebase)</button>` : ''}
         <div style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;padding:.8rem;background:var(--bg3);border-radius:8px">
-          ${!state.act4.compromisoGrupal ? 'El grupo aun no ha completado todas las actividades.' : 'Datos listos para exportar.'}
+          ${!state.act4.compromisoGrupal ? 'El grupo actual aun no ha completado todas las actividades.' : 'Datos listos para exportar.'}
+          ${firebaseReady ? ' | Nube: conectada' : ' | Nube: no configurada'}
         </div>
         <button onclick="closeRemoveModal()" style="width:100%;background:none;border:1px solid var(--border2);border-radius:10px;padding:10px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">Cerrar</button>
+        <div style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.08)">
+          <div style="font-size:.75rem;color:var(--text3);margin-bottom:.6rem">Opciones avanzadas</div>
+          <button onclick="confirmNewSession()" style="width:100%;background:rgba(178,25,55,0.15);border:1px solid rgba(178,25,55,0.3);border-radius:10px;padding:9px;color:#e06b7d;font-family:inherit;font-size:.82rem;cursor:pointer">
+            Iniciar nueva sesion (borra datos actuales)
+          </button>
+        </div>
       </div>
     </div>`;
+}
+
+function confirmNewSession() {
+  document.getElementById('removeModal').innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:910;display:flex;align-items:center;justify-content:center;padding:1rem">
+      <div style="background:var(--bg2);border:1px solid rgba(178,25,55,0.5);border-radius:20px;padding:2rem;max-width:400px;width:100%;text-align:center">
+        <div style="font-size:2rem;margin-bottom:.6rem">&#9888;&#65039;</div>
+        <div style="font-weight:700;font-size:1.1rem;margin-bottom:.5rem;color:#e06b7d">Borrar datos y nueva sesion</div>
+        <div style="font-size:.85rem;color:var(--text2);margin-bottom:1.5rem;line-height:1.6">
+          Esta accion eliminara <strong style="color:var(--text)">todas las respuestas y resultados</strong> guardados del grupo actual.<br><br>
+          Asegurate de haber descargado el CSV antes de continuar.
+        </div>
+        <div style="display:flex;gap:.75rem">
+          <button onclick="closeRemoveModal();clearState();location.reload();" style="flex:1;background:#B21937;color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer">Si, borrar todo</button>
+          <button onclick="closeRemoveModal();showDocenteEmpty();" style="flex:1;background:none;border:1px solid var(--border2);border-radius:10px;padding:11px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">Cancelar</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ── SHOW ALL GROUPS (docente view) ────────────────────────────────────────────
+async function showAllGroups() {
+  document.getElementById('removeModal').innerHTML = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:900;overflow-y:auto;padding:1rem">
+      <div style="max-width:800px;margin:0 auto;background:var(--bg2);border-radius:20px;padding:1.5rem;border:1px solid var(--border2)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem">
+          <div>
+            <div style="font-weight:700;font-size:1.2rem">Panel Docente — Todos los grupos</div>
+            <div style="font-size:.78rem;color:var(--text2)">Finanzas Personales · UNICESMAG · 2026-1</div>
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <button onclick="exportAllCSV(window._allGroups)" style="background:#1A7A4A;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer">Exportar todo CSV</button>
+            <button onclick="closeRemoveModal()" style="background:none;border:1px solid var(--border2);border-radius:8px;padding:8px 14px;color:var(--text2);font-family:inherit;font-size:.82rem;cursor:pointer">Cerrar</button>
+          </div>
+        </div>
+        <div id="allGroupsContent" style="font-size:.85rem;color:var(--text2);text-align:center;padding:2rem">
+          Cargando grupos desde Firebase...
+        </div>
+      </div>
+    </div>`;
+  const all = await loadAllGroupsForDocente();
+  window._allGroups = all;
+  const el = document.getElementById('allGroupsContent');
+  if (!el) return;
+  if (!all || Object.keys(all).length === 0) {
+    el.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text2)">No hay grupos registrados aun en Firebase.</div>';
+    return;
+  }
+  const groups = Object.values(all).sort((a,b)=>(b._savedAt||'').localeCompare(a._savedAt||''));
+  const rows = groups.map(g => {
+    const members = (g.members||[]).map(m=>m.name).filter(Boolean).join(', ') || 'Sin registrar';
+    const s1 = calcScore1(g), s2 = calcScore2(g), s3 = calcScore3(g), s4 = calcScore4(g);
+    const total = Math.round(s1*0.2+s2*0.3+s3*0.25+s4*0.25);
+    const notaF = nota(total);
+    const nc = total>=80?'#1A7A4A':total>=60?'#F26A25':'#B21937';
+    const done = g.act4&&g.act4.compromisoGrupal ? '<span style="color:#1A7A4A">&#10003; Completo</span>' : '<span style="color:#F5A623">En progreso</span>';
+    const fecha = g._savedAt ? new Date(g._savedAt).toLocaleDateString('es-CO') : '-';
+    return `<div style="background:var(--bg3);border-radius:12px;padding:.9rem 1rem;margin-bottom:.6rem;display:grid;grid-template-columns:1fr 1fr auto auto;gap:.5rem;align-items:center">
+      <div>
+        <div style="font-weight:600;color:var(--text)">${g.groupName||'Sin nombre'}</div>
+        <div style="font-size:.75rem;color:var(--text2)">${g.groupSalon||''} · ${fecha}</div>
+        <div style="font-size:.75rem;color:var(--text3);margin-top:2px">${members}</div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text2)">${done}</div>
+      <div style="text-align:center">
+        <div style="font-size:1.3rem;font-weight:700;color:${nc}">${notaF}</div>
+        <div style="font-size:.7rem;color:var(--text3)">${total}/100</div>
+      </div>
+      <div></div>
+    </div>`;
+  }).join('');
+  el.innerHTML = `
+    <div style="font-size:.78rem;color:var(--text2);margin-bottom:.8rem;text-align:right">${groups.length} grupo(s) registrado(s)</div>
+    ${rows}`;
+}
+
+// Score helpers that work on any state object (not just current state)
+function calcScore1(st) {
+  if(!st||!st.act1) return 0;
+  let total=0, count=0;
+  Object.values(st.act1).forEach(d=>{
+    if(!d)return; count++;
+    let s=0;
+    if(d.calculo&&d.calculo.length>60)s+=30;else if(d.calculo)s+=15;
+    if(d.fuente&&d.fuente.length>40)s+=20;else if(d.fuente)s+=10;
+    if(d.pasado&&d.pasado.length>50)s+=25;else if(d.pasado)s+=12;
+    if(d.obstaculo&&d.obstaculo.length>40)s+=25;else if(d.obstaculo)s+=12;
+    total+=s;
+  });
+  return count>0?Math.min(100,Math.round(total/count)):0;
+}
+function calcScore2(st) {
+  if(!st||!st.act2) return 0;
+  let s=0; const d=st.act2;
+  if(d.fondoMinimo>0)s+=15; if(d.ahorroSemanal>0)s+=10;
+  if(d.estrategia&&d.estrategia.length>100)s+=25;else if(d.estrategia)s+=12;
+  if(d.obstaculos&&d.obstaculos.length>80)s+=20;else if(d.obstaculos)s+=10;
+  if(d.herramienta&&d.herramienta.length>50)s+=15;else if(d.herramienta)s+=8;
+  if(d.aprendizaje&&d.aprendizaje.length>80)s+=15;else if(d.aprendizaje)s+=8;
+  return Math.min(100,s);
+}
+function calcScore3(st) {
+  if(!st||!st.act3) return 0;
+  let s=0;
+  ['dental','celular','transporte','familiar'].forEach(sid=>{
+    const d=st.act3.crisis?.[sid]; if(!d)return;
+    if(d.sin&&d.sin.length>60)s+=10;else if(d.sin)s+=5;
+    if(d.con&&d.con.length>60)s+=10;else if(d.con)s+=5;
+    if(d.impacto&&d.impacto.length>50)s+=5;else if(d.impacto)s+=2;
+  });
+  if(st.act3.reflexion?.length>80)s+=15;else if(st.act3.reflexion)s+=8;
+  if(st.act3.consejo?.length>60)s+=10;else if(st.act3.consejo)s+=5;
+  if(st.act3.carrera?.length>80)s+=15;else if(st.act3.carrera)s+=8;
+  return Math.min(100,s);
+}
+function calcScore4(st) {
+  if(!st||!st.act4) return 0;
+  let s=0;
+  Object.values(st.act4.members||{}).forEach(m=>{
+    if(m.ahorro>0)s+=15; if(m.meta>0)s+=10;
+    if(m.insight?.length>60)s+=15;else if(m.insight)s+=8;
+    if(m.profesional?.length>80)s+=20;else if(m.profesional)s+=10;
+  });
+  if(st.act4.compromisoGrupal?.length>80)s+=15;else if(st.act4.compromisoGrupal)s+=8;
+  if(st.act4.selfRating>=4)s+=10;else if(st.act4.selfRating>0)s+=5;
+  const n = (st.members||[]).length||1;
+  return Math.min(100,Math.round(s/n));
+}
+
+// ── EXPORT ALL GROUPS CSV ─────────────────────────────────────────────────────
+function exportAllCSV(all) {
+  if(!all||Object.keys(all).length===0){showToast('No hay datos para exportar','#B21937');return;}
+  const headers=['Nombre completo','Programa','Semestre','Grupo','Salon',
+    'Act1 Foto (20%)','Act2 Reto (30%)','Act3 Crisis (25%)','Act4 Compromiso (25%)',
+    'Puntaje Total','Nota Final','Fecha','App fondo','Meta COP','Ahorro semanal COP'];
+  const rows=[headers];
+  Object.values(all).forEach(g=>{
+    const s1=calcScore1(g),s2=calcScore2(g),s3=calcScore3(g),s4=calcScore4(g);
+    const total=Math.round(s1*0.2+s2*0.3+s3*0.25+s4*0.25);
+    const nf=nota(total);
+    const fecha=g._savedAt?new Date(g._savedAt).toLocaleDateString('es-CO'):'-';
+    (g.members||[]).forEach((m,i)=>{
+      const c=g.act4?.members?.[i]||{};
+      rows.push([
+        '"'+(m.name||'')+'"','"'+(m.program||'')+'"','"'+(m.semester||'')+'"',
+        '"'+(g.groupName||'')+'"','"'+(g.groupSalon||'')+'"',
+        s1,s2,s3,s4,total,nf,'"'+fecha+'"',
+        '"'+(c.app||'')+'"',Math.round(c.meta||0),Math.round(c.ahorro||0)
+      ]);
+    });
+  });
+  const csv=rows.map(r=>r.join(',')).join('
+');
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='TODOS_grupos_FP_U2_'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('CSV de todos los grupos descargado');
 }
 </script>
 </body>
