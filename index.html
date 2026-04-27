@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fondo de Emergencia — UNICESMAG</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #2D4271;
+    --azul-dark: #1A2A4A;
+    --rojo: #B21937;
+    --naranja: #F26A25;
+    --celeste: #5B7DB8;
+    --verde: #1A7A4A;
+    --verde-light: #E8F6EE;
+    --amarillo: #F5A623;
+    --bg: #0D1117;
+    --bg2: #161B22;
+    --bg3: #21262D;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #E6EDF3;
+    --text2: #8B949E;
+    --text3: #6E7681;
+    --card: #161B22;
+    --card2: #21262D;
+    --glow-azul: rgba(91,125,184,0.25);
+    --glow-naranja: rgba(242,106,37,0.25);
+    --glow-verde: rgba(26,122,74,0.25);
+    --glow-rojo: rgba(178,25,55,0.25);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* ANIMATED BG */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(45,66,113,0.35) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 80%, rgba(178,25,55,0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(242,106,37,0.08) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+  .app { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 0 1rem 4rem; }
+
+  /* HEADER */
+  header {
+    text-align: center; padding: 2.5rem 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--azul), var(--celeste));
+    color: #fff; font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 14px; border-radius: 20px; margin-bottom: 1rem;
+  }
+  header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, var(--celeste) 50%, var(--naranja) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; line-height: 1.2; margin-bottom: .5rem;
+  }
+  header p { color: var(--text2); font-size: .95rem; }
+  .unicesmag-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 20px; padding: 4px 12px; font-size: 12px;
+    color: var(--text2); margin-top: .8rem;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--verde); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+  /* STEP NAV */
+  .step-nav {
+    display: flex; gap: 0; padding: 1.5rem 0 0;
+    overflow-x: auto; scrollbar-width: none;
+    position: relative;
+  }
+  .step-nav::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--border);
+  }
+  .step-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: .7rem 1rem 1rem; flex: 1; min-width: 100px;
+    background: none; border: none; cursor: pointer;
+    color: var(--text3); font-family: inherit; font-size: 12px;
+    position: relative; transition: color .2s;
+  }
+  .step-btn::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: transparent; transition: background .2s;
+  }
+  .step-btn.active { color: var(--text); }
+  .step-btn.active::after { background: var(--naranja); }
+  .step-btn.done { color: var(--verde); }
+  .step-btn.done::after { background: var(--verde); }
+  .step-btn.locked { opacity: .4; cursor: not-allowed; }
+  .step-num {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    background: var(--bg3); border: 1.5px solid var(--border2);
+    transition: all .2s;
+  }
+  .step-btn.active .step-num { background: var(--naranja); border-color: var(--naranja); color: #fff; }
+  .step-btn.done .step-num { background: var(--verde); border-color: var(--verde); color: #fff; }
+  .step-label { text-align: center; line-height: 1.3; }
+
+  /* SCREENS */
+  .screen { display: none; animation: fadeIn .4s ease; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .card-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.2rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .card-title { font-size: 1rem; font-weight: 600; }
+  .card-sub { font-size: .8rem; color: var(--text2); margin-top: 2px; }
+
+  /* FORM ELEMENTS */
+  .field-row { margin-bottom: 1rem; }
+  .field-row label { display: block; font-size: .82rem; color: var(--text2); margin-bottom: 5px; font-weight: 500; }
+  .field-row input, .field-row select, .field-row textarea {
+    width: 100%; padding: 10px 14px;
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 10px; color: var(--text); font-family: inherit;
+    font-size: .9rem; transition: border-color .2s;
+    outline: none;
+  }
+  .field-row input:focus, .field-row select:focus, .field-row textarea:focus {
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 3px var(--glow-azul);
+  }
+  .field-row textarea { min-height: 90px; resize: vertical; }
+  .field-row select option { background: var(--bg3); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+
+  /* MEMBER CARDS */
+  .member-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem; position: relative;
+  }
+  .member-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 50%;
+    font-size: 11px; font-weight: 700; color: #fff;
+    margin-bottom: .6rem;
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 22px; border-radius: 10px; font-family: inherit;
+    font-size: .9rem; font-weight: 600; cursor: pointer;
+    border: none; transition: all .2s; text-decoration: none;
+  }
+  .btn-primary { background: var(--naranja); color: #fff; }
+  .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border2); }
+  .btn-secondary:hover { border-color: var(--celeste); background: rgba(91,125,184,0.15); }
+  .btn-success { background: var(--verde); color: #fff; }
+  .btn-success:hover { filter: brightness(1.1); }
+  .btn-danger { background: var(--rojo); color: #fff; }
+  .btn-lg { padding: 14px 28px; font-size: 1rem; border-radius: 12px; }
+  .btn-block { width: 100%; justify-content: center; }
+  .btn-row { display: flex; gap: .75rem; justify-content: flex-end; flex-wrap: wrap; margin-top: 1.5rem; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 1.2rem; font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+    margin: 2rem 0 1rem;
+  }
+  .section-title .accent {
+    height: 3px; flex: 1;
+    background: linear-gradient(90deg, var(--naranja), transparent);
+    border-radius: 2px;
+  }
+
+  /* ACTIVITY SPECIFIC */
+  .crisis-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: .8rem;
+    border-left: 3px solid var(--naranja);
+  }
+  .crisis-title { font-weight: 600; font-size: .92rem; margin-bottom: .5rem; }
+  .crisis-badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 20px; text-transform: uppercase;
+    letter-spacing: 1px; margin-left: 8px; vertical-align: middle;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap { background: var(--bg3); border-radius: 8px; height: 6px; overflow: hidden; margin-top: 4px; }
+  .progress-bar { height: 100%; border-radius: 8px; transition: width .6s ease; }
+
+  /* MONEY INPUT */
+  .money-input-wrap { position: relative; }
+  .money-input-wrap::before {
+    content: '$'; position: absolute; left: 14px; top: 50%;
+    transform: translateY(-50%); color: var(--text2); font-weight: 600;
+    pointer-events: none; z-index: 1;
+  }
+  .money-input-wrap input { padding-left: 28px; }
+
+  /* STARS */
+  .stars { display: flex; gap: 4px; }
+  .star { font-size: 18px; cursor: pointer; transition: transform .15s; }
+  .star:hover { transform: scale(1.2); }
+
+  /* RESULT CARDS */
+  .result-group {
+    background: var(--card2); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; margin-bottom: 1.5rem;
+  }
+  .result-group-header {
+    background: linear-gradient(135deg, var(--azul-dark), var(--azul));
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .result-group-body { padding: 1.2rem 1.5rem; }
+  .score-circle {
+    width: 64px; height: 64px; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 3px solid;
+    font-weight: 700; flex-shrink: 0;
+  }
+  .score-circle .score-num { font-size: 1.3rem; line-height: 1; }
+  .score-circle .score-label { font-size: 9px; opacity: .8; text-transform: uppercase; }
+  .dimension-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: .5rem 0; border-bottom: 1px solid var(--border);
+    font-size: .85rem;
+  }
+  .dimension-row:last-child { border-bottom: none; }
+  .dim-label { min-width: 130px; color: var(--text2); flex-shrink: 0; }
+  .dim-bar { flex: 1; background: var(--bg3); border-radius: 4px; height: 8px; }
+  .dim-bar-fill { height: 100%; border-radius: 4px; }
+  .dim-score { min-width: 36px; text-align: right; font-weight: 600; font-size: .9rem; }
+  .award-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    margin: 4px 4px 4px 0;
+  }
+
+  /* ALERT / TOAST */
+  .alert {
+    padding: .8rem 1.2rem; border-radius: 10px; font-size: .88rem;
+    margin: .8rem 0; border-left: 3px solid;
+  }
+  .alert-warning { background: rgba(245,166,35,0.1); border-color: var(--amarillo); color: #e6c97a; }
+  .alert-success { background: rgba(26,122,74,0.1); border-color: var(--verde); color: #7ecfa3; }
+  .alert-info { background: rgba(91,125,184,0.1); border-color: var(--celeste); color: #9ab5dd; }
+
+  /* PROFILE CARDS FOR ACT 2 */
+  .perfil-select {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;
+  }
+  .perfil-option {
+    background: var(--bg3); border: 2px solid var(--border);
+    border-radius: 12px; padding: 1rem; cursor: pointer;
+    transition: all .2s; position: relative;
+  }
+  .perfil-option:hover { border-color: var(--celeste); }
+  .perfil-option.selected { border-color: var(--naranja); background: rgba(242,106,37,0.08); }
+  .perfil-option.selected::after {
+    content: '✓'; position: absolute; top: 10px; right: 12px;
+    color: var(--naranja); font-weight: 700;
+  }
+  .perfil-name { font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
+  .perfil-detail { font-size: .8rem; color: var(--text2); line-height: 1.5; }
+  .perfil-tag {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 20px; margin-bottom: .5rem;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+
+  /* RATING WIDGET */
+  .rating-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: .6rem 0; border-bottom: 1px solid var(--border); font-size: .88rem;
+  }
+  .rating-row:last-child { border-bottom: none; }
+  .rating-label { min-width: 160px; color: var(--text2); }
+  .rating-stars { display: flex; gap: 3px; }
+  .rating-star { font-size: 22px; cursor: pointer; transition: transform .1s; user-select: none; line-height: 1; }
+  .rating-star:hover { transform: scale(1.15); }
+  .rating-val { font-weight: 700; min-width: 20px; color: var(--naranja); }
+
+  /* COMMITMENT CARD */
+  .commitment-card {
+    background: linear-gradient(135deg, rgba(45,66,113,0.3), rgba(26,122,74,0.15));
+    border: 1px solid rgba(91,125,184,0.3); border-radius: 16px;
+    padding: 1.5rem; margin: 1rem 0;
+  }
+
+  /* TABS inside screen */
+  .inner-tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .inner-tab {
+    padding: 6px 14px; border-radius: 20px; font-size: .82rem; font-weight: 600;
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text2);
+    cursor: pointer; transition: all .2s;
+  }
+  .inner-tab.active { background: var(--celeste); border-color: var(--celeste); color: #fff; }
+
+  /* MONO FONT */
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* LEADERBOARD */
+  .lb-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: .9rem 1rem; border-radius: 12px;
+    margin-bottom: .5rem; border: 1px solid var(--border);
+    background: var(--card2); position: relative; overflow: hidden;
+  }
+  .lb-row.rank-1 { border-color: #FFD700; background: rgba(255,215,0,0.06); }
+  .lb-row.rank-2 { border-color: #C0C0C0; background: rgba(192,192,192,0.05); }
+  .lb-row.rank-3 { border-color: #CD7F32; background: rgba(205,127,50,0.05); }
+  .lb-rank { font-size: 1.4rem; min-width: 36px; text-align: center; }
+  .lb-name { flex: 1; font-weight: 600; }
+  .lb-program { font-size: .78rem; color: var(--text2); }
+  .lb-score { font-size: 1.3rem; font-weight: 700; color: var(--naranja); min-width: 50px; text-align: right; }
+
+  /* TOAST NOTIFICATION */
+  #toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--verde); color: #fff; padding: 12px 24px; border-radius: 30px;
+    font-weight: 600; font-size: .9rem; z-index: 999; transition: transform .3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.6rem; }
+    .step-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<div class="app">
+  <header>
+    <div class="badge">Finanzas Personales · UNICESMAG · 2026-1</div>
+    <h1>Fondo de Emergencia<br>Universitario</h1>
+    <p>Actividades de aprendizaje colaborativo — Unidad 2</p>
+    <div class="unicesmag-tag">
+      <span class="dot"></span>
+      Sesión activa · Grupo de hasta 4 estudiantes
+    </div>
+  </header>
+
+  <!-- STEP NAV -->
+  <nav class="step-nav" id="stepNav">
+    <button class="step-btn active" data-step="0" onclick="tryNav(0)">
+      <div class="step-num">0</div>
+      <span class="step-label">Grupo</span>
+    </button>
+    <button class="step-btn locked" data-step="1" onclick="tryNav(1)">
+      <div class="step-num">1</div>
+      <span class="step-label">Mi Foto<br>Financiera</span>
+    </button>
+    <button class="step-btn locked" data-step="2" onclick="tryNav(2)">
+      <div class="step-num">2</div>
+      <span class="step-label">Reto del<br>Semestre</span>
+    </button>
+    <button class="step-btn locked" data-step="3" onclick="tryNav(3)">
+      <div class="step-num">3</div>
+      <span class="step-label">Simulador<br>de Crisis</span>
+    </button>
+    <button class="step-btn locked" data-step="4" onclick="tryNav(4)">
+      <div class="step-num">4</div>
+      <span class="step-label">Mi<br>Compromiso</span>
+    </button>
+    <button class="step-btn locked" data-step="5" onclick="tryNav(5)">
+      <div class="step-num">★</div>
+      <span class="step-label">Resultados<br>y Notas</span>
+    </button>
+  </nav>
+
+  <!-- ════════════ SCREEN 0: GRUPO ════════════ -->
+  <div class="screen active" id="screen-0">
+    <div class="section-title">Registro del Grupo <div class="accent"></div></div>
+    <div class="alert alert-info">Registra los datos de todos los integrantes del grupo (mínimo 1, máximo 4). Todos los campos marcados son obligatorios.</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon" style="background:rgba(91,125,184,0.15);color:var(--celeste)">👥</div>
+        <div><div class="card-title">Integrantes del Grupo</div><div class="card-sub">Completa la información de cada estudiante</div></div>
+      </div>
+      <div id="membersContainer" class="grid-4"></div>
+      <div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap;">
+        <button class="btn btn-secondary" onclick="addMember()" id="addMemberBtn">+ Agregar integrante</button>
+        <button class="btn btn-secondary" onclick="removeMember()" id="removeMemberBtn" style="display:none">− Quitar último</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon" style="background:rgba(242,106,37,0.15);color:var(--naranja)">📋</div>
+        <div><div class="card-title">Información del Grupo</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="field-row">
+          <label>Nombre del grupo (creatividad cuenta) *</label>
+          <input type="text" id="groupName" placeholder="Ej: Los Ahorradores del Futuro">
+        </div>
+        <div class="field-row">
+          <label>Salón / Grupo académico *</label>
+          <input type="text" id="groupSalon" placeholder="Ej: Contaduría Semestre 3 - Noche">
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary btn-lg" onclick="saveGroup()">Comenzar actividades →</button>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 1: MI FOTO FINANCIERA ════════════ -->
+  <div class="screen" id="screen-1">
+    <div class="section-title">Actividad 1 <div class="accent"></div></div>
+    <div class="alert alert-warning">⏱ Tiempo sugerido: 10 minutos · Individual primero, luego comparten en grupo</div>
+    <div class="card" style="border-left:3px solid var(--rojo)">
+      <div class="card-header">
+        <div class="card-icon" style="background:rgba(178,25,55,0.15);color:var(--rojo);font-size:22px">📸</div>
+        <div><div class="card-title">"Mi Foto Financiera"</div><div class="card-sub">¿Cuál es tu situación real hoy?</div></div>
+      </div>
+      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">Cada integrante responde honestamente. No hay respuestas correctas ni incorrectas — esto es para reflexionar y tomar acción. El docente verá los resultados al final.</p>
+      <div class="inner-tabs" id="act1Tabs"></div>
+      <div id="act1Forms"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTo(0)">← Volver</button>
+      <button class="btn btn-primary btn-lg" onclick="saveAct1()">Guardar y continuar →</button>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 2: RETO DEL SEMESTRE ════════════ -->
+  <div class="screen" id="screen-2">
+    <div class="section-title">Actividad 2 <div class="accent"></div></div>
+    <div class="alert alert-warning">⏱ Tiempo sugerido: 15 minutos · Trabajo en grupo</div>
+    <div class="card" style="border-left:3px solid var(--naranja)">
+      <div class="card-header">
+        <div class="card-icon" style="background:rgba(242,106,37,0.15);color:var(--naranja);font-size:22px">🎯</div>
+        <div><div class="card-title">"El Reto del Semestre"</div><div class="card-sub">Diseñen un plan de ahorro para el perfil asignado</div></div>
+      </div>
+
+      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">El grupo elige un perfil universitario y diseña un plan de fondo de emergencia completo. Deben ser creativos y realistas al mismo tiempo.</p>
+
+      <div class="section-title" style="font-size:.95rem;margin-top:0">Paso 1 — Seleccionen el perfil universitario <div class="accent"></div></div>
+      <div class="perfil-select">
+        <div class="perfil-option" onclick="selectPerfil(this,'A')" data-perfil="A">
+          <div class="perfil-tag" style="background:rgba(178,25,55,0.2);color:#e06b7d">Perfil A</div>
+          <div class="perfil-name">Martina — 1er semestre</div>
+          <div class="perfil-detail">Mesada familiar: $350.000/mes · Vive con padres · Sin ingresos propios · Nariño</div>
+        </div>
+        <div class="perfil-option" onclick="selectPerfil(this,'B')" data-perfil="B">
+          <div class="perfil-tag" style="background:rgba(91,125,184,0.2);color:#9ab5dd">Perfil B</div>
+          <div class="perfil-name">Santiago — 4to semestre</div>
+          <div class="perfil-detail">Trabajo sábados: $120.000/sem · Paga transporte · Carrera: Ingeniería de Sistemas</div>
+        </div>
+        <div class="perfil-option" onclick="selectPerfil(this,'C')" data-perfil="C">
+          <div class="perfil-tag" style="background:rgba(26,122,74,0.2);color:#7ecfa3">Perfil C</div>
+          <div class="perfil-name">Valentina — 6to semestre</div>
+          <div class="perfil-detail">Vive sola · Arriendo+servicios: $500.000 · Beca ICETEX: $1.2M semestral · Diseño Gráfico</div>
+        </div>
+      </div>
+
+      <div id="perfilDetails" style="display:none">
+        <div class="section-title" style="font-size:.95rem;margin-top:1.5rem">Paso 2 — Calculen el fondo mínimo <div class="accent"></div></div>
+        <div class="grid-2">
+          <div>
+            <div style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;font-weight:600">INGRESOS DEL PERFIL</div>
+            <div id="perfilIngresos" class="mono" style="font-size:.88rem;line-height:1.8;color:var(--text2)"></div>
+          </div>
+          <div>
+            <div style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;font-weight:600">GASTOS ESTIMADOS</div>
+            <div class="field-row"><label>Transporte</label><div class="money-input-wrap"><input type="number" id="g_transporte" placeholder="0" min="0"></div></div>
+            <div class="field-row"><label>Alimentación</label><div class="money-input-wrap"><input type="number" id="g_alimentacion" placeholder="0" min="0"></div></div>
+            <div class="field-row"><label>Materiales / Datos</label><div class="money-input-wrap"><input type="number" id="g_materiales" placeholder="0" min="0"></div></div>
+            <div class="field-row"><label>Otros</label><div class="money-input-wrap"><input type="number" id="g_otros" placeholder="0" min="0"></div></div>
+            <div style="background:var(--bg);border-radius:8px;padding:.7rem 1rem;margin-top:.5rem;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:.82rem;color:var(--text2)">Total gastos/mes:</span>
+              <span class="mono" style="font-weight:700;color:var(--naranja)" id="totalGastos">$0</span>
+            </div>
+            <div style="background:var(--bg);border-radius:8px;padding:.7rem 1rem;margin-top:.3rem;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:.82rem;color:var(--text2)">Fondo mínimo (x3):</span>
+              <span class="mono" style="font-weight:700;color:var(--verde)" id="fondoMinimo">$0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title" style="font-size:.95rem;margin-top:1.5rem">Paso 3 — Diseñen la estrategia <div class="accent"></div></div>
+        <div class="grid-2">
+          <div class="field-row">
+            <label>Ahorro semanal realista para este perfil *</label>
+            <div class="money-input-wrap"><input type="number" id="ahorroSemanal" placeholder="0" min="0" oninput="calcTime()"></div>
+          </div>
+          <div class="field-row">
+            <label>Meses estimados para alcanzar el fondo mínimo</label>
+            <input type="text" id="mesesEstimados" readonly placeholder="Se calcula automáticamente" style="background:var(--bg);color:var(--verde);font-weight:700">
+          </div>
+        </div>
+        <div class="field-row">
+          <label>¿Cómo consigue ese ahorro semanal? Estrategia concreta y creativa *</label>
+          <textarea id="estrategiaAhorro" placeholder="Describan las estrategias específicas para este perfil: ¿qué puede recortar? ¿qué ingreso extra puede generar? ¿qué app usará? Sean lo más detallados posible..."></textarea>
+        </div>
+        <div class="field-row">
+          <label>Principales obstáculos y cómo los superarán *</label>
+          <textarea id="obstaculos" placeholder="¿Qué puede sabotear el plan? ¿Cómo lo previenen? Piensen en situaciones reales del contexto de Nariño/UNICESMAG..."></textarea>
+        </div>
+        <div class="field-row">
+          <label>¿Qué herramienta digital usará para guardar el fondo? ¿Por qué? *</label>
+          <textarea id="herramienta" placeholder="Nequi, Daviplata, Nu, cuenta bancaria específica... expliquen la razón de la elección y cómo la configurarán." style="min-height:70px"></textarea>
+        </div>
+        <div class="field-row">
+          <label>¿Cuál sería el aprendizaje más valioso para el grupo al analizar este perfil? *</label>
+          <textarea id="aprendizaje2" placeholder="Reflexión grupal: ¿qué insight les da este ejercicio sobre su propia situación financiera?" style="min-height:70px"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Volver</button>
+      <button class="btn btn-primary btn-lg" onclick="saveAct2()">Guardar y continuar →</button>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 3: SIMULADOR DE CRISIS ════════════ -->
+  <div class="screen" id="screen-3">
+    <div class="section-title">Actividad 3 <div class="accent"></div></div>
+    <div class="alert alert-warning">⏱ Tiempo sugerido: 20 minutos · Debate grupal + respuestas escritas</div>
+    <div class="card" style="border-left:3px solid var(--celeste)">
+      <div class="card-header">
+        <div class="card-icon" style="background:rgba(91,125,184,0.15);color:var(--celeste);font-size:22px">⚡</div>
+        <div><div class="card-title">"Simulador de Crisis"</div><div class="card-sub">¿Qué harías sin fondo de emergencia? ¿Y con él?</div></div>
+      </div>
+      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">Para cada escenario, el grupo debate y escribe: ¿qué hace un estudiante SIN fondo? ¿y uno CON fondo? Luego reflexionan sobre el impacto real en su vida académica.</p>
+
+      <div id="crisisCards"></div>
+
+      <div class="card" style="margin-top:1.2rem;background:var(--bg3);border-color:rgba(91,125,184,0.3)">
+        <div class="card-title" style="margin-bottom:1rem">Reflexión final del grupo</div>
+        <div class="field-row">
+          <label>¿Cuál de los 4 escenarios les parece más probable en su vida universitaria actual? ¿Por qué? *</label>
+          <textarea id="crisisReflexion" placeholder="Reflexión grupal honesta. Mencionen situaciones que hayan vivido o conocido..."></textarea>
+        </div>
+        <div class="field-row">
+          <label>Si el grupo tuviera UN consejo para dar a un estudiante de 1er semestre sobre emergencias financieras, ¿cuál sería? *</label>
+          <textarea id="crisisConsejo" placeholder="Un consejo práctico, concreto y memorable..." style="min-height:70px"></textarea>
+        </div>
+        <div class="field-row">
+          <label>¿Cómo conectan este tema con su futuro profesional? (según cada carrera del grupo) *</label>
+          <textarea id="crisisCarrera" placeholder="Piensen: ¿cómo usará un Contador, un Diseñador Gráfico o un Ingeniero de Sistemas este conocimiento en su vida profesional?"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTo(2)">← Volver</button>
+      <button class="btn btn-primary btn-lg" onclick="saveAct3()">Guardar y continuar →</button>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 4: MI COMPROMISO ════════════ -->
+  <div class="screen" id="screen-4">
+    <div class="section-title">Actividad 4 <div class="accent"></div></div>
+    <div class="alert alert-success">Esta es la actividad más importante: un compromiso real que revisarán al inicio del siguiente módulo.</div>
+    <div class="card" style="border-left:3px solid var(--verde)">
+      <div class="card-header">
+        <div class="card-icon" style="background:rgba(26,122,74,0.15);color:var(--verde);font-size:22px">✅</div>
+        <div><div class="card-title">"Mi Compromiso Financiero"</div><div class="card-sub">Un acuerdo personal que el docente revisará próxima sesión</div></div>
+      </div>
+      <div class="inner-tabs" id="act4Tabs"></div>
+      <div id="act4Forms"></div>
+    </div>
+    <div class="card" style="background:var(--bg3)">
+      <div class="card-title" style="margin-bottom:1rem">Compromiso del Grupo</div>
+      <div class="field-row">
+        <label>Como grupo, ¿qué acción concreta van a tomar esta semana relacionada con su fondo de emergencia? *</label>
+        <textarea id="compromisoGrupal" placeholder="Ej: Los 3 integrantes del grupo vamos a abrir una cuenta Nequi separada antes del viernes y a hacer el primer depósito de $10.000 cada uno..."></textarea>
+      </div>
+      <div class="field-row">
+        <label>¿Cómo se van a acompañar mutuamente para cumplir el compromiso? *</label>
+        <textarea id="compromisoAcompañamiento" placeholder="Ej: Creamos un grupo de WhatsApp donde publicamos screenshot del saldo del fondo cada semana..." style="min-height:70px"></textarea>
+      </div>
+      <div class="field-row">
+        <label>Califica el nivel de innovación de las estrategias que diseñaron hoy (autoevaluación grupal)</label>
+        <div class="rating-row" style="border:none;padding:.5rem 0">
+          <span class="rating-label" style="min-width:auto;margin-right:1rem;color:var(--text)">¿Qué tan creativos fueron?</span>
+          <div class="rating-stars" id="selfRating">
+            <span class="rating-star" onclick="setSelfRating(1)">★</span>
+            <span class="rating-star" onclick="setSelfRating(2)">★</span>
+            <span class="rating-star" onclick="setSelfRating(3)">★</span>
+            <span class="rating-star" onclick="setSelfRating(4)">★</span>
+            <span class="rating-star" onclick="setSelfRating(5)">★</span>
+          </div>
+          <span id="selfRatingVal" style="margin-left:.5rem;color:var(--naranja);font-weight:700"></span>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTo(3)">← Volver</button>
+      <button class="btn btn-success btn-lg" onclick="saveAct4()">✓ Finalizar y ver resultados →</button>
+    </div>
+  </div>
+
+  <!-- ════════════ SCREEN 5: RESULTADOS ════════════ -->
+  <div class="screen" id="screen-5">
+    <div class="section-title">Resultados y Evaluación <div class="accent"></div></div>
+    <div id="resultsContent"></div>
+  </div>
+</div>
+
+<script>
+const COLORS = {azul:'#2D4271',rojo:'#B21937',naranja:'#F26A25',celeste:'#5B7DB8',verde:'#1A7A4A',amarillo:'#F5A623'};
+const PROGRAMS = ['Contaduría Pública','Administración de Empresas','Diseño Gráfico','Ingeniería de Sistemas','Otro'];
+const SEMESTERS = ['1ro','2do','3ro','4to','5to','6to','7mo','8vo','9no','10mo'];
+
+let state = {
+  step: 0,
+  maxUnlocked: 0,
+  members: [],
+  groupName: '',
+  groupSalon: '',
+  act1: {},
+  act2: {},
+  act3: {},
+  act4: {},
+  selfRating: 0
+};
+
+const crisisScenarios = [
+  {
+    id:'dental', title:'Urgencia dental', badge:'Salud', badgeColor:'#e06b7d',
+    amount:'$280.000 - $450.000',
+    context:'A mitad del semestre, un molar fisurado requiere extracción urgente. El dolor no permite concentrarse. El odontólogo más económico cobra $280.000.'
+  },
+  {
+    id:'celular', title:'Celular dañado en parciales', badge:'Tecnología', badgeColor:'#9ab5dd',
+    amount:'$150.000 - $400.000',
+    context:'La pantalla del celular se rompe la semana de parciales. Sin celular no puedes ver el horario, recibir avisos del docente, ni usar las apps del curso.'
+  },
+  {
+    id:'transporte', title:'Paro regional de transporte', badge:'Movilidad', badgeColor:'#7ecfa3',
+    amount:'$90.000 extra ese mes',
+    context:'Un paro de transporte dura 2 semanas. El taxi o mototaxi cuesta 3 veces más que el bus. Tienes que llegar a clases de todas formas para no perder el semestre.'
+  },
+  {
+    id:'familiar', title:'Enfermedad familiar urgente', badge:'Familia', badgeColor:'#e6c97a',
+    amount:'$200.000 - $500.000',
+    context:'Tu mamá o papá se enferma inesperadamente. No hay dinero para los medicamentos y el médico. La familia te pide ayuda. Tú eres el único con algo de acceso a dinero.'
+  }
+];
+
+// INIT
+function init() {
+  renderMembers();
+  renderCrisisCards();
+}
+
+// ── MEMBERS ──
+function renderMembers() {
+  const c = document.getElementById('membersContainer');
+  if (!state.members.length) state.members = [newMember()];
+  c.innerHTML = state.members.map((m,i) => `
+    <div class="member-card">
+      <div class="member-num" style="background:${[COLORS.azul,COLORS.rojo,COLORS.naranja,COLORS.celeste][i]}">${i+1}</div>
+      <div class="field-row"><label>Nombre completo *</label><input type="text" id="m_name_${i}" value="${m.name}" placeholder="Nombre y apellidos"></div>
+      <div class="field-row"><label>Programa *</label><select id="m_prog_${i}">${PROGRAMS.map(p=>`<option value="${p}"${m.program===p?' selected':''}>${p}</option>`).join('')}</select></div>
+      <div class="field-row"><label>Semestre</label><select id="m_sem_${i}">${SEMESTERS.map(s=>`<option value="${s}"${m.semester===s?' selected':''}>${s}</option>`).join('')}</select></div>
+    </div>
+  `).join('');
+  document.getElementById('addMemberBtn').style.display = state.members.length >= 4 ? 'none' : '';
+  document.getElementById('removeMemberBtn').style.display = state.members.length > 1 ? '' : 'none';
+}
+function newMember() { return {name:'',program:'Contaduría Pública',semester:'1ro'}; }
+function addMember() { if(state.members.length<4){state.members.push(newMember());renderMembers();} }
+function removeMember() { if(state.members.length>1){state.members.pop();renderMembers();} }
+
+function saveGroup() {
+  state.members = state.members.map((_,i)=>({
+    name: document.getElementById(`m_name_${i}`)?.value.trim()||'',
+    program: document.getElementById(`m_prog_${i}`)?.value||'',
+    semester: document.getElementById(`m_sem_${i}`)?.value||''
+  }));
+  state.groupName = document.getElementById('groupName').value.trim();
+  state.groupSalon = document.getElementById('groupSalon').value.trim();
+  if(!state.members[0].name||!state.groupName||!state.groupSalon) { showToast('⚠ Completa todos los campos obligatorios','#B21937'); return; }
+  buildAct1Forms();
+  buildAct4Forms();
+  goTo(1);
+}
+
+// ── ACT 1 FORMS ──
+function buildAct1Forms() {
+  const tabs = document.getElementById('act1Tabs');
+  const forms = document.getElementById('act1Forms');
+  tabs.innerHTML = state.members.map((m,i)=>`<button class="inner-tab ${i===0?'active':''}" onclick="showAct1Tab(${i})" id="act1tab_${i}">${m.name.split(' ')[0]||'Integrante '+(i+1)}</button>`).join('');
+  forms.innerHTML = state.members.map((m,i)=>`
+    <div id="act1form_${i}" style="display:${i===0?'block':'none'}">
+      <div class="commitment-card">
+        <div style="font-weight:700;margin-bottom:.3rem;color:var(--celeste)">${m.name} · ${m.program} · ${m.semester} semestre</div>
+        <div style="font-size:.8rem;color:var(--text2)">Responde con honestidad. Solo el docente verá estos datos al final.</div>
+      </div>
+      <div class="field-row"><label>1. ¿Cuánto dinero tienes disponible AHORA MISMO para una emergencia? (saldo real o aproximado) *</label><div class="money-input-wrap"><input type="number" id="a1_saldo_${i}" placeholder="0" min="0"></div></div>
+      <div class="field-row"><label>2. Si mañana necesitas $200.000 urgentes, ¿de dónde lo sacas SIN pedir prestado? *</label><textarea id="a1_fuente_${i}" placeholder="Sé honesto: ¿tienes ese dinero? ¿cómo lo conseguirías?"></textarea></div>
+      <div class="field-row"><label>3. En los últimos 3 meses, ¿tuviste algún gasto inesperado? ¿Cómo lo resolviste? *</label><textarea id="a1_pasado_${i}" placeholder="Cuenta brevemente la situación y cómo la manejaste..."></textarea></div>
+      <div class="field-row"><label>4. Si ahorras $10.000 por semana, ¿en cuántas semanas alcanzas tu fondo mínimo? Calcula tu gasto mensual básico y muestra el razonamiento. *</label><textarea id="a1_calculo_${i}" placeholder="Mis gastos mensuales son... por lo tanto mi fondo mínimo es... y lo alcanzo en..."></textarea></div>
+      <div class="field-row"><label>5. ¿Cuál es el principal obstáculo que te impide ahorrar hoy? *</label><textarea id="a1_obstaculo_${i}" placeholder="Sé específico: ¿es el monto de ingresos, los gastos fijos, la disciplina, la falta de información...?" style="min-height:70px"></textarea></div>
+    </div>
+  `).join('');
+}
+function showAct1Tab(i) {
+  state.members.forEach((_,j)=>{
+    document.getElementById(`act1form_${j}`).style.display=j===i?'block':'none';
+    document.getElementById(`act1tab_${j}`)?.classList.toggle('active',j===i);
+  });
+}
+
+function saveAct1() {
+  const data = {};
+  let ok = true;
+  state.members.forEach((_,i)=>{
+    const saldo=document.getElementById(`a1_saldo_${i}`)?.value;
+    const fuente=document.getElementById(`a1_fuente_${i}`)?.value.trim();
+    const pasado=document.getElementById(`a1_pasado_${i}`)?.value.trim();
+    const calculo=document.getElementById(`a1_calculo_${i}`)?.value.trim();
+    const obs=document.getElementById(`a1_obstaculo_${i}`)?.value.trim();
+    if(!fuente||!pasado||!calculo||!obs){ok=false;}
+    data[i]={saldo:saldo||'0',fuente,pasado,calculo,obstaculo:obs};
+  });
+  if(!ok){showToast('⚠ Completa todos los campos de cada integrante','#B21937');return;}
+  state.act1=data; goTo(2);
+}
+
+// ── ACT 2 ──
+let selectedPerfil = null;
+const perfiles = {
+  A:{nombre:'Martina',semestre:'1er semestre',ingresos:'Mesada familiar: $350.000/mes',ingMensual:350000,programa:'Administración de Empresas'},
+  B:{nombre:'Santiago',semestre:'4to semestre',ingresos:'Trabajo sábados: $120.000/semana (~$480.000/mes)',ingMensual:480000,programa:'Ingeniería de Sistemas'},
+  C:{nombre:'Valentina',semestre:'6to semestre',ingresos:'Beca ICETEX: ~$600.000/mes + posibles trabajos\n(Semestral: $1.200.000)',ingMensual:600000,programa:'Diseño Gráfico'}
+};
+
+function selectPerfil(el,key) {
+  document.querySelectorAll('.perfil-option').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPerfil=key;
+  const p=perfiles[key];
+  document.getElementById('perfilIngresos').innerHTML=`<strong style="color:var(--text)">${p.nombre}</strong> · ${p.programa}<br>${p.semestre}<br><br><span style="color:var(--celeste)">${p.ingresos}</span><br><br><span style="color:var(--text2);font-size:.8rem">Ingreso estimado/mes: <strong style="color:var(--naranja)">$${p.ingMensual.toLocaleString()}</strong></span>`;
+  document.getElementById('perfilDetails').style.display='block';
+  ['g_transporte','g_alimentacion','g_materiales','g_otros'].forEach(id=>document.getElementById(id)?.addEventListener('input',calcFondo));
+}
+
+function calcFondo() {
+  const vals=['g_transporte','g_alimentacion','g_materiales','g_otros'].map(id=>parseFloat(document.getElementById(id)?.value)||0);
+  const total=vals.reduce((a,b)=>a+b,0);
+  document.getElementById('totalGastos').textContent='$'+Math.round(total).toLocaleString();
+  document.getElementById('fondoMinimo').textContent='$'+Math.round(total*3).toLocaleString();
+}
+
+function calcTime() {
+  const fondo=parseFloat(document.getElementById('fondoMinimo')?.textContent.replace(/[^0-9]/g,''))||0;
+  const semanal=parseFloat(document.getElementById('ahorroSemanal')?.value)||0;
+  if(!semanal||!fondo){document.getElementById('mesesEstimados').value='';return;}
+  const semanas=Math.ceil(fondo/semanal);
+  const meses=Math.ceil(semanas/4.3);
+  document.getElementById('mesesEstimados').value=`${semanas} semanas (~${meses} meses)`;
+}
+
+function saveAct2() {
+  if(!selectedPerfil){showToast('⚠ Selecciona un perfil universitario','#B21937');return;}
+  const req=['estrategiaAhorro','obstaculos','herramienta','aprendizaje2'];
+  for(const id of req){if(!document.getElementById(id)?.value.trim()){showToast('⚠ Completa todos los campos obligatorios','#B21937');return;}}
+  const total=parseFloat(document.getElementById('fondoMinimo')?.textContent.replace(/[^0-9]/g,''))||0;
+  state.act2={
+    perfil:selectedPerfil,perfilData:perfiles[selectedPerfil],
+    gastos:{transporte:parseFloat(document.getElementById('g_transporte')?.value)||0,alimentacion:parseFloat(document.getElementById('g_alimentacion')?.value)||0,materiales:parseFloat(document.getElementById('g_materiales')?.value)||0,otros:parseFloat(document.getElementById('g_otros')?.value)||0},
+    fondoMinimo:total,
+    ahorroSemanal:parseFloat(document.getElementById('ahorroSemanal')?.value)||0,
+    mesesEstimados:document.getElementById('mesesEstimados')?.value||'',
+    estrategia:document.getElementById('estrategiaAhorro').value.trim(),
+    obstaculos:document.getElementById('obstaculos').value.trim(),
+    herramienta:document.getElementById('herramienta').value.trim(),
+    aprendizaje:document.getElementById('aprendizaje2').value.trim()
+  };
+  goTo(3);
+}
+
+// ── ACT 3 ──
+function renderCrisisCards() {
+  document.getElementById('crisisCards').innerHTML = crisisScenarios.map((s,i)=>`
+    <div class="crisis-card">
+      <div class="crisis-title">
+        Escenario ${i+1}: ${s.title}
+        <span class="crisis-badge" style="background:${s.badgeColor}22;color:${s.badgeColor}">${s.badge}</span>
+        <span style="float:right;font-size:.82rem;color:var(--text2);font-weight:400">Costo estimado: <strong>${s.amount}</strong></span>
+      </div>
+      <p style="font-size:.85rem;color:var(--text2);line-height:1.5;margin-bottom:1rem">${s.context}</p>
+      <div class="grid-2">
+        <div class="field-row">
+          <label style="color:var(--rojo)">SIN fondo de emergencia: ¿qué hace el estudiante? *</label>
+          <textarea id="crisis_sin_${s.id}" placeholder="¿Pide prestado? ¿Falta a clases? ¿Toma decisiones desesperadas? ¿Cómo afecta su semestre?" style="min-height:80px"></textarea>
+        </div>
+        <div class="field-row">
+          <label style="color:var(--verde)">CON fondo de emergencia: ¿cómo lo maneja? *</label>
+          <textarea id="crisis_con_${s.id}" placeholder="¿Cuánto retira? ¿En cuánto tiempo lo recupera? ¿Cómo impacta positivamente en su semestre?" style="min-height:80px"></textarea>
+        </div>
+      </div>
+      <div class="field-row" style="margin-top:.5rem">
+        <label>Impacto académico de NO tener fondo en este caso *</label>
+        <textarea id="crisis_impacto_${s.id}" placeholder="¿Pierde notas? ¿Se atrasa? ¿Aumenta el riesgo de deserción? Sé específico." style="min-height:60px"></textarea>
+      </div>
+    </div>
+  `).join('');
+}
+
+function saveAct3() {
+  const crisisData={};
+  for(const s of crisisScenarios){
+    const sin=document.getElementById(`crisis_sin_${s.id}`)?.value.trim();
+    const con=document.getElementById(`crisis_con_${s.id}`)?.value.trim();
+    const impacto=document.getElementById(`crisis_impacto_${s.id}`)?.value.trim();
+    if(!sin||!con||!impacto){showToast('⚠ Completa todos los escenarios de crisis','#B21937');return;}
+    crisisData[s.id]={sin,con,impacto};
+  }
+  const reflexion=document.getElementById('crisisReflexion')?.value.trim();
+  const consejo=document.getElementById('crisisConsejo')?.value.trim();
+  const carrera=document.getElementById('crisisCarrera')?.value.trim();
+  if(!reflexion||!consejo||!carrera){showToast('⚠ Completa la reflexión final','#B21937');return;}
+  state.act3={crisis:crisisData,reflexion,consejo,carrera};
+  goTo(4);
+}
+
+// ── ACT 4 ──
+function buildAct4Forms() {
+  const tabs=document.getElementById('act4Tabs');
+  const forms=document.getElementById('act4Forms');
+  if(!tabs||!forms)return;
+  tabs.innerHTML=state.members.map((m,i)=>`<button class="inner-tab ${i===0?'active':''}" onclick="showAct4Tab(${i})" id="act4tab_${i}">${m.name.split(' ')[0]||'Integrante '+(i+1)}</button>`).join('');
+  forms.innerHTML=state.members.map((m,i)=>`
+    <div id="act4form_${i}" style="display:${i===0?'block':'none'}">
+      <div class="commitment-card">
+        <div style="font-weight:700;color:var(--verde);margin-bottom:.3rem">${m.name}</div>
+        <div style="font-size:.8rem;color:var(--text2)">${m.program} · ${m.semester} semestre — Compromiso personal</div>
+      </div>
+      <div class="field-row"><label>Fecha en que abriré mi cuenta de ahorro para emergencias *</label><input type="date" id="a4_fecha_${i}"></div>
+      <div class="grid-2">
+        <div class="field-row"><label>Ahorro semanal que me comprometo a depositar *</label><div class="money-input-wrap"><input type="number" id="a4_ahorro_${i}" placeholder="0" min="0"></div></div>
+        <div class="field-row"><label>Mi meta de fondo mínimo *</label><div class="money-input-wrap"><input type="number" id="a4_meta_${i}" placeholder="0" min="0"></div></div>
+      </div>
+      <div class="field-row"><label>App o herramienta que usaré para guardar el fondo *</label><input type="text" id="a4_app_${i}" placeholder="Nequi, Daviplata, Nu, cuenta bancaria..."></div>
+      <div class="field-row"><label>¿Qué aprendizaje de clase de hoy fue más impactante para ti? *</label><textarea id="a4_insight_${i}" placeholder="El momento o dato que más te marcó de esta sesión..." style="min-height:70px"></textarea></div>
+      <div class="field-row"><label>¿Cómo aplicarás el conocimiento financiero de esta clase en tu futuro profesional? *</label><textarea id="a4_profesional_${i}" placeholder="Piensa en tu programa: ¿cómo usarás esto en tu carrera?" style="min-height:70px"></textarea></div>
+    </div>
+  `).join('');
+}
+function showAct4Tab(i) {
+  state.members.forEach((_,j)=>{
+    document.getElementById(`act4form_${j}`).style.display=j===i?'block':'none';
+    document.getElementById(`act4tab_${j}`)?.classList.toggle('active',j===i);
+  });
+}
+let selfRatingVal=0;
+function setSelfRating(n) {
+  selfRatingVal=n;
+  document.getElementById('selfRating').querySelectorAll('.rating-star').forEach((s,i)=>{s.style.color=i<n?COLORS.amarillo:'rgba(255,255,255,0.2)';});
+  document.getElementById('selfRatingVal').textContent=n+'/5';
+}
+
+function saveAct4() {
+  const compromisoG=document.getElementById('compromisoGrupal')?.value.trim();
+  const acompaña=document.getElementById('compromisoAcompañamiento')?.value.trim();
+  if(!compromisoG||!acompaña){showToast('⚠ Completa el compromiso grupal','#B21937');return;}
+  const members4={};
+  for(let i=0;i<state.members.length;i++){
+    const fecha=document.getElementById(`a4_fecha_${i}`)?.value;
+    const ahorro=document.getElementById(`a4_ahorro_${i}`)?.value;
+    const meta=document.getElementById(`a4_meta_${i}`)?.value;
+    const app=document.getElementById(`a4_app_${i}`)?.value.trim();
+    const insight=document.getElementById(`a4_insight_${i}`)?.value.trim();
+    const prof=document.getElementById(`a4_profesional_${i}`)?.value.trim();
+    if(!fecha||!ahorro||!meta||!app||!insight||!prof){showToast('⚠ Completa el compromiso de todos los integrantes','#B21937');return;}
+    members4[i]={fecha,ahorro:parseFloat(ahorro)||0,meta:parseFloat(meta)||0,app,insight,profesional:prof};
+  }
+  state.act4={members:members4,compromisoGrupal:compromisoG,acompañamiento:acompaña,selfRating:selfRatingVal};
+  generateResults();
+  goTo(5);
+}
+
+// ── EVALUATION ENGINE ──
+function scoreAct1() {
+  let total=0;
+  state.members.forEach((_,i)=>{
+    const d=state.act1[i];if(!d)return;
+    let s=0;
+    if(d.calculo&&d.calculo.length>60)s+=30;else if(d.calculo)s+=15;
+    if(d.fuente&&d.fuente.length>40)s+=20;else if(d.fuente)s+=10;
+    if(d.pasado&&d.pasado.length>50)s+=25;else if(d.pasado)s+=12;
+    if(d.obstaculo&&d.obstaculo.length>40)s+=25;else if(d.obstaculo)s+=12;
+    total+=s;
+  });
+  return Math.min(100,Math.round(total/state.members.length));
+}
+function scoreAct2() {
+  let s=0;
+  const d=state.act2;
+  if(d.fondoMinimo>0)s+=15;
+  if(d.ahorroSemanal>0)s+=10;
+  if(d.estrategia&&d.estrategia.length>100)s+=25;else if(d.estrategia)s+=12;
+  if(d.obstaculos&&d.obstaculos.length>80)s+=20;else if(d.obstaculos)s+=10;
+  if(d.herramienta&&d.herramienta.length>50)s+=15;else if(d.herramienta)s+=8;
+  if(d.aprendizaje&&d.aprendizaje.length>80)s+=15;else if(d.aprendizaje)s+=8;
+  return Math.min(100,s);
+}
+function scoreAct3() {
+  let s=0;
+  for(const sc of crisisScenarios){
+    const d=state.act3.crisis[sc.id];if(!d)continue;
+    if(d.sin&&d.sin.length>60)s+=10;else if(d.sin)s+=5;
+    if(d.con&&d.con.length>60)s+=10;else if(d.con)s+=5;
+    if(d.impacto&&d.impacto.length>50)s+=5;else if(d.impacto)s+=2;
+  }
+  if(state.act3.reflexion?.length>80)s+=15;else if(state.act3.reflexion)s+=8;
+  if(state.act3.consejo?.length>60)s+=10;else if(state.act3.consejo)s+=5;
+  if(state.act3.carrera?.length>80)s+=15;else if(state.act3.carrera)s+=8;
+  return Math.min(100,s);
+}
+function scoreAct4() {
+  let s=0;
+  Object.values(state.act4.members||{}).forEach(m=>{
+    if(m.ahorro>0)s+=15;
+    if(m.meta>0)s+=10;
+    if(m.insight?.length>60)s+=15;else if(m.insight)s+=8;
+    if(m.profesional?.length>80)s+=20;else if(m.profesional)s+=10;
+  });
+  if(state.act4.compromisoGrupal?.length>80)s+=15;else if(state.act4.compromisoGrupal)s+=8;
+  if(state.act4.selfRating>=4)s+=10;else if(state.act4.selfRating>0)s+=5;
+  return Math.min(100,Math.round(s/state.members.length));
+}
+
+function getAwards(scores,act2,act3,act4) {
+  const awards=[];
+  if(scores.act2>=85)awards.push({icon:'💡',label:'Estrategia Innovadora',color:'#5B7DB8'});
+  if(scores.act3>=85)awards.push({icon:'🧠',label:'Análisis Profundo',color:'#F26A25'});
+  if(scores.act4>=85)awards.push({icon:'🤝',label:'Compromiso Real',color:'#1A7A4A'});
+  const total=scores.act1+scores.act2+scores.act3+scores.act4;
+  if(total>=340)awards.push({icon:'⭐',label:'Grupo Excelente',color:'#F5A623'});
+  if(act4.selfRating>=5)awards.push({icon:'🎯',label:'Máxima Creatividad',color:'#B21937'});
+  if(act2.fondoMinimo>1500000)awards.push({icon:'🏆',label:'Meta Ambiciosa',color:'#2D4271'});
+  return awards;
+}
+
+function scoreColor(n) {
+  if(n>=90)return COLORS.verde;
+  if(n>=75)return COLORS.celeste;
+  if(n>=60)return COLORS.naranja;
+  return COLORS.rojo;
+}
+function nota(n) {
+  if(n>=90)return'5.0';
+  if(n>=80)return'4.5';
+  if(n>=70)return'4.0';
+  if(n>=60)return'3.5';
+  if(n>=50)return'3.0';
+  return'2.5';
+}
+function comment(n,act) {
+  const labels={1:'Mi Foto Financiera',2:'Reto del Semestre',3:'Simulador de Crisis',4:'Mi Compromiso'};
+  if(n>=90)return`Excelente trabajo en ${labels[act]}. Respuestas completas, reflexivas y con aplicación real del conocimiento financiero.`;
+  if(n>=75)return`Buen desempeño en ${labels[act]}. Las respuestas muestran comprensión del tema con oportunidad de mayor profundidad.`;
+  if(n>=60)return`Desempeño aceptable en ${labels[act]}. Se evidencia comprensión básica pero falta mayor desarrollo y aplicación práctica.`;
+  return`En ${labels[act]} se recomienda ampliar las respuestas con más análisis y conexión con casos reales.`;
+}
+
+function generateResults() {
+  const s1=scoreAct1(),s2=scoreAct2(),s3=scoreAct3(),s4=scoreAct4();
+  const total=Math.round((s1*0.2+s2*0.3+s3*0.25+s4*0.25));
+  const awards=getAwards({act1:s1,act2:s2,act3:s3,act4:s4},state.act2,state.act4);
+  const notaFinal=nota(total);
+
+  const memberList=state.members.map(m=>`<div style="display:flex;align-items:center;gap:8px;margin:.2rem 0"><div style="width:28px;height:28px;border-radius:50%;background:${COLORS.celeste};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">${(m.name||'?')[0]}</div><span style="font-size:.88rem">${m.name}</span><span style="font-size:.75rem;color:var(--text2)">${m.program} · ${m.semester}</span></div>`).join('');
+
+  const actScores=[s1,s2,s3,s4];
+  const actLabels=['Mi Foto Financiera','Reto del Semestre','Simulador de Crisis','Mi Compromiso'];
+  const actWeights=[20,30,25,25];
+  const actColors=[COLORS.rojo,COLORS.naranja,COLORS.celeste,COLORS.verde];
+
+  const awardBadges=awards.map(a=>`<span class="award-badge" style="background:${a.color}22;color:${a.color};border:1px solid ${a.color}44">${a.icon} ${a.label}</span>`).join('');
+
+  const dimensionRows=actLabels.map((l,i)=>`
+    <div class="dimension-row">
+      <span class="dim-label">${l} (${actWeights[i]}%)</span>
+      <div class="dim-bar"><div class="dim-bar-fill" style="width:${actScores[i]}%;background:${actColors[i]}"></div></div>
+      <span class="dim-score" style="color:${scoreColor(actScores[i])}">${actScores[i]}</span>
+    </div>
+  `).join('');
+
+  const totalColor=scoreColor(total);
+  const notaColor=total>=80?COLORS.verde:total>=60?COLORS.naranja:COLORS.rojo;
+
+  // Member commitments
+  const memberCommitments=state.members.map((m,i)=>{
+    const c=state.act4.members[i];if(!c)return'';
+    const weeksToGoal=c.ahorro>0?Math.ceil(c.meta/(c.ahorro*4.3)):0;
+    return`<div style="background:var(--bg3);border-radius:12px;padding:1rem;margin-bottom:.7rem;border-left:3px solid ${COLORS.verde}">
+      <div style="font-weight:700;margin-bottom:.5rem">${m.name} <span style="font-size:.78rem;color:var(--text2);font-weight:400">· ${m.program}</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;font-size:.82rem;margin-bottom:.6rem">
+        <div><span style="color:var(--text2)">Meta: </span><strong style="color:var(--naranja)">$${Math.round(c.meta).toLocaleString()}</strong></div>
+        <div><span style="color:var(--text2)">Ahorro/sem: </span><strong style="color:var(--celeste)">$${Math.round(c.ahorro).toLocaleString()}</strong></div>
+        <div><span style="color:var(--text2)">Lo logra en: </span><strong style="color:var(--verde)">${weeksToGoal>0?Math.round(weeksToGoal)+'m':'-'}</strong></div>
+      </div>
+      <div style="font-size:.82rem;color:var(--text2);margin-bottom:.4rem"><strong style="color:var(--text)">App elegida:</strong> ${c.app}</div>
+      <div style="font-size:.82rem;color:var(--text2)"><strong style="color:var(--text)">Insight:</strong> "${c.insight}"</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('resultsContent').innerHTML = `
+    <div class="result-group">
+      <div class="result-group-header">
+        <div>
+          <div style="font-weight:700;font-size:1.1rem">${state.groupName}</div>
+          <div style="font-size:.82rem;opacity:.75;margin-top:2px">${state.groupSalon} · ${state.members.length} integrante${state.members.length>1?'s':''}</div>
+          <div style="margin-top:.6rem">${memberList}</div>
+        </div>
+        <div style="text-align:center">
+          <div class="score-circle" style="border-color:${totalColor};color:${totalColor};margin:0 auto .4rem">
+            <span class="score-num">${total}</span>
+            <span class="score-label">/ 100</span>
+          </div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,0.6)">Puntaje global</div>
+          <div style="font-size:1.8rem;font-weight:700;color:${notaColor};margin-top:.3rem">${notaFinal}</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,0.5)">Calificación</div>
+        </div>
+      </div>
+      <div class="result-group-body">
+        <div style="margin-bottom:1rem">${dimensionRows}</div>
+        ${awards.length?`<div style="margin:.8rem 0">${awardBadges}</div>`:''}
+        <div style="background:var(--bg3);border-radius:10px;padding:1rem;margin-top:.8rem">
+          <div style="font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:1px">Retroalimentación del docente</div>
+          ${actScores.map((sc,i)=>`<div style="margin-bottom:.5rem;font-size:.85rem;padding:.5rem;border-left:2px solid ${actColors[i]};padding-left:.8rem"><strong style="color:${actColors[i]}">${actLabels[i]}:</strong> ${comment(sc,i+1)}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Compromisos Individuales <div class="accent"></div></div>
+    ${memberCommitments}
+    <div class="card" style="border-color:rgba(26,122,74,0.3)">
+      <div class="card-header">
+        <div class="card-icon" style="background:rgba(26,122,74,0.15);color:var(--verde)">🤝</div>
+        <div><div class="card-title">Compromiso del Grupo</div></div>
+      </div>
+      <div style="font-size:.9rem;line-height:1.6;color:var(--text2);margin-bottom:.8rem">"${state.act4.compromisoGrupal}"</div>
+      <div style="font-size:.85rem;color:var(--text2)"><strong style="color:var(--text)">¿Cómo se acompañarán?</strong><br>"${state.act4.acompañamiento}"</div>
+    </div>
+
+    ${total>=80?`<div class="alert alert-success">🏆 ¡Excelente sesión! El grupo demostró comprensión profunda del tema y compromisos concretos. El docente revisará el progreso en el próximo módulo.</div>`:''}
+    ${total>=60&&total<80?`<div class="alert alert-warning">El grupo muestra buena comprensión del tema. Se recomienda ampliar el análisis en las próximas sesiones y profundizar en los compromisos personales.</div>`:''}
+    ${total<60?`<div class="alert" style="background:rgba(178,25,55,0.1);border-color:var(--rojo);color:#e06b7d">El grupo debe reforzar el trabajo. El docente puede solicitar una revisión de las actividades con mayor detalle.</div>`:''}
+
+    <div style="text-align:center;margin-top:2rem;padding:1.5rem;background:var(--bg2);border-radius:16px;border:1px solid var(--border)">
+      <div style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem">Finanzas Personales · UNICESMAG · 2026-1</div>
+      <div style="font-size:.78rem;color:var(--text3)">Grupo registrado: ${state.groupName} · ${new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})}</div>
+      <button class="btn btn-secondary" style="margin-top:1rem" onclick="window.print()">Imprimir resultados</button>
+    </div>
+  `;
+}
+
+// ── NAVIGATION ──
+function goTo(n) {
+  state.step=n;
+  if(n>state.maxUnlocked)state.maxUnlocked=n;
+  document.querySelectorAll('.screen').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.step-btn').forEach((b,i)=>{
+    b.classList.remove('active','done','locked');
+    if(i===n)b.classList.add('active');
+    else if(i<n||i<=state.maxUnlocked)b.classList.add('done');
+    else b.classList.add('locked');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function tryNav(n) {
+  if(n<=state.maxUnlocked)goTo(n);
+  else showToast('Completa la actividad actual primero','#B21937');
+}
+
+// ── TOAST ──
+function showToast(msg,bg='#1A7A4A') {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.background=bg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+init();
+</script>
+</body>
+</html>
