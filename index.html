@@ -946,9 +946,62 @@ function removeMember() {
     </div>`;
 }
 function confirmRemove(idx) {
-  state.members.splice(idx,1);
+  const count = state.members.length;
+
+  // Reindex act1: skip removed idx, shift higher indices down
+  const newAct1 = {};
+  for (let i = 0; i < count; i++) {
+    if (i === idx) continue;
+    const ni = i < idx ? i : i - 1;
+    if (state.act1[i] !== undefined) newAct1[ni] = state.act1[i];
+  }
+  state.act1 = newAct1;
+
+  // Reindex act4.members similarly
+  if (state.act4 && state.act4.members) {
+    const newAct4m = {};
+    for (let i = 0; i < count; i++) {
+      if (i === idx) continue;
+      const ni = i < idx ? i : i - 1;
+      if (state.act4.members[i] !== undefined) newAct4m[ni] = state.act4.members[i];
+    }
+    state.act4.members = newAct4m;
+  }
+
+  state.members.splice(idx, 1);
   closeRemoveModal();
   renderMembers();
+  buildAct1Forms();
+  buildAct4Forms();
+
+  // Restore act1 field values for remaining members
+  state.members.forEach((_, i) => {
+    const d = state.act1[i];
+    if (!d) return;
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+    set('a1_saldo_' + i, d.saldo);
+    set('a1_fuente_' + i, d.fuente);
+    set('a1_pasado_' + i, d.pasado);
+    set('a1_calculo_' + i, d.calculo);
+    set('a1_obstaculo_' + i, d.obstaculo);
+  });
+
+  // Restore act4 field values for remaining members
+  if (state.act4 && state.act4.members) {
+    state.members.forEach((_, i) => {
+      const c = state.act4.members[i];
+      if (!c) return;
+      const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+      set('a4_fecha_' + i, c.fecha);
+      set('a4_ahorro_' + i, c.ahorro);
+      set('a4_meta_' + i, c.meta);
+      set('a4_app_' + i, c.app);
+      set('a4_insight_' + i, c.insight);
+      set('a4_profesional_' + i, c.profesional);
+    });
+  }
+
+  saveState();
   showToast('Integrante eliminado correctamente');
 }
 function closeRemoveModal() { document.getElementById('removeModal').innerHTML=''; }
