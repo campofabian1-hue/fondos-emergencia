@@ -919,7 +919,17 @@ function renderMembers() {
   document.getElementById('removeMemberBtn').style.display = state.members.length > 1 ? '' : 'none';
 }
 function newMember() { return {name:'',program:'Contaduría Pública',semester:'1ro'}; }
-function addMember() { if(state.members.length<4){state.members.push(newMember());renderMembers();} }
+function addMember() {
+  if (state.members.length >= 4) return;
+  // Capture current DOM values into state before re-rendering
+  state.members = state.members.map((m, i) => ({
+    name: document.getElementById('m_name_' + i)?.value.trim() || m.name || '',
+    program: document.getElementById('m_prog_' + i)?.value || m.program || 'Contaduría Pública',
+    semester: document.getElementById('m_sem_' + i)?.value || m.semester || '1ro'
+  }));
+  state.members.push(newMember());
+  renderMembers();
+}
 function removeMember() {
   if(state.members.length<=1){showToast('El grupo debe tener al menos 1 integrante','#B21937');return;}
   // Save current field values first so we don't lose what was typed
