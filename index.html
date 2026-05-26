@@ -1645,7 +1645,7 @@ function getGroupCodeBadge() {
 
 // ── DOCENTE ACCESS ──
 function docenteAccess() {
-  const PIN = '2026';
+  const PIN = 'cesmagadmin*';
   document.getElementById('removeModal').innerHTML = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
       <div style="background:var(--bg2);border:1px solid rgba(45,66,113,0.6);border-radius:20px;padding:2rem;max-width:400px;width:100%;text-align:center">
@@ -1660,7 +1660,7 @@ function docenteAccess() {
           <button onclick="checkDocentePin('${PIN}')" style="flex:1;background:var(--azul);color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer">Ingresar</button>
           <button onclick="closeRemoveModal()" style="flex:1;background:none;border:1px solid var(--border2);border-radius:10px;padding:11px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">Cancelar</button>
         </div>
-        <div style="margin-top:1rem;font-size:.75rem;color:var(--text3)">PIN por defecto: 2026 — puedes cambiarlo en el código fuente</div>
+        <div style="margin-top:1rem;font-size:.75rem;color:var(--text3)">PIN por defecto:  — puedes cambiarlo en el código fuente</div>
       </div>
     </div>`;
   setTimeout(()=>document.getElementById('docentePin')?.focus(), 100);
