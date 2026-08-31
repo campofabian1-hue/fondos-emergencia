@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fondo de Emergencia â UNICESMAG</title>
+<title>Fondo de Emergencia — UNICESMAG</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -291,7 +291,7 @@
   .perfil-option:hover { border-color: var(--celeste); }
   .perfil-option.selected { border-color: var(--naranja); background: rgba(242,106,37,0.08); }
   .perfil-option.selected::after {
-    content: 'â'; position: absolute; top: 10px; right: 12px;
+    content: '✓'; position: absolute; top: 10px; right: 12px;
     color: var(--naranja); font-weight: 700;
   }
   .perfil-name { font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
@@ -379,13 +379,13 @@
 
 <div class="app">
   <header>
-    <div class="badge">Finanzas Personales Â· UNICESMAG Â· 2026-1</div>
+    <div class="badge">Finanzas Personales · UNICESMAG · 2026-1</div>
     <h1>Fondo de Emergencia<br>Universitario</h1>
-    <p>Actividades de aprendizaje colaborativo â Unidad 2</p>
+    <p>Actividades de aprendizaje colaborativo — Unidad 2</p>
     <div class="unicesmag-tag">
       <span class="dot"></span>
-      SesiÃ³n activa Â· Grupo de hasta 4 estudiantes
-      &nbsp;Â·&nbsp;
+      Sesión activa · Grupo de hasta 4 estudiantes
+      &nbsp;·&nbsp;
       <span id="fbStatus" style="color:var(--text3)">&#9679; sin conexion nube</span>
     </div>
     <div style="margin-top:1.2rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
@@ -422,30 +422,30 @@
       <span class="step-label">Mi<br>Compromiso</span>
     </button>
     <button class="step-btn locked" data-step="5" onclick="tryNav(5)">
-      <div class="step-num">â</div>
+      <div class="step-num">★</div>
       <span class="step-label">Resultados<br>y Notas</span>
     </button>
   </nav>
 
-  <!-- ââââââââââââ SCREEN 0: GRUPO ââââââââââââ -->
+  <!-- ════════════ SCREEN 0: GRUPO ════════════ -->
   <div class="screen active" id="screen-0">
     <div class="section-title">Registro del Grupo <div class="accent"></div></div>
-    <div class="alert alert-info">Registra los datos de todos los integrantes del grupo (mÃ­nimo 1, mÃ¡ximo 4). Todos los campos marcados son obligatorios.</div>
+    <div class="alert alert-info">Registra los datos de todos los integrantes del grupo (mínimo 1, máximo 4). Todos los campos marcados son obligatorios.</div>
     <div class="card">
       <div class="card-header">
-        <div class="card-icon" style="background:rgba(91,125,184,0.15);color:var(--celeste)">ð¥</div>
-        <div><div class="card-title">Integrantes del Grupo</div><div class="card-sub">Completa la informaciÃ³n de cada estudiante</div></div>
+        <div class="card-icon" style="background:rgba(91,125,184,0.15);color:var(--celeste)">👥</div>
+        <div><div class="card-title">Integrantes del Grupo</div><div class="card-sub">Completa la información de cada estudiante</div></div>
       </div>
       <div id="membersContainer" class="grid-4"></div>
       <div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap;">
         <button class="btn btn-secondary" onclick="addMember()" id="addMemberBtn">+ Agregar integrante</button>
-        <button class="btn btn-secondary" onclick="removeMember()" id="removeMemberBtn" style="display:none">â Quitar Ãºltimo</button>
+        <button class="btn btn-secondary" onclick="removeMember()" id="removeMemberBtn" style="display:none">− Quitar último</button>
       </div>
     </div>
     <div class="card">
       <div class="card-header">
-        <div class="card-icon" style="background:rgba(242,106,37,0.15);color:var(--naranja)">ð</div>
-        <div><div class="card-title">InformaciÃ³n del Grupo</div></div>
+        <div class="card-icon" style="background:rgba(242,106,37,0.15);color:var(--naranja)">📋</div>
+        <div><div class="card-title">Información del Grupo</div></div>
       </div>
       <div class="grid-2">
         <div class="field-row">
@@ -453,68 +453,68 @@
           <input type="text" id="groupName" placeholder="Ej: Los Ahorradores del Futuro">
         </div>
         <div class="field-row">
-          <label>SalÃ³n / Grupo acadÃ©mico *</label>
-          <input type="text" id="groupSalon" placeholder="Ej: ContadurÃ­a Semestre 3 - Noche">
+          <label>Salón / Grupo académico *</label>
+          <input type="text" id="groupSalon" placeholder="Ej: Contaduría Semestre 3 - Noche">
         </div>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-primary btn-lg" onclick="saveGroup()">Comenzar actividades â</button>
+      <button class="btn btn-primary btn-lg" onclick="saveGroup()">Comenzar actividades →</button>
     </div>
   </div>
 
-  <!-- ââââââââââââ SCREEN 1: MI FOTO FINANCIERA ââââââââââââ -->
+  <!-- ════════════ SCREEN 1: MI FOTO FINANCIERA ════════════ -->
   <div class="screen" id="screen-1">
     <div class="section-title">Actividad 1 <div class="accent"></div></div>
-    <div class="alert alert-warning">â± Tiempo sugerido: 10 minutos Â· Individual primero, luego comparten en grupo</div>
+    <div class="alert alert-warning">⏱ Tiempo sugerido: 10 minutos · Individual primero, luego comparten en grupo</div>
     <div class="card" style="border-left:3px solid var(--rojo)">
       <div class="card-header">
-        <div class="card-icon" style="background:rgba(178,25,55,0.15);color:var(--rojo);font-size:22px">ð¸</div>
-        <div><div class="card-title">"Mi Foto Financiera"</div><div class="card-sub">Â¿CuÃ¡l es tu situaciÃ³n real hoy?</div></div>
+        <div class="card-icon" style="background:rgba(178,25,55,0.15);color:var(--rojo);font-size:22px">📸</div>
+        <div><div class="card-title">"Mi Foto Financiera"</div><div class="card-sub">¿Cuál es tu situación real hoy?</div></div>
       </div>
-      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">Cada integrante responde honestamente. No hay respuestas correctas ni incorrectas â esto es para reflexionar y tomar acciÃ³n. El docente verÃ¡ los resultados al final.</p>
+      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">Cada integrante responde honestamente. No hay respuestas correctas ni incorrectas — esto es para reflexionar y tomar acción. El docente verá los resultados al final.</p>
       <div class="inner-tabs" id="act1Tabs"></div>
       <div id="act1Forms"></div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-secondary" onclick="goTo(0)">â Volver</button>
-      <button class="btn btn-primary btn-lg" onclick="saveAct1()">Guardar y continuar â</button>
+      <button class="btn btn-secondary" onclick="goTo(0)">← Volver</button>
+      <button class="btn btn-primary btn-lg" onclick="saveAct1()">Guardar y continuar →</button>
     </div>
   </div>
 
-  <!-- ââââââââââââ SCREEN 2: RETO DEL SEMESTRE ââââââââââââ -->
+  <!-- ════════════ SCREEN 2: RETO DEL SEMESTRE ════════════ -->
   <div class="screen" id="screen-2">
     <div class="section-title">Actividad 2 <div class="accent"></div></div>
-    <div class="alert alert-warning">â± Tiempo sugerido: 15 minutos Â· Trabajo en grupo</div>
+    <div class="alert alert-warning">⏱ Tiempo sugerido: 15 minutos · Trabajo en grupo</div>
     <div class="card" style="border-left:3px solid var(--naranja)">
       <div class="card-header">
-        <div class="card-icon" style="background:rgba(242,106,37,0.15);color:var(--naranja);font-size:22px">ð¯</div>
-        <div><div class="card-title">"El Reto del Semestre"</div><div class="card-sub">DiseÃ±en un plan de ahorro para el perfil asignado</div></div>
+        <div class="card-icon" style="background:rgba(242,106,37,0.15);color:var(--naranja);font-size:22px">🎯</div>
+        <div><div class="card-title">"El Reto del Semestre"</div><div class="card-sub">Diseñen un plan de ahorro para el perfil asignado</div></div>
       </div>
 
-      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">El grupo elige un perfil universitario y diseÃ±a un plan de fondo de emergencia completo. Deben ser creativos y realistas al mismo tiempo.</p>
+      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">El grupo elige un perfil universitario y diseña un plan de fondo de emergencia completo. Deben ser creativos y realistas al mismo tiempo.</p>
 
-      <div class="section-title" style="font-size:.95rem;margin-top:0">Paso 1 â Seleccionen el perfil universitario <div class="accent"></div></div>
+      <div class="section-title" style="font-size:.95rem;margin-top:0">Paso 1 — Seleccionen el perfil universitario <div class="accent"></div></div>
       <div class="perfil-select">
         <div class="perfil-option" onclick="selectPerfil(this,'A')" data-perfil="A">
           <div class="perfil-tag" style="background:rgba(178,25,55,0.2);color:#e06b7d">Perfil A</div>
-          <div class="perfil-name">Martina â 1er semestre</div>
-          <div class="perfil-detail">Mesada familiar: $350.000/mes Â· Vive con padres Â· Sin ingresos propios Â· NariÃ±o</div>
+          <div class="perfil-name">Martina — 1er semestre</div>
+          <div class="perfil-detail">Mesada familiar: $350.000/mes · Vive con padres · Sin ingresos propios · Nariño</div>
         </div>
         <div class="perfil-option" onclick="selectPerfil(this,'B')" data-perfil="B">
           <div class="perfil-tag" style="background:rgba(91,125,184,0.2);color:#9ab5dd">Perfil B</div>
-          <div class="perfil-name">Santiago â 4to semestre</div>
-          <div class="perfil-detail">Trabajo sÃ¡bados: $120.000/sem Â· Paga transporte Â· Carrera: IngenierÃ­a de Sistemas</div>
+          <div class="perfil-name">Santiago — 4to semestre</div>
+          <div class="perfil-detail">Trabajo sábados: $120.000/sem · Paga transporte · Carrera: Ingeniería de Sistemas</div>
         </div>
         <div class="perfil-option" onclick="selectPerfil(this,'C')" data-perfil="C">
           <div class="perfil-tag" style="background:rgba(26,122,74,0.2);color:#7ecfa3">Perfil C</div>
-          <div class="perfil-name">Valentina â 6to semestre</div>
-          <div class="perfil-detail">Vive sola Â· Arriendo+servicios: $500.000 Â· Beca ICETEX: $1.2M semestral Â· DiseÃ±o GrÃ¡fico</div>
+          <div class="perfil-name">Valentina — 6to semestre</div>
+          <div class="perfil-detail">Vive sola · Arriendo+servicios: $500.000 · Beca ICETEX: $1.2M semestral · Diseño Gráfico</div>
         </div>
       </div>
 
       <div id="perfilDetails" style="display:none">
-        <div class="section-title" style="font-size:.95rem;margin-top:1.5rem">Paso 2 â Calculen el fondo mÃ­nimo <div class="accent"></div></div>
+        <div class="section-title" style="font-size:.95rem;margin-top:1.5rem">Paso 2 — Calculen el fondo mínimo <div class="accent"></div></div>
         <div class="grid-2">
           <div>
             <div style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;font-weight:600">INGRESOS DEL PERFIL</div>
@@ -523,7 +523,7 @@
           <div>
             <div style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;font-weight:600">GASTOS ESTIMADOS</div>
             <div class="field-row"><label>Transporte</label><div class="money-input-wrap"><input type="number" id="g_transporte" placeholder="0" min="0"></div></div>
-            <div class="field-row"><label>AlimentaciÃ³n</label><div class="money-input-wrap"><input type="number" id="g_alimentacion" placeholder="0" min="0"></div></div>
+            <div class="field-row"><label>Alimentación</label><div class="money-input-wrap"><input type="number" id="g_alimentacion" placeholder="0" min="0"></div></div>
             <div class="field-row"><label>Materiales / Datos</label><div class="money-input-wrap"><input type="number" id="g_materiales" placeholder="0" min="0"></div></div>
             <div class="field-row"><label>Otros</label><div class="money-input-wrap"><input type="number" id="g_otros" placeholder="0" min="0"></div></div>
             <div style="background:var(--bg);border-radius:8px;padding:.7rem 1rem;margin-top:.5rem;display:flex;justify-content:space-between;align-items:center">
@@ -531,90 +531,90 @@
               <span class="mono" style="font-weight:700;color:var(--naranja)" id="totalGastos">$0</span>
             </div>
             <div style="background:var(--bg);border-radius:8px;padding:.7rem 1rem;margin-top:.3rem;display:flex;justify-content:space-between;align-items:center">
-              <span style="font-size:.82rem;color:var(--text2)">Fondo mÃ­nimo (x3):</span>
+              <span style="font-size:.82rem;color:var(--text2)">Fondo mínimo (x3):</span>
               <span class="mono" style="font-weight:700;color:var(--verde)" id="fondoMinimo">$0</span>
             </div>
           </div>
         </div>
 
-        <div class="section-title" style="font-size:.95rem;margin-top:1.5rem">Paso 3 â DiseÃ±en la estrategia <div class="accent"></div></div>
+        <div class="section-title" style="font-size:.95rem;margin-top:1.5rem">Paso 3 — Diseñen la estrategia <div class="accent"></div></div>
         <div class="grid-2">
           <div class="field-row">
             <label>Ahorro semanal realista para este perfil *</label>
             <div class="money-input-wrap"><input type="number" id="ahorroSemanal" placeholder="0" min="0" oninput="calcTime()"></div>
           </div>
           <div class="field-row">
-            <label>Meses estimados para alcanzar el fondo mÃ­nimo</label>
-            <input type="text" id="mesesEstimados" readonly placeholder="Se calcula automÃ¡ticamente" style="background:var(--bg);color:var(--verde);font-weight:700">
+            <label>Meses estimados para alcanzar el fondo mínimo</label>
+            <input type="text" id="mesesEstimados" readonly placeholder="Se calcula automáticamente" style="background:var(--bg);color:var(--verde);font-weight:700">
           </div>
         </div>
         <div class="field-row">
-          <label>Â¿CÃ³mo consigue ese ahorro semanal? Estrategia concreta y creativa *</label>
-          <textarea id="estrategiaAhorro" placeholder="Describan las estrategias especÃ­ficas para este perfil: Â¿quÃ© puede recortar? Â¿quÃ© ingreso extra puede generar? Â¿quÃ© app usarÃ¡? Sean lo mÃ¡s detallados posible..."></textarea>
+          <label>¿Cómo consigue ese ahorro semanal? Estrategia concreta y creativa *</label>
+          <textarea id="estrategiaAhorro" placeholder="Describan las estrategias específicas para este perfil: ¿qué puede recortar? ¿qué ingreso extra puede generar? ¿qué app usará? Sean lo más detallados posible..."></textarea>
         </div>
         <div class="field-row">
-          <label>Principales obstÃ¡culos y cÃ³mo los superarÃ¡n *</label>
-          <textarea id="obstaculos" placeholder="Â¿QuÃ© puede sabotear el plan? Â¿CÃ³mo lo previenen? Piensen en situaciones reales del contexto de NariÃ±o/UNICESMAG..."></textarea>
+          <label>Principales obstáculos y cómo los superarán *</label>
+          <textarea id="obstaculos" placeholder="¿Qué puede sabotear el plan? ¿Cómo lo previenen? Piensen en situaciones reales del contexto de Nariño/UNICESMAG..."></textarea>
         </div>
         <div class="field-row">
-          <label>Â¿QuÃ© herramienta digital usarÃ¡ para guardar el fondo? Â¿Por quÃ©? *</label>
-          <textarea id="herramienta" placeholder="Nequi, Daviplata, Nu, cuenta bancaria especÃ­fica... expliquen la razÃ³n de la elecciÃ³n y cÃ³mo la configurarÃ¡n." style="min-height:70px"></textarea>
+          <label>¿Qué herramienta digital usará para guardar el fondo? ¿Por qué? *</label>
+          <textarea id="herramienta" placeholder="Nequi, Daviplata, Nu, cuenta bancaria específica... expliquen la razón de la elección y cómo la configurarán." style="min-height:70px"></textarea>
         </div>
         <div class="field-row">
-          <label>Â¿CuÃ¡l serÃ­a el aprendizaje mÃ¡s valioso para el grupo al analizar este perfil? *</label>
-          <textarea id="aprendizaje2" placeholder="ReflexiÃ³n grupal: Â¿quÃ© insight les da este ejercicio sobre su propia situaciÃ³n financiera?" style="min-height:70px"></textarea>
+          <label>¿Cuál sería el aprendizaje más valioso para el grupo al analizar este perfil? *</label>
+          <textarea id="aprendizaje2" placeholder="Reflexión grupal: ¿qué insight les da este ejercicio sobre su propia situación financiera?" style="min-height:70px"></textarea>
         </div>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-secondary" onclick="goTo(1)">â Volver</button>
-      <button class="btn btn-primary btn-lg" onclick="saveAct2()">Guardar y continuar â</button>
+      <button class="btn btn-secondary" onclick="goTo(1)">← Volver</button>
+      <button class="btn btn-primary btn-lg" onclick="saveAct2()">Guardar y continuar →</button>
     </div>
   </div>
 
-  <!-- ââââââââââââ SCREEN 3: SIMULADOR DE CRISIS ââââââââââââ -->
+  <!-- ════════════ SCREEN 3: SIMULADOR DE CRISIS ════════════ -->
   <div class="screen" id="screen-3">
     <div class="section-title">Actividad 3 <div class="accent"></div></div>
-    <div class="alert alert-warning">â± Tiempo sugerido: 20 minutos Â· Debate grupal + respuestas escritas</div>
+    <div class="alert alert-warning">⏱ Tiempo sugerido: 20 minutos · Debate grupal + respuestas escritas</div>
     <div class="card" style="border-left:3px solid var(--celeste)">
       <div class="card-header">
-        <div class="card-icon" style="background:rgba(91,125,184,0.15);color:var(--celeste);font-size:22px">â¡</div>
-        <div><div class="card-title">"Simulador de Crisis"</div><div class="card-sub">Â¿QuÃ© harÃ­as sin fondo de emergencia? Â¿Y con Ã©l?</div></div>
+        <div class="card-icon" style="background:rgba(91,125,184,0.15);color:var(--celeste);font-size:22px">⚡</div>
+        <div><div class="card-title">"Simulador de Crisis"</div><div class="card-sub">¿Qué harías sin fondo de emergencia? ¿Y con él?</div></div>
       </div>
-      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">Para cada escenario, el grupo debate y escribe: Â¿quÃ© hace un estudiante SIN fondo? Â¿y uno CON fondo? Luego reflexionan sobre el impacto real en su vida acadÃ©mica.</p>
+      <p style="color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem">Para cada escenario, el grupo debate y escribe: ¿qué hace un estudiante SIN fondo? ¿y uno CON fondo? Luego reflexionan sobre el impacto real en su vida académica.</p>
 
       <div id="crisisCards"></div>
 
       <div class="card" style="margin-top:1.2rem;background:var(--bg3);border-color:rgba(91,125,184,0.3)">
-        <div class="card-title" style="margin-bottom:1rem">ReflexiÃ³n final del grupo</div>
+        <div class="card-title" style="margin-bottom:1rem">Reflexión final del grupo</div>
         <div class="field-row">
-          <label>Â¿CuÃ¡l de los 4 escenarios les parece mÃ¡s probable en su vida universitaria actual? Â¿Por quÃ©? *</label>
-          <textarea id="crisisReflexion" placeholder="ReflexiÃ³n grupal honesta. Mencionen situaciones que hayan vivido o conocido..."></textarea>
+          <label>¿Cuál de los 4 escenarios les parece más probable en su vida universitaria actual? ¿Por qué? *</label>
+          <textarea id="crisisReflexion" placeholder="Reflexión grupal honesta. Mencionen situaciones que hayan vivido o conocido..."></textarea>
         </div>
         <div class="field-row">
-          <label>Si el grupo tuviera UN consejo para dar a un estudiante de 1er semestre sobre emergencias financieras, Â¿cuÃ¡l serÃ­a? *</label>
-          <textarea id="crisisConsejo" placeholder="Un consejo prÃ¡ctico, concreto y memorable..." style="min-height:70px"></textarea>
+          <label>Si el grupo tuviera UN consejo para dar a un estudiante de 1er semestre sobre emergencias financieras, ¿cuál sería? *</label>
+          <textarea id="crisisConsejo" placeholder="Un consejo práctico, concreto y memorable..." style="min-height:70px"></textarea>
         </div>
         <div class="field-row">
-          <label>Â¿CÃ³mo conectan este tema con su futuro profesional? (segÃºn cada carrera del grupo) *</label>
-          <textarea id="crisisCarrera" placeholder="Piensen: Â¿cÃ³mo usarÃ¡ un Contador, un DiseÃ±ador GrÃ¡fico o un Ingeniero de Sistemas este conocimiento en su vida profesional?"></textarea>
+          <label>¿Cómo conectan este tema con su futuro profesional? (según cada carrera del grupo) *</label>
+          <textarea id="crisisCarrera" placeholder="Piensen: ¿cómo usará un Contador, un Diseñador Gráfico o un Ingeniero de Sistemas este conocimiento en su vida profesional?"></textarea>
         </div>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-secondary" onclick="goTo(2)">â Volver</button>
-      <button class="btn btn-primary btn-lg" onclick="saveAct3()">Guardar y continuar â</button>
+      <button class="btn btn-secondary" onclick="goTo(2)">← Volver</button>
+      <button class="btn btn-primary btn-lg" onclick="saveAct3()">Guardar y continuar →</button>
     </div>
   </div>
 
-  <!-- ââââââââââââ SCREEN 4: MI COMPROMISO ââââââââââââ -->
+  <!-- ════════════ SCREEN 4: MI COMPROMISO ════════════ -->
   <div class="screen" id="screen-4">
     <div class="section-title">Actividad 4 <div class="accent"></div></div>
-    <div class="alert alert-success">Esta es la actividad mÃ¡s importante: un compromiso real que revisarÃ¡n al inicio del siguiente mÃ³dulo.</div>
+    <div class="alert alert-success">Esta es la actividad más importante: un compromiso real que revisarán al inicio del siguiente módulo.</div>
     <div class="card" style="border-left:3px solid var(--verde)">
       <div class="card-header">
-        <div class="card-icon" style="background:rgba(26,122,74,0.15);color:var(--verde);font-size:22px">â</div>
-        <div><div class="card-title">"Mi Compromiso Financiero"</div><div class="card-sub">Un acuerdo personal que el docente revisarÃ¡ prÃ³xima sesiÃ³n</div></div>
+        <div class="card-icon" style="background:rgba(26,122,74,0.15);color:var(--verde);font-size:22px">✅</div>
+        <div><div class="card-title">"Mi Compromiso Financiero"</div><div class="card-sub">Un acuerdo personal que el docente revisará próxima sesión</div></div>
       </div>
       <div class="inner-tabs" id="act4Tabs"></div>
       <div id="act4Forms"></div>
@@ -622,44 +622,44 @@
     <div class="card" style="background:var(--bg3)">
       <div class="card-title" style="margin-bottom:1rem">Compromiso del Grupo</div>
       <div class="field-row">
-        <label>Como grupo, Â¿quÃ© acciÃ³n concreta van a tomar esta semana relacionada con su fondo de emergencia? *</label>
-        <textarea id="compromisoGrupal" placeholder="Ej: Los 3 integrantes del grupo vamos a abrir una cuenta Nequi separada antes del viernes y a hacer el primer depÃ³sito de $10.000 cada uno..."></textarea>
+        <label>Como grupo, ¿qué acción concreta van a tomar esta semana relacionada con su fondo de emergencia? *</label>
+        <textarea id="compromisoGrupal" placeholder="Ej: Los 3 integrantes del grupo vamos a abrir una cuenta Nequi separada antes del viernes y a hacer el primer depósito de $10.000 cada uno..."></textarea>
       </div>
       <div class="field-row">
-        <label>Â¿CÃ³mo se van a acompaÃ±ar mutuamente para cumplir el compromiso? *</label>
-        <textarea id="compromisoAcompaÃ±amiento" placeholder="Ej: Creamos un grupo de WhatsApp donde publicamos screenshot del saldo del fondo cada semana..." style="min-height:70px"></textarea>
+        <label>¿Cómo se van a acompañar mutuamente para cumplir el compromiso? *</label>
+        <textarea id="compromisoAcompañamiento" placeholder="Ej: Creamos un grupo de WhatsApp donde publicamos screenshot del saldo del fondo cada semana..." style="min-height:70px"></textarea>
       </div>
       <div class="field-row">
-        <label>Califica el nivel de innovaciÃ³n de las estrategias que diseÃ±aron hoy (autoevaluaciÃ³n grupal)</label>
+        <label>Califica el nivel de innovación de las estrategias que diseñaron hoy (autoevaluación grupal)</label>
         <div class="rating-row" style="border:none;padding:.5rem 0">
-          <span class="rating-label" style="min-width:auto;margin-right:1rem;color:var(--text)">Â¿QuÃ© tan creativos fueron?</span>
+          <span class="rating-label" style="min-width:auto;margin-right:1rem;color:var(--text)">¿Qué tan creativos fueron?</span>
           <div class="rating-stars" id="selfRating">
-            <span class="rating-star" onclick="setSelfRating(1)">â</span>
-            <span class="rating-star" onclick="setSelfRating(2)">â</span>
-            <span class="rating-star" onclick="setSelfRating(3)">â</span>
-            <span class="rating-star" onclick="setSelfRating(4)">â</span>
-            <span class="rating-star" onclick="setSelfRating(5)">â</span>
+            <span class="rating-star" onclick="setSelfRating(1)">★</span>
+            <span class="rating-star" onclick="setSelfRating(2)">★</span>
+            <span class="rating-star" onclick="setSelfRating(3)">★</span>
+            <span class="rating-star" onclick="setSelfRating(4)">★</span>
+            <span class="rating-star" onclick="setSelfRating(5)">★</span>
           </div>
           <span id="selfRatingVal" style="margin-left:.5rem;color:var(--naranja);font-weight:700"></span>
         </div>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-secondary" onclick="goTo(3)">â Volver</button>
-      <button class="btn btn-success btn-lg" onclick="saveAct4()">â Finalizar y ver resultados â</button>
+      <button class="btn btn-secondary" onclick="goTo(3)">← Volver</button>
+      <button class="btn btn-success btn-lg" onclick="saveAct4()">✓ Finalizar y ver resultados →</button>
     </div>
   </div>
 
-  <!-- ââââââââââââ SCREEN 5: RESULTADOS ââââââââââââ -->
+  <!-- ════════════ SCREEN 5: RESULTADOS ════════════ -->
   <div class="screen" id="screen-5">
-    <div class="section-title">Resultados y EvaluaciÃ³n <div class="accent"></div></div>
+    <div class="section-title">Resultados y Evaluación <div class="accent"></div></div>
     <div id="resultsContent"></div>
   </div>
 </div>
 
 <script>
 const COLORS = {azul:'#2D4271',rojo:'#B21937',naranja:'#F26A25',celeste:'#5B7DB8',verde:'#1A7A4A',amarillo:'#F5A623'};
-const PROGRAMS = ['ContadurÃ­a PÃºblica','AdministraciÃ³n de Empresas','DiseÃ±o GrÃ¡fico','IngenierÃ­a de Sistemas','Otro'];
+const PROGRAMS = ['Contaduría Pública','Administración de Empresas','Diseño Gráfico','Ingeniería de Sistemas','Otro'];
 const SEMESTERS = ['1ro','2do','3ro','4to','5to','6to','7mo','8vo','9no','10mo'];
 
 const firebaseConfig = {
@@ -673,7 +673,7 @@ const firebaseConfig = {
   measurementId: "G-JJJGKQLPP9"
 };
 
-// ââ Firebase init (safe: no crash if config not yet filled) âââââââââââââââââ
+// ── Firebase init (safe: no crash if config not yet filled) ─────────────────
 let db = null;
 let firebaseReady = false;
 try {
@@ -684,10 +684,10 @@ try {
   }
 } catch(e) { console.warn('Firebase no configurado todavia:', e); }
 
-// ââ Storage key for localStorage fallback âââââââââââââââââââââââââââââââââââ
+// ── Storage key for localStorage fallback ───────────────────────────────────
 const STORAGE_KEY = 'unicesmag_fondo_emergencia_v1';
 
-// ââ Current session group ID (set when group registers) âââââââââââââââââââââ
+// ── Current session group ID (set when group registers) ─────────────────────
 let currentGroupId = null;
 
 function generateGroupId(groupName, salon) {
@@ -696,7 +696,7 @@ function generateGroupId(groupName, salon) {
   return clean(groupName) + '_' + clean(salon) + '_' + ts;
 }
 
-// ââ Save to Firebase AND localStorage âââââââââââââââââââââââââââââââââââââââ
+// ── Save to Firebase AND localStorage ───────────────────────────────────────
 function saveState() {
   // Always save locally as backup (include groupId for restore on reload)
   if (currentGroupId) state._groupId = currentGroupId;
@@ -712,7 +712,7 @@ function saveState() {
   }
 }
 
-// ââ Load from localStorage (initial fast load) ââââââââââââââââââââââââââââââ
+// ── Load from localStorage (initial fast load) ──────────────────────────────
 function loadState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -721,7 +721,7 @@ function loadState() {
   return null;
 }
 
-// ââ Load from Firebase by groupId âââââââââââââââââââââââââââââââââââââââââââ
+// ── Load from Firebase by groupId ───────────────────────────────────────────
 async function loadFromFirebase(groupId) {
   if (!firebaseReady || !db) return null;
   try {
@@ -759,22 +759,22 @@ const crisisScenarios = [
   {
     id:'dental', title:'Urgencia dental', badge:'Salud', badgeColor:'#e06b7d',
     amount:'$280.000 - $450.000',
-    context:'A mitad del semestre, un molar fisurado requiere extracciÃ³n urgente. El dolor no permite concentrarse. El odontÃ³logo mÃ¡s econÃ³mico cobra $280.000.'
+    context:'A mitad del semestre, un molar fisurado requiere extracción urgente. El dolor no permite concentrarse. El odontólogo más económico cobra $280.000.'
   },
   {
-    id:'celular', title:'Celular daÃ±ado en parciales', badge:'TecnologÃ­a', badgeColor:'#9ab5dd',
+    id:'celular', title:'Celular dañado en parciales', badge:'Tecnología', badgeColor:'#9ab5dd',
     amount:'$150.000 - $400.000',
     context:'La pantalla del celular se rompe la semana de parciales. Sin celular no puedes ver el horario, recibir avisos del docente, ni usar las apps del curso.'
   },
   {
     id:'transporte', title:'Paro regional de transporte', badge:'Movilidad', badgeColor:'#7ecfa3',
     amount:'$90.000 extra ese mes',
-    context:'Un paro de transporte dura 2 semanas. El taxi o mototaxi cuesta 3 veces mÃ¡s que el bus. Tienes que llegar a clases de todas formas para no perder el semestre.'
+    context:'Un paro de transporte dura 2 semanas. El taxi o mototaxi cuesta 3 veces más que el bus. Tienes que llegar a clases de todas formas para no perder el semestre.'
   },
   {
     id:'familiar', title:'Enfermedad familiar urgente', badge:'Familia', badgeColor:'#e6c97a',
     amount:'$200.000 - $500.000',
-    context:'Tu mamÃ¡ o papÃ¡ se enferma inesperadamente. No hay dinero para los medicamentos y el mÃ©dico. La familia te pide ayuda. TÃº eres el Ãºnico con algo de acceso a dinero.'
+    context:'Tu mamá o papá se enferma inesperadamente. No hay dinero para los medicamentos y el médico. La familia te pide ayuda. Tú eres el único con algo de acceso a dinero.'
   }
 ];
 
@@ -817,7 +817,7 @@ function init() {
         el.classList.add('selected');
         const p = perfiles[state.act2.perfil];
         const pi = document.getElementById('perfilIngresos');
-        if(pi) pi.innerHTML = '<strong style="color:var(--text)">'+p.nombre+'</strong> Â· '+p.programa+'<br>'+p.semestre+'<br><br><span style="color:var(--celeste)">'+p.ingresos+'</span>';
+        if(pi) pi.innerHTML = '<strong style="color:var(--text)">'+p.nombre+'</strong> · '+p.programa+'<br>'+p.semestre+'<br><br><span style="color:var(--celeste)">'+p.ingresos+'</span>';
         const pd = document.getElementById('perfilDetails');
         if(pd) pd.style.display='block';
         const d = state.act2;
@@ -871,7 +871,7 @@ function init() {
       });
       const setv = (id,val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
       setv('compromisoGrupal', state.act4.compromisoGrupal);
-      setv('compromisoAcompaÃ±amiento', state.act4.acompaÃ±amiento);
+      setv('compromisoAcompañamiento', state.act4.acompañamiento);
       if(state.act4.selfRating) setSelfRating(state.act4.selfRating);
     }
     // Restore navigation step
@@ -904,7 +904,7 @@ function showRestoredBanner() {
   setTimeout(()=>{ if(banner.parentNode) banner.style.opacity='0'; banner.style.transition='opacity .5s'; setTimeout(()=>banner.remove(),500); }, 4000);
 }
 
-// ââ MEMBERS ââ
+// ── MEMBERS ──
 function renderMembers() {
   const c = document.getElementById('membersContainer');
   if (!state.members.length) state.members = [newMember()];
@@ -919,13 +919,13 @@ function renderMembers() {
   document.getElementById('addMemberBtn').style.display = state.members.length >= 4 ? 'none' : '';
   document.getElementById('removeMemberBtn').style.display = state.members.length > 1 ? '' : 'none';
 }
-function newMember() { return {name:'',program:'ContadurÃ­a PÃºblica',semester:'1ro'}; }
+function newMember() { return {name:'',program:'Contaduría Pública',semester:'1ro'}; }
 function addMember() {
   if (state.members.length >= 4) return;
   // Capture current DOM values into state before re-rendering
   state.members = state.members.map((m, i) => ({
     name: document.getElementById('m_name_' + i)?.value.trim() || m.name || '',
-    program: document.getElementById('m_prog_' + i)?.value || m.program || 'ContadurÃ­a PÃºblica',
+    program: document.getElementById('m_prog_' + i)?.value || m.program || 'Contaduría Pública',
     semester: document.getElementById('m_sem_' + i)?.value || m.semester || '1ro'
   }));
   state.members.push(newMember());
@@ -936,7 +936,7 @@ function removeMember() {
   // Save current field values first so we don't lose what was typed
   state.members = state.members.map((_,i)=>({
     name: document.getElementById('m_name_'+i)?.value.trim()||state.members[i].name||'',
-    program: document.getElementById('m_prog_'+i)?.value||state.members[i].program||'ContadurÃ­a PÃºblica',
+    program: document.getElementById('m_prog_'+i)?.value||state.members[i].program||'Contaduría Pública',
     semester: document.getElementById('m_sem_'+i)?.value||state.members[i].semester||'1ro'
   }));
   const memberColors = [COLORS.azul,COLORS.rojo,COLORS.naranja,COLORS.celeste];
@@ -949,7 +949,7 @@ function removeMember() {
   document.getElementById('removeModal').innerHTML = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
       <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:1.5rem;max-width:400px;width:100%">
-        <div style="font-weight:700;font-size:1rem;margin-bottom:.4rem">Â¿A quiÃ©n deseas eliminar?</div>
+        <div style="font-weight:700;font-size:1rem;margin-bottom:.4rem">¿A quién deseas eliminar?</div>
         <div style="font-size:.82rem;color:var(--text2);margin-bottom:1rem">Selecciona el integrante que quieres quitar del grupo.</div>
         ${opts}
         <button onclick="closeRemoveModal()" style="width:100%;background:none;border:1px solid var(--border2);border-radius:10px;padding:9px;color:var(--text2);font-family:inherit;cursor:pointer;margin-top:.3rem">Cancelar</button>
@@ -1025,7 +1025,7 @@ function saveGroup() {
   }));
   state.groupName = document.getElementById('groupName').value.trim();
   state.groupSalon = document.getElementById('groupSalon').value.trim();
-  if(!state.members[0].name||!state.groupName||!state.groupSalon) { showToast('â  Completa todos los campos obligatorios','#B21937'); return; }
+  if(!state.members[0].name||!state.groupName||!state.groupSalon) { showToast('⚠ Completa todos los campos obligatorios','#B21937'); return; }
   buildAct1Forms();
   buildAct4Forms();
   // Assign a unique group ID for Firebase (only on first registration)
@@ -1037,7 +1037,7 @@ function saveGroup() {
   goTo(1);
 }
 
-// ââ ACT 1 FORMS ââ
+// ── ACT 1 FORMS ──
 function buildAct1Forms() {
   const tabs = document.getElementById('act1Tabs');
   const forms = document.getElementById('act1Forms');
@@ -1045,14 +1045,14 @@ function buildAct1Forms() {
   forms.innerHTML = state.members.map((m,i)=>`
     <div id="act1form_${i}" style="display:${i===0?'block':'none'}">
       <div class="commitment-card">
-        <div style="font-weight:700;margin-bottom:.3rem;color:var(--celeste)">${m.name} Â· ${m.program} Â· ${m.semester} semestre</div>
-        <div style="font-size:.8rem;color:var(--text2)">Responde con honestidad. Solo el docente verÃ¡ estos datos al final.</div>
+        <div style="font-weight:700;margin-bottom:.3rem;color:var(--celeste)">${m.name} · ${m.program} · ${m.semester} semestre</div>
+        <div style="font-size:.8rem;color:var(--text2)">Responde con honestidad. Solo el docente verá estos datos al final.</div>
       </div>
-      <div class="field-row"><label>1. Â¿CuÃ¡nto dinero tienes disponible AHORA MISMO para una emergencia? (saldo real o aproximado) *</label><div class="money-input-wrap"><input type="number" id="a1_saldo_${i}" placeholder="0" min="0"></div></div>
-      <div class="field-row"><label>2. Si maÃ±ana necesitas $200.000 urgentes, Â¿de dÃ³nde lo sacas SIN pedir prestado? *</label><textarea id="a1_fuente_${i}" placeholder="SÃ© honesto: Â¿tienes ese dinero? Â¿cÃ³mo lo conseguirÃ­as?"></textarea></div>
-      <div class="field-row"><label>3. En los Ãºltimos 3 meses, Â¿tuviste algÃºn gasto inesperado? Â¿CÃ³mo lo resolviste? *</label><textarea id="a1_pasado_${i}" placeholder="Cuenta brevemente la situaciÃ³n y cÃ³mo la manejaste..."></textarea></div>
-      <div class="field-row"><label>4. Si ahorras $10.000 por semana, Â¿en cuÃ¡ntas semanas alcanzas tu fondo mÃ­nimo? Calcula tu gasto mensual bÃ¡sico y muestra el razonamiento. *</label><textarea id="a1_calculo_${i}" placeholder="Mis gastos mensuales son... por lo tanto mi fondo mÃ­nimo es... y lo alcanzo en..."></textarea></div>
-      <div class="field-row"><label>5. Â¿CuÃ¡l es el principal obstÃ¡culo que te impide ahorrar hoy? *</label><textarea id="a1_obstaculo_${i}" placeholder="SÃ© especÃ­fico: Â¿es el monto de ingresos, los gastos fijos, la disciplina, la falta de informaciÃ³n...?" style="min-height:70px"></textarea></div>
+      <div class="field-row"><label>1. ¿Cuánto dinero tienes disponible AHORA MISMO para una emergencia? (saldo real o aproximado) *</label><div class="money-input-wrap"><input type="number" id="a1_saldo_${i}" placeholder="0" min="0"></div></div>
+      <div class="field-row"><label>2. Si mañana necesitas $200.000 urgentes, ¿de dónde lo sacas SIN pedir prestado? *</label><textarea id="a1_fuente_${i}" placeholder="Sé honesto: ¿tienes ese dinero? ¿cómo lo conseguirías?"></textarea></div>
+      <div class="field-row"><label>3. En los últimos 3 meses, ¿tuviste algún gasto inesperado? ¿Cómo lo resolviste? *</label><textarea id="a1_pasado_${i}" placeholder="Cuenta brevemente la situación y cómo la manejaste..."></textarea></div>
+      <div class="field-row"><label>4. Si ahorras $10.000 por semana, ¿en cuántas semanas alcanzas tu fondo mínimo? Calcula tu gasto mensual básico y muestra el razonamiento. *</label><textarea id="a1_calculo_${i}" placeholder="Mis gastos mensuales son... por lo tanto mi fondo mínimo es... y lo alcanzo en..."></textarea></div>
+      <div class="field-row"><label>5. ¿Cuál es el principal obstáculo que te impide ahorrar hoy? *</label><textarea id="a1_obstaculo_${i}" placeholder="Sé específico: ¿es el monto de ingresos, los gastos fijos, la disciplina, la falta de información...?" style="min-height:70px"></textarea></div>
     </div>
   `).join('');
 }
@@ -1075,16 +1075,16 @@ function saveAct1() {
     if(!fuente||!pasado||!calculo||!obs){ok=false;}
     data[i]={saldo:saldo||'0',fuente,pasado,calculo,obstaculo:obs};
   });
-  if(!ok){showToast('â  Completa todos los campos de cada integrante','#B21937');return;}
+  if(!ok){showToast('⚠ Completa todos los campos de cada integrante','#B21937');return;}
   state.act1=data; saveState(); goTo(2);
 }
 
-// ââ ACT 2 ââ
+// ── ACT 2 ──
 let selectedPerfil = null;
 const perfiles = {
-  A:{nombre:'Martina',semestre:'1er semestre',ingresos:'Mesada familiar: $350.000/mes',ingMensual:350000,programa:'AdministraciÃ³n de Empresas'},
-  B:{nombre:'Santiago',semestre:'4to semestre',ingresos:'Trabajo sÃ¡bados: $120.000/semana (~$480.000/mes)',ingMensual:480000,programa:'IngenierÃ­a de Sistemas'},
-  C:{nombre:'Valentina',semestre:'6to semestre',ingresos:'Beca ICETEX: ~$600.000/mes + posibles trabajos\n(Semestral: $1.200.000)',ingMensual:600000,programa:'DiseÃ±o GrÃ¡fico'}
+  A:{nombre:'Martina',semestre:'1er semestre',ingresos:'Mesada familiar: $350.000/mes',ingMensual:350000,programa:'Administración de Empresas'},
+  B:{nombre:'Santiago',semestre:'4to semestre',ingresos:'Trabajo sábados: $120.000/semana (~$480.000/mes)',ingMensual:480000,programa:'Ingeniería de Sistemas'},
+  C:{nombre:'Valentina',semestre:'6to semestre',ingresos:'Beca ICETEX: ~$600.000/mes + posibles trabajos\n(Semestral: $1.200.000)',ingMensual:600000,programa:'Diseño Gráfico'}
 };
 
 function selectPerfil(el,key) {
@@ -1092,7 +1092,7 @@ function selectPerfil(el,key) {
   el.classList.add('selected');
   selectedPerfil=key;
   const p=perfiles[key];
-  document.getElementById('perfilIngresos').innerHTML=`<strong style="color:var(--text)">${p.nombre}</strong> Â· ${p.programa}<br>${p.semestre}<br><br><span style="color:var(--celeste)">${p.ingresos}</span><br><br><span style="color:var(--text2);font-size:.8rem">Ingreso estimado/mes: <strong style="color:var(--naranja)">$${p.ingMensual.toLocaleString()}</strong></span>`;
+  document.getElementById('perfilIngresos').innerHTML=`<strong style="color:var(--text)">${p.nombre}</strong> · ${p.programa}<br>${p.semestre}<br><br><span style="color:var(--celeste)">${p.ingresos}</span><br><br><span style="color:var(--text2);font-size:.8rem">Ingreso estimado/mes: <strong style="color:var(--naranja)">$${p.ingMensual.toLocaleString()}</strong></span>`;
   document.getElementById('perfilDetails').style.display='block';
   ['g_transporte','g_alimentacion','g_materiales','g_otros'].forEach(id=>document.getElementById(id)?.addEventListener('input',calcFondo));
 }
@@ -1114,9 +1114,9 @@ function calcTime() {
 }
 
 function saveAct2() {
-  if(!selectedPerfil){showToast('â  Selecciona un perfil universitario','#B21937');return;}
+  if(!selectedPerfil){showToast('⚠ Selecciona un perfil universitario','#B21937');return;}
   const req=['estrategiaAhorro','obstaculos','herramienta','aprendizaje2'];
-  for(const id of req){if(!document.getElementById(id)?.value.trim()){showToast('â  Completa todos los campos obligatorios','#B21937');return;}}
+  for(const id of req){if(!document.getElementById(id)?.value.trim()){showToast('⚠ Completa todos los campos obligatorios','#B21937');return;}}
   const total=parseFloat(document.getElementById('fondoMinimo')?.textContent.replace(/[^0-9]/g,''))||0;
   state.act2={
     perfil:selectedPerfil,perfilData:perfiles[selectedPerfil],
@@ -1133,7 +1133,7 @@ function saveAct2() {
   goTo(3);
 }
 
-// ââ ACT 3 ââ
+// ── ACT 3 ──
 function renderCrisisCards() {
   document.getElementById('crisisCards').innerHTML = crisisScenarios.map((s,i)=>`
     <div class="crisis-card">
@@ -1145,17 +1145,17 @@ function renderCrisisCards() {
       <p style="font-size:.85rem;color:var(--text2);line-height:1.5;margin-bottom:1rem">${s.context}</p>
       <div class="grid-2">
         <div class="field-row">
-          <label style="color:var(--rojo)">SIN fondo de emergencia: Â¿quÃ© hace el estudiante? *</label>
-          <textarea id="crisis_sin_${s.id}" placeholder="Â¿Pide prestado? Â¿Falta a clases? Â¿Toma decisiones desesperadas? Â¿CÃ³mo afecta su semestre?" style="min-height:80px"></textarea>
+          <label style="color:var(--rojo)">SIN fondo de emergencia: ¿qué hace el estudiante? *</label>
+          <textarea id="crisis_sin_${s.id}" placeholder="¿Pide prestado? ¿Falta a clases? ¿Toma decisiones desesperadas? ¿Cómo afecta su semestre?" style="min-height:80px"></textarea>
         </div>
         <div class="field-row">
-          <label style="color:var(--verde)">CON fondo de emergencia: Â¿cÃ³mo lo maneja? *</label>
-          <textarea id="crisis_con_${s.id}" placeholder="Â¿CuÃ¡nto retira? Â¿En cuÃ¡nto tiempo lo recupera? Â¿CÃ³mo impacta positivamente en su semestre?" style="min-height:80px"></textarea>
+          <label style="color:var(--verde)">CON fondo de emergencia: ¿cómo lo maneja? *</label>
+          <textarea id="crisis_con_${s.id}" placeholder="¿Cuánto retira? ¿En cuánto tiempo lo recupera? ¿Cómo impacta positivamente en su semestre?" style="min-height:80px"></textarea>
         </div>
       </div>
       <div class="field-row" style="margin-top:.5rem">
-        <label>Impacto acadÃ©mico de NO tener fondo en este caso *</label>
-        <textarea id="crisis_impacto_${s.id}" placeholder="Â¿Pierde notas? Â¿Se atrasa? Â¿Aumenta el riesgo de deserciÃ³n? SÃ© especÃ­fico." style="min-height:60px"></textarea>
+        <label>Impacto académico de NO tener fondo en este caso *</label>
+        <textarea id="crisis_impacto_${s.id}" placeholder="¿Pierde notas? ¿Se atrasa? ¿Aumenta el riesgo de deserción? Sé específico." style="min-height:60px"></textarea>
       </div>
     </div>
   `).join('');
@@ -1167,19 +1167,19 @@ function saveAct3() {
     const sin=document.getElementById(`crisis_sin_${s.id}`)?.value.trim();
     const con=document.getElementById(`crisis_con_${s.id}`)?.value.trim();
     const impacto=document.getElementById(`crisis_impacto_${s.id}`)?.value.trim();
-    if(!sin||!con||!impacto){showToast('â  Completa todos los escenarios de crisis','#B21937');return;}
+    if(!sin||!con||!impacto){showToast('⚠ Completa todos los escenarios de crisis','#B21937');return;}
     crisisData[s.id]={sin,con,impacto};
   }
   const reflexion=document.getElementById('crisisReflexion')?.value.trim();
   const consejo=document.getElementById('crisisConsejo')?.value.trim();
   const carrera=document.getElementById('crisisCarrera')?.value.trim();
-  if(!reflexion||!consejo||!carrera){showToast('â  Completa la reflexiÃ³n final','#B21937');return;}
+  if(!reflexion||!consejo||!carrera){showToast('⚠ Completa la reflexión final','#B21937');return;}
   state.act3={crisis:crisisData,reflexion,consejo,carrera};
   saveState();
   goTo(4);
 }
 
-// ââ ACT 4 ââ
+// ── ACT 4 ──
 function buildAct4Forms() {
   const tabs=document.getElementById('act4Tabs');
   const forms=document.getElementById('act4Forms');
@@ -1189,16 +1189,16 @@ function buildAct4Forms() {
     <div id="act4form_${i}" style="display:${i===0?'block':'none'}">
       <div class="commitment-card">
         <div style="font-weight:700;color:var(--verde);margin-bottom:.3rem">${m.name}</div>
-        <div style="font-size:.8rem;color:var(--text2)">${m.program} Â· ${m.semester} semestre â Compromiso personal</div>
+        <div style="font-size:.8rem;color:var(--text2)">${m.program} · ${m.semester} semestre — Compromiso personal</div>
       </div>
-      <div class="field-row"><label>Fecha en que abrirÃ© mi cuenta de ahorro para emergencias *</label><input type="date" id="a4_fecha_${i}"></div>
+      <div class="field-row"><label>Fecha en que abriré mi cuenta de ahorro para emergencias *</label><input type="date" id="a4_fecha_${i}"></div>
       <div class="grid-2">
         <div class="field-row"><label>Ahorro semanal que me comprometo a depositar *</label><div class="money-input-wrap"><input type="number" id="a4_ahorro_${i}" placeholder="0" min="0"></div></div>
-        <div class="field-row"><label>Mi meta de fondo mÃ­nimo *</label><div class="money-input-wrap"><input type="number" id="a4_meta_${i}" placeholder="0" min="0"></div></div>
+        <div class="field-row"><label>Mi meta de fondo mínimo *</label><div class="money-input-wrap"><input type="number" id="a4_meta_${i}" placeholder="0" min="0"></div></div>
       </div>
-      <div class="field-row"><label>App o herramienta que usarÃ© para guardar el fondo *</label><input type="text" id="a4_app_${i}" placeholder="Nequi, Daviplata, Nu, cuenta bancaria..."></div>
-      <div class="field-row"><label>Â¿QuÃ© aprendizaje de clase de hoy fue mÃ¡s impactante para ti? *</label><textarea id="a4_insight_${i}" placeholder="El momento o dato que mÃ¡s te marcÃ³ de esta sesiÃ³n..." style="min-height:70px"></textarea></div>
-      <div class="field-row"><label>Â¿CÃ³mo aplicarÃ¡s el conocimiento financiero de esta clase en tu futuro profesional? *</label><textarea id="a4_profesional_${i}" placeholder="Piensa en tu programa: Â¿cÃ³mo usarÃ¡s esto en tu carrera?" style="min-height:70px"></textarea></div>
+      <div class="field-row"><label>App o herramienta que usaré para guardar el fondo *</label><input type="text" id="a4_app_${i}" placeholder="Nequi, Daviplata, Nu, cuenta bancaria..."></div>
+      <div class="field-row"><label>¿Qué aprendizaje de clase de hoy fue más impactante para ti? *</label><textarea id="a4_insight_${i}" placeholder="El momento o dato que más te marcó de esta sesión..." style="min-height:70px"></textarea></div>
+      <div class="field-row"><label>¿Cómo aplicarás el conocimiento financiero de esta clase en tu futuro profesional? *</label><textarea id="a4_profesional_${i}" placeholder="Piensa en tu programa: ¿cómo usarás esto en tu carrera?" style="min-height:70px"></textarea></div>
     </div>
   `).join('');
 }
@@ -1217,8 +1217,8 @@ function setSelfRating(n) {
 
 function saveAct4() {
   const compromisoG=document.getElementById('compromisoGrupal')?.value.trim();
-  const acompaÃ±a=document.getElementById('compromisoAcompaÃ±amiento')?.value.trim();
-  if(!compromisoG||!acompaÃ±a){showToast('â  Completa el compromiso grupal','#B21937');return;}
+  const acompaña=document.getElementById('compromisoAcompañamiento')?.value.trim();
+  if(!compromisoG||!acompaña){showToast('⚠ Completa el compromiso grupal','#B21937');return;}
   const members4={};
   for(let i=0;i<state.members.length;i++){
     const fecha=document.getElementById(`a4_fecha_${i}`)?.value;
@@ -1227,10 +1227,10 @@ function saveAct4() {
     const app=document.getElementById(`a4_app_${i}`)?.value.trim();
     const insight=document.getElementById(`a4_insight_${i}`)?.value.trim();
     const prof=document.getElementById(`a4_profesional_${i}`)?.value.trim();
-    if(!fecha||!ahorro||!meta||!app||!insight||!prof){showToast('â  Completa el compromiso de todos los integrantes','#B21937');return;}
+    if(!fecha||!ahorro||!meta||!app||!insight||!prof){showToast('⚠ Completa el compromiso de todos los integrantes','#B21937');return;}
     members4[i]={fecha,ahorro:parseFloat(ahorro)||0,meta:parseFloat(meta)||0,app,insight,profesional:prof};
   }
-  state.act4={members:members4,compromisoGrupal:compromisoG,acompaÃ±amiento:acompaÃ±a,selfRating:selfRatingVal};
+  state.act4={members:members4,compromisoGrupal:compromisoG,acompañamiento:acompaña,selfRating:selfRatingVal};
   saveState();
   generateResults();
   // Show confirmation modal before revealing results
@@ -1245,20 +1245,20 @@ function showConfirmModal() {
   document.getElementById('removeModal').innerHTML = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
       <div style="background:var(--bg2);border:1px solid rgba(26,122,74,0.5);border-radius:20px;padding:2rem;max-width:440px;width:100%;text-align:center">
-        <div style="font-size:2.5rem;margin-bottom:.8rem">â</div>
-        <div style="font-weight:700;font-size:1.3rem;margin-bottom:.5rem;color:var(--verde)">Â¡Actividades completadas!</div>
+        <div style="font-size:2.5rem;margin-bottom:.8rem">✅</div>
+        <div style="font-weight:700;font-size:1.3rem;margin-bottom:.5rem;color:var(--verde)">¡Actividades completadas!</div>
         <div style="font-size:.88rem;color:var(--text2);margin-bottom:1.5rem;line-height:1.6">
           Todas las respuestas del grupo <strong style="color:var(--text)">${state.groupName}</strong> han sido guardadas correctamente.<br>
-          A continuaciÃ³n verÃ¡n sus resultados y calificaciÃ³n.
+          A continuación verán sus resultados y calificación.
         </div>
         <div style="background:var(--bg3);border-radius:12px;padding:1rem;margin-bottom:1.5rem">
-          <div style="font-size:.78rem;color:var(--text2);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:1px">Vista previa de calificaciÃ³n</div>
+          <div style="font-size:.78rem;color:var(--text2);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:1px">Vista previa de calificación</div>
           <div style="font-size:2.8rem;font-weight:700;color:${notaColor};line-height:1">${notaFinal}</div>
-          <div style="font-size:.8rem;color:var(--text2);margin-top:.2rem">sobre 5.0  Â·  Puntaje: ${total}/100</div>
+          <div style="font-size:.8rem;color:var(--text2);margin-top:.2rem">sobre 5.0  ·  Puntaje: ${total}/100</div>
         </div>
         <div style="display:flex;gap:.75rem;flex-direction:column">
           <button onclick="closeRemoveModal();goTo(5);" style="background:var(--verde);color:#fff;border:none;border-radius:10px;padding:13px 24px;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:filter .2s" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='none'">
-            Ver resultados completos â
+            Ver resultados completos →
           </button>
           <button onclick="closeRemoveModal();" style="background:none;border:1px solid var(--border2);border-radius:10px;padding:10px 24px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">
             Revisar respuestas antes de continuar
@@ -1268,7 +1268,7 @@ function showConfirmModal() {
     </div>`;
 }
 
-// ââ EVALUATION ENGINE ââ
+// ── EVALUATION ENGINE ──
 function scoreAct1() {
   let total=0;
   state.members.forEach((_,i)=>{
@@ -1321,13 +1321,13 @@ function scoreAct4() {
 
 function getAwards(scores,act2,act3,act4) {
   const awards=[];
-  if(scores.act2>=85)awards.push({icon:'ð¡',label:'Estrategia Innovadora',color:'#5B7DB8'});
-  if(scores.act3>=85)awards.push({icon:'ð§ ',label:'AnÃ¡lisis Profundo',color:'#F26A25'});
-  if(scores.act4>=85)awards.push({icon:'ð¤',label:'Compromiso Real',color:'#1A7A4A'});
+  if(scores.act2>=85)awards.push({icon:'💡',label:'Estrategia Innovadora',color:'#5B7DB8'});
+  if(scores.act3>=85)awards.push({icon:'🧠',label:'Análisis Profundo',color:'#F26A25'});
+  if(scores.act4>=85)awards.push({icon:'🤝',label:'Compromiso Real',color:'#1A7A4A'});
   const total=scores.act1+scores.act2+scores.act3+scores.act4;
-  if(total>=340)awards.push({icon:'â­',label:'Grupo Excelente',color:'#F5A623'});
-  if(act4.selfRating>=5)awards.push({icon:'ð¯',label:'MÃ¡xima Creatividad',color:'#B21937'});
-  if(act2.fondoMinimo>1500000)awards.push({icon:'ð',label:'Meta Ambiciosa',color:'#2D4271'});
+  if(total>=340)awards.push({icon:'⭐',label:'Grupo Excelente',color:'#F5A623'});
+  if(act4.selfRating>=5)awards.push({icon:'🎯',label:'Máxima Creatividad',color:'#B21937'});
+  if(act2.fondoMinimo>1500000)awards.push({icon:'🏆',label:'Meta Ambiciosa',color:'#2D4271'});
   return awards;
 }
 
@@ -1347,10 +1347,10 @@ function nota(n) {
 }
 function comment(n,act) {
   const labels={1:'Mi Foto Financiera',2:'Reto del Semestre',3:'Simulador de Crisis',4:'Mi Compromiso'};
-  if(n>=90)return`Excelente trabajo en ${labels[act]}. Respuestas completas, reflexivas y con aplicaciÃ³n real del conocimiento financiero.`;
-  if(n>=75)return`Buen desempeÃ±o en ${labels[act]}. Las respuestas muestran comprensiÃ³n del tema con oportunidad de mayor profundidad.`;
-  if(n>=60)return`DesempeÃ±o aceptable en ${labels[act]}. Se evidencia comprensiÃ³n bÃ¡sica pero falta mayor desarrollo y aplicaciÃ³n prÃ¡ctica.`;
-  return`En ${labels[act]} se recomienda ampliar las respuestas con mÃ¡s anÃ¡lisis y conexiÃ³n con casos reales.`;
+  if(n>=90)return`Excelente trabajo en ${labels[act]}. Respuestas completas, reflexivas y con aplicación real del conocimiento financiero.`;
+  if(n>=75)return`Buen desempeño en ${labels[act]}. Las respuestas muestran comprensión del tema con oportunidad de mayor profundidad.`;
+  if(n>=60)return`Desempeño aceptable en ${labels[act]}. Se evidencia comprensión básica pero falta mayor desarrollo y aplicación práctica.`;
+  return`En ${labels[act]} se recomienda ampliar las respuestas con más análisis y conexión con casos reales.`;
 }
 
 function generateResults() {
@@ -1359,7 +1359,7 @@ function generateResults() {
   const awards=getAwards({act1:s1,act2:s2,act3:s3,act4:s4},state.act2,state.act4);
   const notaFinal=nota(total);
 
-  const memberList=state.members.map(m=>`<div style="display:flex;align-items:center;gap:8px;margin:.2rem 0"><div style="width:28px;height:28px;border-radius:50%;background:${COLORS.celeste};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">${(m.name||'?')[0]}</div><span style="font-size:.88rem">${m.name}</span><span style="font-size:.75rem;color:var(--text2)">${m.program} Â· ${m.semester}</span></div>`).join('');
+  const memberList=state.members.map(m=>`<div style="display:flex;align-items:center;gap:8px;margin:.2rem 0"><div style="width:28px;height:28px;border-radius:50%;background:${COLORS.celeste};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">${(m.name||'?')[0]}</div><span style="font-size:.88rem">${m.name}</span><span style="font-size:.75rem;color:var(--text2)">${m.program} · ${m.semester}</span></div>`).join('');
 
   const actScores=[s1,s2,s3,s4];
   const actLabels=['Mi Foto Financiera','Reto del Semestre','Simulador de Crisis','Mi Compromiso'];
@@ -1384,7 +1384,7 @@ function generateResults() {
     const c=state.act4.members[i];if(!c)return'';
     const weeksToGoal=c.ahorro>0?Math.ceil(c.meta/(c.ahorro*4.3)):0;
     return`<div style="background:var(--bg3);border-radius:12px;padding:1rem;margin-bottom:.7rem;border-left:3px solid ${COLORS.verde}">
-      <div style="font-weight:700;margin-bottom:.5rem">${m.name} <span style="font-size:.78rem;color:var(--text2);font-weight:400">Â· ${m.program}</span></div>
+      <div style="font-weight:700;margin-bottom:.5rem">${m.name} <span style="font-size:.78rem;color:var(--text2);font-weight:400">· ${m.program}</span></div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;font-size:.82rem;margin-bottom:.6rem">
         <div><span style="color:var(--text2)">Meta: </span><strong style="color:var(--naranja)">$${Math.round(c.meta).toLocaleString()}</strong></div>
         <div><span style="color:var(--text2)">Ahorro/sem: </span><strong style="color:var(--celeste)">$${Math.round(c.ahorro).toLocaleString()}</strong></div>
@@ -1400,7 +1400,7 @@ function generateResults() {
       <div class="result-group-header">
         <div>
           <div style="font-weight:700;font-size:1.1rem">${state.groupName}</div>
-          <div style="font-size:.82rem;opacity:.75;margin-top:2px">${state.groupSalon} Â· ${state.members.length} integrante${state.members.length>1?'s':''}</div>
+          <div style="font-size:.82rem;opacity:.75;margin-top:2px">${state.groupSalon} · ${state.members.length} integrante${state.members.length>1?'s':''}</div>
           <div style="margin-top:.6rem">${memberList}</div>
         </div>
         <div style="text-align:center">
@@ -1410,14 +1410,14 @@ function generateResults() {
           </div>
           <div style="font-size:.75rem;color:rgba(255,255,255,0.6)">Puntaje global</div>
           <div style="font-size:1.8rem;font-weight:700;color:${notaColor};margin-top:.3rem">${notaFinal}</div>
-          <div style="font-size:.72rem;color:rgba(255,255,255,0.5)">CalificaciÃ³n</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,0.5)">Calificación</div>
         </div>
       </div>
       <div class="result-group-body">
         <div style="margin-bottom:1rem">${dimensionRows}</div>
         ${awards.length?`<div style="margin:.8rem 0">${awardBadges}</div>`:''}
         <div style="background:var(--bg3);border-radius:10px;padding:1rem;margin-top:.8rem">
-          <div style="font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:1px">RetroalimentaciÃ³n del docente</div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:1px">Retroalimentación del docente</div>
           ${actScores.map((sc,i)=>`<div style="margin-bottom:.5rem;font-size:.85rem;padding:.5rem;border-left:2px solid ${actColors[i]};padding-left:.8rem"><strong style="color:${actColors[i]}">${actLabels[i]}:</strong> ${comment(sc,i+1)}</div>`).join('')}
         </div>
       </div>
@@ -1427,20 +1427,20 @@ function generateResults() {
     ${memberCommitments}
     <div class="card" style="border-color:rgba(26,122,74,0.3)">
       <div class="card-header">
-        <div class="card-icon" style="background:rgba(26,122,74,0.15);color:var(--verde)">ð¤</div>
+        <div class="card-icon" style="background:rgba(26,122,74,0.15);color:var(--verde)">🤝</div>
         <div><div class="card-title">Compromiso del Grupo</div></div>
       </div>
       <div style="font-size:.9rem;line-height:1.6;color:var(--text2);margin-bottom:.8rem">"${state.act4.compromisoGrupal}"</div>
-      <div style="font-size:.85rem;color:var(--text2)"><strong style="color:var(--text)">Â¿CÃ³mo se acompaÃ±arÃ¡n?</strong><br>"${state.act4.acompaÃ±amiento}"</div>
+      <div style="font-size:.85rem;color:var(--text2)"><strong style="color:var(--text)">¿Cómo se acompañarán?</strong><br>"${state.act4.acompañamiento}"</div>
     </div>
 
-    ${total>=80?`<div class="alert alert-success">ð Â¡Excelente sesiÃ³n! El grupo demostrÃ³ comprensiÃ³n profunda del tema y compromisos concretos. El docente revisarÃ¡ el progreso en el prÃ³ximo mÃ³dulo.</div>`:''}
-    ${total>=60&&total<80?`<div class="alert alert-warning">El grupo muestra buena comprensiÃ³n del tema. Se recomienda ampliar el anÃ¡lisis en las prÃ³ximas sesiones y profundizar en los compromisos personales.</div>`:''}
-    ${total<60?`<div class="alert" style="background:rgba(178,25,55,0.1);border-color:var(--rojo);color:#e06b7d">El grupo debe reforzar el trabajo. El docente puede solicitar una revisiÃ³n de las actividades con mayor detalle.</div>`:''}
+    ${total>=80?`<div class="alert alert-success">🏆 ¡Excelente sesión! El grupo demostró comprensión profunda del tema y compromisos concretos. El docente revisará el progreso en el próximo módulo.</div>`:''}
+    ${total>=60&&total<80?`<div class="alert alert-warning">El grupo muestra buena comprensión del tema. Se recomienda ampliar el análisis en las próximas sesiones y profundizar en los compromisos personales.</div>`:''}
+    ${total<60?`<div class="alert" style="background:rgba(178,25,55,0.1);border-color:var(--rojo);color:#e06b7d">El grupo debe reforzar el trabajo. El docente puede solicitar una revisión de las actividades con mayor detalle.</div>`:''}
 
     <div style="text-align:center;margin-top:2rem;padding:1.5rem;background:var(--bg2);border-radius:16px;border:1px solid var(--border)">
-      <div style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem">Finanzas Personales Â· UNICESMAG Â· 2026-1</div>
-      <div style="font-size:.78rem;color:var(--text3)">Grupo registrado: ${state.groupName} Â· ${new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})}</div>
+      <div style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem">Finanzas Personales · UNICESMAG · 2026-1</div>
+      <div style="font-size:.78rem;color:var(--text3)">Grupo registrado: ${state.groupName} · ${new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})}</div>
       ${getGroupCodeBadge()}
       <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:1rem">
         <button class="btn btn-secondary" onclick="window.print()">&#128424; Imprimir resultados</button>
@@ -1448,20 +1448,20 @@ function generateResults() {
       </div>
       <div style="margin-top:1rem;font-size:.75rem;color:var(--text3);line-height:1.6">
         El archivo CSV generado es compatible con Moodle.<br>
-        Ir a: <strong style="color:var(--text2)">Calificaciones â Importar â Archivo CSV</strong> y sube el archivo descargado.
+        Ir a: <strong style="color:var(--text2)">Calificaciones → Importar → Archivo CSV</strong> y sube el archivo descargado.
       </div>
     </div>
   `;
 }
 
-// ââ CSV EXPORT FOR MOODLE ââ
+// ── CSV EXPORT FOR MOODLE ──
 function exportCSV() {
   const s1=scoreAct1(), s2=scoreAct2(), s3=scoreAct3(), s4=scoreAct4();
   const total=Math.round((s1*0.2+s2*0.3+s3*0.25+s4*0.25));
   const notaFinal=nota(total);
   const fecha=new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'});
 
-  // Moodle CSV header â columns it expects
+  // Moodle CSV header — columns it expects
   const headers = [
     'Nombre completo',
     'Programa',
@@ -1516,10 +1516,10 @@ function exportCSV() {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  showToast('CSV descargado â listo para subir a Moodle');
+  showToast('CSV descargado — listo para subir a Moodle');
 }
 
-// ââ NAVIGATION ââ
+// ── NAVIGATION ──
 function goTo(n) {
   state.step=n;
   if(n>state.maxUnlocked)state.maxUnlocked=n;
@@ -1538,7 +1538,7 @@ function tryNav(n) {
   else showToast('Completa la actividad actual primero','#B21937');
 }
 
-// ââ TOAST ââ
+// ── TOAST ──
 function showToast(msg,bg='#1A7A4A') {
   const t=document.getElementById('toast');
   t.textContent=msg; t.style.background=bg;
@@ -1549,7 +1549,7 @@ function showToast(msg,bg='#1A7A4A') {
 init();
 updateFbStatus();
 
-// ââ FIREBASE STATUS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── FIREBASE STATUS ──────────────────────────────────────────────────────────
 function updateFbStatus() {
   const el = document.getElementById('fbStatus');
   if (!el) return;
@@ -1558,6 +1558,7 @@ function updateFbStatus() {
     el.textContent = '● solo local (configura Firebase)';
     return;
   }
+  // Test actual DB access with a lightweight read
   el.style.color = '#F5A623';
   el.textContent = '● verificando conexión…';
   db.ref('.info/connected').once('value')
@@ -1576,7 +1577,7 @@ function updateFbStatus() {
     });
 }
 
-// ââ LOAD GROUP FROM FIREBASE (otro dispositivo) ââââââââââââââââââââââââââââââ
+// ── LOAD GROUP FROM FIREBASE (otro dispositivo) ──────────────────────────────
 function loadGroupModal() {
   if (!firebaseReady) {
     document.getElementById('removeModal').innerHTML = `
@@ -1639,7 +1640,7 @@ async function doLoadGroup() {
   location.reload();
 }
 
-// ââ DOCENTE PANEL: show all groups from Firebase ââââââââââââââââââââââââââââââ
+// ── DOCENTE PANEL: show all groups from Firebase ──────────────────────────────
 async function loadAllGroupsForDocente() {
   if (!firebaseReady || !db) return null;
   try {
@@ -1649,7 +1650,7 @@ async function loadAllGroupsForDocente() {
   return null;
 }
 
-// ââ SHOW GROUP CODE in results screen âââââââââââââââââââââââââââââââââââââââââ
+// ── SHOW GROUP CODE in results screen ─────────────────────────────────────────
 function getGroupCodeBadge() {
   if (!currentGroupId) return '';
   return `<div style="background:var(--bg3);border-radius:10px;padding:.7rem 1rem;margin:.8rem 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -1658,13 +1659,13 @@ function getGroupCodeBadge() {
   </div>`;
 }
 
-// ââ DOCENTE ACCESS ââ
+// ── DOCENTE ACCESS ──
 function docenteAccess() {
   const PIN = 'cesmagadmin*';
   document.getElementById('removeModal').innerHTML = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
       <div style="background:var(--bg2);border:1px solid rgba(45,66,113,0.6);border-radius:20px;padding:2rem;max-width:400px;width:100%;text-align:center">
-        <div style="font-size:2rem;margin-bottom:.6rem">ð</div>
+        <div style="font-size:2rem;margin-bottom:.6rem">🔐</div>
         <div style="font-weight:700;font-size:1.1rem;margin-bottom:.3rem">Acceso Docente</div>
         <div style="font-size:.82rem;color:var(--text2);margin-bottom:1.2rem">Ingresa el PIN para ver resultados y exportar calificaciones sin completar el cuestionario.</div>
         <input type="password" id="docentePin" placeholder="PIN de acceso" maxlength="6"
@@ -1675,7 +1676,7 @@ function docenteAccess() {
           <button onclick="checkDocentePin('${PIN}')" style="flex:1;background:var(--azul);color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer">Ingresar</button>
           <button onclick="closeRemoveModal()" style="flex:1;background:none;border:1px solid var(--border2);border-radius:10px;padding:11px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">Cancelar</button>
         </div>
-        <div style="margin-top:1rem;font-size:.75rem;color:var(--text3)">PIN por defecto:  â puedes cambiarlo en el cÃ³digo fuente</div>
+        <div style="margin-top:1rem;font-size:.75rem;color:var(--text3)">PIN por defecto:  — puedes cambiarlo en el código fuente</div>
       </div>
     </div>`;
   setTimeout(()=>document.getElementById('docentePin')?.focus(), 100);
@@ -1708,15 +1709,15 @@ function showDocenteEmpty() {
   document.getElementById('removeModal').innerHTML = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
       <div style="background:var(--bg2);border:1px solid rgba(45,66,113,0.5);border-radius:20px;padding:2rem;max-width:440px;width:100%;text-align:center">
-        <div style="font-size:2rem;margin-bottom:.6rem">ð</div>
+        <div style="font-size:2rem;margin-bottom:.6rem">📋</div>
         <div style="font-weight:700;font-size:1.1rem;margin-bottom:.8rem">Panel Docente</div>
         <div style="background:var(--bg3);border-radius:12px;padding:1.2rem;margin-bottom:1.2rem;text-align:left">
           <div style="font-size:.82rem;color:var(--text2);margin-bottom:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1px">Estado actual</div>
           <div style="font-size:.88rem;color:var(--text);line-height:1.8">
-            <span style="color:${Object.keys(state.act1).length?'#1A7A4A':'#B21937'}">${Object.keys(state.act1).length?'â':'â'}</span> Actividad 1 â Mi Foto Financiera<br>
-            <span style="color:${state.act2.perfil?'#1A7A4A':'#B21937'}">${state.act2.perfil?'â':'â'}</span> Actividad 2 â Reto del Semestre<br>
-            <span style="color:${state.act3.reflexion?'#1A7A4A':'#B21937'}">${state.act3.reflexion?'â':'â'}</span> Actividad 3 â Simulador de Crisis<br>
-            <span style="color:${state.act4.compromisoGrupal?'#1A7A4A':'#B21937'}">${state.act4.compromisoGrupal?'â':'â'}</span> Actividad 4 â Mi Compromiso
+            <span style="color:${Object.keys(state.act1).length?'#1A7A4A':'#B21937'}">${Object.keys(state.act1).length?'✓':'✗'}</span> Actividad 1 — Mi Foto Financiera<br>
+            <span style="color:${state.act2.perfil?'#1A7A4A':'#B21937'}">${state.act2.perfil?'✓':'✗'}</span> Actividad 2 — Reto del Semestre<br>
+            <span style="color:${state.act3.reflexion?'#1A7A4A':'#B21937'}">${state.act3.reflexion?'✓':'✗'}</span> Actividad 3 — Simulador de Crisis<br>
+            <span style="color:${state.act4.compromisoGrupal?'#1A7A4A':'#B21937'}">${state.act4.compromisoGrupal?'✓':'✗'}</span> Actividad 4 — Mi Compromiso
           </div>
         </div>
         ${state.act4.compromisoGrupal ? `<button onclick="closeRemoveModal();generateResults();goTo(5);" style="width:100%;background:#1A7A4A;color:#fff;border:none;border-radius:10px;padding:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.5rem">Ver resultados y exportar CSV</button>` : ''}
@@ -1755,15 +1756,15 @@ function confirmNewSession() {
     </div>`;
 }
 
-// ââ SHOW ALL GROUPS (docente view) ââââââââââââââââââââââââââââââââââââââââââââ
+// ── SHOW ALL GROUPS (docente view) ────────────────────────────────────────────
 async function showAllGroups() {
   document.getElementById('removeModal').innerHTML = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:900;overflow-y:auto;padding:1rem">
       <div style="max-width:800px;margin:0 auto;background:var(--bg2);border-radius:20px;padding:1.5rem;border:1px solid var(--border2)">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem">
           <div>
-            <div style="font-weight:700;font-size:1.2rem">Panel Docente â Todos los grupos</div>
-            <div style="font-size:.78rem;color:var(--text2)">Finanzas Personales Â· UNICESMAG Â· 2026-1</div>
+            <div style="font-weight:700;font-size:1.2rem">Panel Docente — Todos los grupos</div>
+            <div style="font-size:.78rem;color:var(--text2)">Finanzas Personales · UNICESMAG · 2026-1</div>
           </div>
           <div style="display:flex;gap:.5rem;flex-wrap:wrap">
             <button onclick="exportAllCSV(window._allGroups)" style="background:#1A7A4A;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer">Exportar todo CSV</button>
@@ -1795,7 +1796,7 @@ async function showAllGroups() {
     return `<div style="background:var(--bg3);border-radius:12px;padding:.9rem 1rem;margin-bottom:.6rem;display:grid;grid-template-columns:1fr 1fr auto auto;gap:.5rem;align-items:center">
       <div>
         <div style="font-weight:600;color:var(--text)">${g.groupName||'Sin nombre'}</div>
-        <div style="font-size:.75rem;color:var(--text2)">${g.groupSalon||''} Â· ${fecha}</div>
+        <div style="font-size:.75rem;color:var(--text2)">${g.groupSalon||''} · ${fecha}</div>
         <div style="font-size:.75rem;color:var(--text3);margin-top:2px">${members}</div>
       </div>
       <div style="font-size:.78rem;color:var(--text2)">${done}</div>
@@ -1864,7 +1865,7 @@ function calcScore4(st) {
   return Math.min(100,Math.round(s/n));
 }
 
-// ââ EXPORT ALL GROUPS CSV âââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── EXPORT ALL GROUPS CSV ─────────────────────────────────────────────────────
 function exportAllCSV(all) {
   if(!all||Object.keys(all).length===0){showToast('No hay datos para exportar','#B21937');return;}
   const headers=['Nombre completo','Programa','Semestre','Grupo','Salon',
@@ -1887,7 +1888,7 @@ function exportAllCSV(all) {
     });
   });
   const csv=rows.map(r=>r.join(',')).join('\n');
-  const blob=new Blob(['ï»¿'+csv],{type:'text/csv;charset=utf-8;'});
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
   a.href=url; a.download='TODOS_grupos_FP_U2_'+new Date().toISOString().slice(0,10)+'.csv';
