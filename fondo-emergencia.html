@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fondo de Emergencia — UNICESMAG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F3EE; --bg2:#ECE8DF; --surface:#FFFFFF; --surface2:#F8F6F1; --surface3:#EFEBE3; --field:#FCFBF8;
+  --line:rgba(20,24,43,.08); --line2:rgba(20,24,43,.14); --line3:rgba(20,24,43,.26);
+  --text:#14182B; --text2:#474D63; --text3:#767C93;
+  --azul:#2D4271; --azul2:#3E5A99; --celeste:#4F74C4; --rojo:#C8233F; --naranja:#F26A25; --ambar:#E39B12; --verde:#0F9963;
+  --on-accent:#fff;
+  --info-bg:rgba(79,116,196,.08); --info-bd:rgba(79,116,196,.3); --info-fg:#2A4A8C;
+  --ok-bg:rgba(15,153,99,.08); --ok-bd:rgba(15,153,99,.32); --ok-fg:#0B6E48;
+  --warn-bg:rgba(227,155,18,.1); --warn-bd:rgba(227,155,18,.4); --warn-fg:#7E5300;
+  --bad-bg:rgba(200,35,63,.07); --bad-bd:rgba(200,35,63,.32); --bad-fg:#A11A33;
+  --grad-accent:linear-gradient(135deg,#F26A25 0%,#FF8F4D 100%);
+  --grad-brand:linear-gradient(135deg,#1E2E55 0%,#2D4271 55%,#3E5A99 100%);
+  --display:'Bricolage Grotesque',system-ui,sans-serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --r-sm:10px; --r:16px; --r-lg:22px;
+  --shadow:0 1px 2px rgba(20,24,43,.05),0 12px 32px -16px rgba(20,24,43,.18);
+  --shadow-lg:0 2px 4px rgba(20,24,43,.05),0 30px 60px -28px rgba(20,24,43,.35);
+  --ease:cubic-bezier(.22,.8,.24,1);
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#0A0E18; --bg2:#0F1422; --surface:#141A2A; --surface2:#182034; --surface3:#202A42; --field:#0F1422;
+  --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.13); --line3:rgba(255,255,255,.24);
+  --text:#EEF1F7; --text2:#A9B2C7; --text3:#717C95;
+  --celeste:#86A6E6; --rojo:#F0566F; --ambar:#FFB547; --verde:#34CF8C;
+  --info-bg:rgba(134,166,230,.08); --info-bd:rgba(134,166,230,.28); --info-fg:#BCD0F2;
+  --ok-bg:rgba(52,207,140,.08); --ok-bd:rgba(52,207,140,.3); --ok-fg:#95E6C2;
+  --warn-bg:rgba(255,181,71,.08); --warn-bd:rgba(255,181,71,.3); --warn-fg:#F3D08F;
+  --bad-bg:rgba(240,86,111,.09); --bad-bd:rgba(240,86,111,.34); --bad-fg:#F6A1AF;
+  --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 24px 48px -24px rgba(0,0,0,.7);
+  --shadow-lg:0 1px 0 rgba(255,255,255,.05) inset,0 30px 60px -24px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+   radial-gradient(800px 520px at 0% -10%,rgba(45,66,113,.12),transparent 60%),
+   radial-gradient(700px 480px at 100% 110%,rgba(242,106,37,.10),transparent 60%)}
+:root[data-theme="dark"] body::before{background:
+   radial-gradient(900px 600px at 8% -5%,rgba(45,66,113,.5),transparent 60%),
+   radial-gradient(700px 500px at 100% 100%,rgba(242,106,37,.10),transparent 60%)}
+.ic{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--naranja);outline-offset:3px}
+b,strong{font-weight:700}
+
+/* ───────── SHELL ───────── */
+.shell{position:relative;z-index:1;display:grid;grid-template-columns:296px minmax(0,1fr);max-width:1320px;margin:0 auto;min-height:100vh}
+.rail{position:sticky;top:0;height:100vh;padding:30px 22px 22px 30px;display:flex;flex-direction:column;gap:24px;border-right:1px solid var(--line);overflow-y:auto}
+.brand{display:flex;gap:12px;align-items:center}
+.brand-mark{width:46px;height:46px;border-radius:14px;background:var(--grad-accent);display:grid;place-items:center;color:#fff;box-shadow:0 10px 24px -8px rgba(242,106,37,.6)}
+.brand-mark .ic{width:23px;height:23px;stroke-width:2.2}
+.brand-name{font-family:var(--display);font-weight:800;font-size:1.12rem;line-height:1.1;letter-spacing:-.01em}
+.brand-sub{font-size:.66rem;color:var(--text3);letter-spacing:.14em;text-transform:uppercase;margin-top:4px;font-weight:700}
+.theme-btn{margin-left:auto;width:36px;height:36px;border-radius:10px;border:1px solid var(--line2);background:var(--surface);color:var(--text2);display:grid;place-items:center;cursor:pointer;transition:all .2s}
+.theme-btn:hover{color:var(--text);border-color:var(--line3)}
+
+.stepper{list-style:none;position:relative;display:flex;flex-direction:column;gap:1px}
+.stepper::before{content:'';position:absolute;left:19px;top:22px;bottom:22px;width:2px;border-radius:2px;background:var(--line2)}
+.stepper .fillline{position:absolute;left:19px;top:22px;width:2px;border-radius:2px;background:var(--grad-accent);height:0;transition:height .7s var(--ease)}
+.step-btn{position:relative;display:flex;align-items:center;gap:14px;width:100%;padding:8px 10px 8px 0;background:none;border:0;cursor:pointer;color:var(--text3);text-align:left;transition:color .25s}
+.step-num{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700;background:var(--surface);border:1.5px solid var(--line2);flex-shrink:0;transition:all .3s var(--ease);position:relative;z-index:1}
+.step-num .ic{width:17px;height:17px}
+.step-txt b{display:block;font-size:.9rem;font-weight:800;color:inherit;line-height:1.3}
+.step-txt small{font-size:.72rem;color:var(--text3);font-weight:600}
+.step-btn:hover:not(.locked){color:var(--text)}
+.step-btn.active{color:var(--text)}
+.step-btn.active .step-num{background:var(--grad-accent);border-color:transparent;color:#fff;box-shadow:0 0 0 6px rgba(242,106,37,.16),0 10px 22px -8px rgba(242,106,37,.6)}
+.step-btn.done{color:var(--text2)}
+.step-btn.done .step-num{background:var(--ok-bg);border-color:var(--ok-bd);color:var(--verde)}
+.step-btn.locked{cursor:not-allowed;opacity:.5}
+
+.rail-card{margin-top:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:11px;box-shadow:var(--shadow)}
+.rail-card h6{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);font-weight:800}
+.rc-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.8rem;color:var(--text2)}
+.rc-row b{font-family:var(--mono);font-size:.8rem;color:var(--text);text-align:right;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.draft-chip{display:flex;align-items:center;gap:8px;font-size:.7rem;color:var(--text3);padding-top:10px;border-top:1px solid var(--line)}
+.draft-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--verde);animation:pulse 2.4s infinite}
+.draft-chip button{margin-left:auto;background:none;border:0;color:var(--text3);font-size:.7rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.draft-chip button:hover{color:var(--rojo)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(15,153,99,.5)}70%{box-shadow:0 0 0 7px rgba(15,153,99,0)}100%{box-shadow:0 0 0 0 rgba(15,153,99,0)}}
+
+.main{padding:34px 44px 96px;min-width:0}
+.mobilebar{display:none}
+
+/* ───────── SCREENS ───────── */
+.screen{display:none}
+.screen.active{display:block;animation:rise .55s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero{padding:6px 0 26px;margin-bottom:26px;border-bottom:1px solid var(--line)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--naranja)}
+.eyebrow::before{content:'';width:26px;height:2px;border-radius:2px;background:var(--naranja)}
+.eyebrow .time{color:var(--text3);letter-spacing:.08em;display:inline-flex;align-items:center;gap:6px}
+.hero h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.02;letter-spacing:-.03em;margin:14px 0 12px}
+.hero h2 em{font-style:normal;background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{max-width:62ch;color:var(--text2);font-size:1.04rem}
+.goal{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:14px 16px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);max-width:720px}
+.goal .gi{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(242,106,37,.12);color:var(--naranja);flex-shrink:0}
+.goal small{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-weight:800}
+.goal span{font-size:.92rem;color:var(--text);font-weight:600}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px;margin-bottom:20px;box-shadow:var(--shadow);position:relative}
+.panel-h{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.panel-ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,currentColor 12%,transparent);flex-shrink:0}
+.panel-ic .ic{width:20px;height:20px}
+.panel-h h3{font-family:var(--display);font-size:1.22rem;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.panel-h p{font-size:.84rem;color:var(--text3);font-weight:500}
+.sublabel{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.sublabel::after{content:'';flex:1;height:1px;background:var(--line)}
+.note{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:var(--r-sm);border:1px solid;font-size:.88rem;margin-bottom:20px;line-height:1.5}
+.note .ic{margin-top:2px}
+.note.info{background:var(--info-bg);border-color:var(--info-bd);color:var(--info-fg)}
+.note.ok{background:var(--ok-bg);border-color:var(--ok-bd);color:var(--ok-fg)}
+.note.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-fg)}
+.note.bad{background:var(--bad-bg);border-color:var(--bad-bd);color:var(--bad-fg)}
+
+/* ───────── LESSON (Aprende) ───────── */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.pillar::after{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--pc);opacity:.08}
+.pillar .pn{font-family:var(--display);font-size:2.6rem;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--pc)}
+.pillar h4{font-size:1rem;font-weight:800;margin:10px 0 4px}
+.pillar p{font-size:.86rem;color:var(--text2);line-height:1.5}
+
+.metaphor{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;padding:26px;border-radius:var(--r-lg);background:var(--grad-brand);color:#fff;margin-bottom:22px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.metaphor::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.03) 0 1px,transparent 1px 16px);pointer-events:none}
+.metaphor .big-ic{width:76px;height:76px;border-radius:22px;background:rgba(255,255,255,.12);display:grid;place-items:center;border:1px solid rgba(255,255,255,.2)}
+.metaphor .big-ic .ic{width:38px;height:38px;color:#FFB48A}
+.metaphor h3{font-family:var(--display);font-size:clamp(1.25rem,2.4vw,1.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
+.metaphor p{color:rgba(255,255,255,.78);font-size:.95rem;max-width:64ch}
+.metaphor p b{color:#fff}
+
+.sim{display:grid;grid-template-columns:1fr 260px;gap:26px;align-items:center}
+.slider-field{margin-bottom:22px}
+.slider-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+.slider-top label{font-size:.88rem;font-weight:700;color:var(--text2)}
+.slider-top output{font-family:var(--mono);font-weight:700;font-size:1.15rem;color:var(--text)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--naranja) 0 var(--p,50%),var(--line2) var(--p,50%) 100%);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--naranja);box-shadow:0 4px 12px -2px rgba(242,106,37,.5);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--naranja);box-shadow:0 4px 12px -2px rgba(242,106,37,.5)}
+.slider-hint{display:flex;justify-content:space-between;font-size:.7rem;color:var(--text3);font-family:var(--mono);margin-top:6px}
+.sim-out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.stat small{display:block;font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text3);font-weight:800;margin-bottom:4px}
+.stat b{font-family:var(--mono);font-size:1.12rem;font-weight:700;letter-spacing:-.02em;display:block;line-height:1.25}
+.stat em{font-style:normal;font-size:.74rem;color:var(--text3)}
+.milestones{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.ms{display:flex;align-items:center;gap:12px;font-size:.86rem;padding:10px 12px;border-radius:12px;background:var(--surface2);border:1px solid var(--line)}
+.ms .msd{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;font-weight:800;color:#fff;background:var(--mc);flex-shrink:0}
+.ms span{color:var(--text2);flex:1}
+.ms b{font-family:var(--mono);font-size:.84rem}
+
+/* jar */
+.jar-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+.jar{position:relative;width:170px;height:220px}
+.jar .lid{position:absolute;left:38px;right:38px;top:0;height:22px;border-radius:8px 8px 4px 4px;background:var(--azul);box-shadow:0 4px 0 rgba(0,0,0,.12) inset}
+.jar .body{position:absolute;left:0;right:0;top:18px;bottom:0;border-radius:34px 34px 30px 30px;border:3px solid var(--line3);background:color-mix(in srgb,var(--surface2) 70%,transparent);overflow:hidden}
+.jar .liquid{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(180deg,#FF9A5C,#F26A25 55%,#D9531A);transition:height 1s var(--ease)}
+.jar .liquid::before{content:'';position:absolute;left:-50%;top:-10px;width:200%;height:20px;background:radial-gradient(circle at 10px -4px,transparent 12px,#FF9A5C 13px) repeat-x;background-size:20px 20px;animation:wave 3s linear infinite}
+@keyframes wave{to{transform:translateX(20px)}}
+.jar .marks{position:absolute;inset:0;pointer-events:none}
+.jar .marks i{position:absolute;left:0;width:22px;border-top:2px dashed var(--line3)}
+.jar .pct{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-size:2.4rem;font-weight:800;letter-spacing:-.03em;color:var(--text);text-shadow:0 2px 12px var(--surface)}
+.jar-cap{text-align:center;font-size:.8rem;color:var(--text2);max-width:230px;line-height:1.45}
+.jar-cap b{color:var(--text)}
+
+.steps5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:s}
+.s5{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r);padding:16px;position:relative}
+.s5 .n{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:.8rem;background:var(--grad-accent);color:#fff;margin-bottom:12px}
+.s5 h5{font-size:.92rem;font-weight:800;line-height:1.25;margin-bottom:6px}
+.s5 p{font-size:.8rem;color:var(--text2);line-height:1.45}
+
+.iun{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.iun span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:30px;background:var(--surface2);border:1px solid var(--line2);font-size:.84rem;font-weight:700}
+.iun span i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--azul);color:#fff;font-size:.72rem;font-weight:800}
+.quiz{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.qcard{border:1.5px solid var(--line2);border-radius:var(--r);padding:16px;background:var(--surface2);display:flex;flex-direction:column;gap:12px;transition:all .3s var(--ease)}
+.qcard p.q{font-size:.92rem;font-weight:700;line-height:1.4;flex:1}
+.qbtns{display:flex;gap:8px}
+.qbtns button{flex:1;padding:9px;border-radius:10px;border:1.5px solid var(--line2);background:var(--surface);font-weight:800;font-size:.84rem;cursor:pointer;color:var(--text);transition:all .2s}
+.qbtns button:hover{border-color:var(--line3);transform:translateY(-1px)}
+.qcard.right{border-color:var(--ok-bd);background:var(--ok-bg)}
+.qcard.wrong{border-color:var(--bad-bd);background:var(--bad-bg)}
+.qcard.right .qbtns button.pick{background:var(--verde);border-color:var(--verde);color:#fff}
+.qcard.wrong .qbtns button.pick{background:var(--rojo);border-color:var(--rojo);color:#fff}
+.qcard .why{display:none;font-size:.8rem;line-height:1.45;color:var(--text2)}
+.qcard.right .why,.qcard.wrong .why{display:block}
+.qcard .why b{color:var(--text)}
+.qscore{display:flex;align-items:center;gap:12px;margin-top:16px;font-size:.88rem;color:var(--text2)}
+.qscore b{font-family:var(--mono);font-size:1.1rem;color:var(--text)}
+.qscore .reset{margin-left:auto;background:none;border:0;color:var(--text3);font-size:.78rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+.debt{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.drow{display:grid;grid-template-columns:170px 1fr 120px;gap:14px;align-items:center}
+.drow .dl b{display:block;font-size:.88rem}
+.drow .dl small{font-size:.72rem;color:var(--text3)}
+.dbar{height:30px;border-radius:9px;background:var(--surface3);overflow:hidden;display:flex}
+.dbar i{display:block;height:100%;transition:width .7s var(--ease)}
+.dbar i.base{background:var(--azul2)}
+.dbar i.int{background:var(--c)}
+.drow .dv{text-align:right;font-family:var(--mono);font-weight:700;font-size:.92rem}
+.drow .dv small{display:block;font-size:.7rem;font-weight:500;color:var(--c)}
+.dlegend{display:flex;gap:16px;font-size:.74rem;color:var(--text3);margin-top:4px}
+.dlegend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.punch{margin-top:18px;padding:18px 20px;border-radius:var(--r);background:var(--bad-bg);border:1px solid var(--bad-bd);display:flex;gap:14px;align-items:center}
+.punch .pn{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--rojo);letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.punch p{font-size:.88rem;color:var(--text2)}
+.punch p b{color:var(--text)}
+
+.tips{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tip{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r);padding:18px;border-top:3px solid var(--c)}
+.tip .ic{width:22px;height:22px;color:var(--c);margin-bottom:10px}
+.tip h5{font-size:.95rem;font-weight:800;margin-bottom:6px}
+.tip p{font-size:.82rem;color:var(--text2);line-height:1.5}
+.ant{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;margin-top:18px;padding:20px;border-radius:var(--r);background:var(--warn-bg);border:1px solid var(--warn-bd)}
+.ant-out{text-align:right}
+.ant-out small{display:block;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--warn-fg);font-weight:800}
+.ant-out b{font-family:var(--display);font-size:2rem;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.ant-out em{display:block;font-style:normal;font-size:.78rem;color:var(--text2)}
+.src{font-size:.72rem;color:var(--text3);margin-top:12px;line-height:1.5}
+
+/* ───────── FORMS ───────── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.field{margin-bottom:18px}
+.field>label{display:block;font-size:.84rem;font-weight:700;color:var(--text2);margin-bottom:8px;line-height:1.45}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;padding:12px 14px;background:var(--field);border:1.5px solid var(--line2);border-radius:var(--r-sm);color:var(--text);font:500 .94rem var(--sans);transition:border-color .2s,box-shadow .2s,background .2s;outline:none}
+input::placeholder,textarea::placeholder{color:var(--text3);font-weight:400}
+input:hover,select:hover,textarea:hover{border-color:var(--line3)}
+input:focus,select:focus,textarea:focus{border-color:var(--celeste);box-shadow:0 0 0 4px rgba(79,116,196,.16);background:var(--surface)}
+textarea{min-height:96px;resize:vertical;line-height:1.55}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23767C93' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+select option{background:var(--surface);color:var(--text)}
+.invalid{border-color:var(--rojo)!important;box-shadow:0 0 0 4px rgba(200,35,63,.16)!important;animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.money{position:relative}
+.money::before{content:'$';position:absolute;left:14px;top:12px;color:var(--text3);font-family:var(--mono);font-weight:700;pointer-events:none}
+.money input{padding-left:30px;font-family:var(--mono);font-weight:700}
+.fmt{display:block;font-family:var(--mono);font-size:.72rem;color:var(--text3);margin-top:6px;min-height:1em}
+.fmt.on{color:var(--verde)}
+.meter{display:flex;align-items:center;gap:10px;margin-top:8px}
+.meter-track{flex:1;height:4px;border-radius:4px;background:var(--line2);overflow:hidden}
+.meter-fill{height:100%;width:0;border-radius:4px;background:var(--ambar);transition:width .35s var(--ease),background .3s}
+.meter-fill.full{background:var(--verde)}
+.meter-lbl{font-size:.7rem;color:var(--text3);font-weight:700;min-width:96px;text-align:right}
+.meter-lbl.full{color:var(--verde)}
+
+.member{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r);padding:18px;position:relative;overflow:hidden}
+.member::before{content:'';position:absolute;left:0;top:0;right:0;height:4px;background:var(--mc,var(--azul))}
+.member-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.8rem;color:#fff;background:var(--mc,var(--azul));flex-shrink:0}
+.member-top span{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-weight:800}
+.member .field{margin-bottom:12px}
+
+/* ───────── BUTTONS ───────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 22px;border-radius:12px;border:1.5px solid transparent;font-weight:800;font-size:.9rem;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s,background .2s,border-color .2s;position:relative;text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--grad-accent);color:#fff;box-shadow:0 12px 26px -10px rgba(242,106,37,.7)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 32px -10px rgba(242,106,37,.8)}
+.btn-ghost{background:var(--surface);border-color:var(--line2);color:var(--text)}
+.btn-ghost:hover{border-color:var(--celeste);background:var(--info-bg)}
+.btn-success{background:linear-gradient(135deg,#0F9963,#2FC584);color:#fff;box-shadow:0 12px 26px -10px rgba(15,153,99,.6)}
+.btn-success:hover{transform:translateY(-2px)}
+.btn-lg{padding:15px 28px;font-size:.96rem;border-radius:14px}
+.btn .ic{transition:transform .25s var(--ease)}
+.btn-primary:hover .ic:last-child,.btn-success:hover .ic:last-child{transform:translateX(3px)}
+.btn-row{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-top:28px;flex-wrap:wrap}
+.btn-row .right{display:flex;gap:12px;margin-left:auto}
+
+/* ───────── TABS ───────── */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;padding:5px;background:var(--surface2);border:1px solid var(--line);border-radius:14px;width:fit-content;max-width:100%}
+.tab{padding:8px 16px;border-radius:10px;font-size:.84rem;font-weight:800;border:0;background:none;color:var(--text3);cursor:pointer;transition:all .2s}
+.tab:hover{color:var(--text)}
+.tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(20,24,43,.1),0 6px 14px -8px rgba(20,24,43,.3)}
+.who{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--info-bg);border:1px solid var(--line);border-left:4px solid var(--celeste);border-radius:var(--r-sm);margin-bottom:22px}
+.who b{display:block;font-size:.94rem}
+.who small{color:var(--text3);font-size:.78rem}
+
+/* ───────── ACT 2: PERFILES ───────── */
+.perfiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:8px}
+.perfil{background:var(--surface2);border:1.5px solid var(--line);border-radius:var(--r);padding:20px;cursor:pointer;text-align:left;color:inherit;transition:all .3s var(--ease);position:relative;overflow:hidden}
+.perfil::after{content:'';position:absolute;inset:0;background:radial-gradient(300px 140px at 100% 0,var(--pc),transparent 70%);opacity:.1;transition:opacity .3s;pointer-events:none}
+.perfil:hover{transform:translateY(-3px);border-color:var(--line3)}
+.perfil:hover::after{opacity:.18}
+.perfil.selected{border-color:var(--naranja);background:var(--surface);box-shadow:0 0 0 4px rgba(242,106,37,.14),0 20px 40px -20px rgba(242,106,37,.45)}
+.perfil.selected::before{content:'';position:absolute;top:16px;right:16px;width:24px;height:24px;border-radius:50%;background:var(--grad-accent);z-index:2}
+.perfil.selected .tick{opacity:1;transform:scale(1)}
+.tick{position:absolute;top:20px;right:20px;width:16px;height:16px;z-index:3;color:#fff;opacity:0;transform:scale(.5);transition:all .3s var(--ease)}
+.perfil-tag{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:14px;border:1.5px solid var(--pc);color:var(--pc)}
+.perfil h4{font-family:var(--display);font-size:1.4rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.perfil .sem{font-size:.8rem;color:var(--text3);margin:3px 0 14px;font-weight:600}
+.perfil .inc{font-family:var(--mono);font-size:1.15rem;font-weight:700;color:var(--text)}
+.perfil .inc small{font-size:.7rem;color:var(--text3);font-weight:500}
+.perfil .det{font-size:.8rem;color:var(--text2);margin-top:10px;line-height:1.5}
+
+.calc{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+.income-box{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.income-box .big{font-family:var(--mono);font-size:1.9rem;font-weight:700;letter-spacing:-.03em;color:var(--azul2);margin:6px 0 2px}
+:root[data-theme="dark"] .income-box .big{color:var(--celeste)}
+.income-box small{color:var(--text3);font-size:.8rem}
+.stack{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line);margin:16px 0 10px;gap:2px}
+.stack i{display:block;height:100%;width:0;transition:width .5s var(--ease)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.74rem;color:var(--text3)}
+.legend span::before{content:'';display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;background:var(--c)}
+.kpi{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--surface2);border:1px solid var(--line);border-radius:var(--r-sm);margin-top:10px}
+.kpi span{font-size:.8rem;color:var(--text2);font-weight:700}
+.kpi b{font-family:var(--mono);font-size:1rem;font-weight:700}
+.kpi.hl{background:var(--ok-bg);border-color:var(--ok-bd)}
+.kpi.hl b{color:var(--verde);font-size:1.3rem}
+.road{margin-top:8px;padding:18px;border-radius:var(--r);background:var(--surface2);border:1px solid var(--line)}
+.road-bar{position:relative;height:14px;border-radius:10px;background:var(--surface3);margin:30px 0 34px}
+.road-bar>i{display:block;height:100%;width:0;border-radius:10px;background:var(--grad-accent);transition:width .7s var(--ease)}
+.road-bar .flag{position:absolute;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--surface);border:3px solid var(--line3);display:grid;place-items:center}
+.road-bar .flag.hit{border-color:var(--verde);background:var(--verde)}
+.road-bar .flag span{position:absolute;bottom:26px;white-space:nowrap;font-size:.68rem;font-weight:800;color:var(--text2);letter-spacing:.04em}
+.road-bar .flag em{position:absolute;top:26px;white-space:nowrap;font-style:normal;font-family:var(--mono);font-size:.68rem;color:var(--text3)}
+.road-bar .flag:last-child span,.road-bar .flag:last-child em{right:-4px}
+.road-lbl{display:flex;justify-content:space-between;gap:12px;font-size:.82rem;color:var(--text2);flex-wrap:wrap}
+.road-lbl b{color:var(--text)}
+input[readonly]{background:var(--ok-bg)!important;color:var(--verde)!important;font-family:var(--mono);font-weight:700;border-color:var(--ok-bd)!important}
+
+/* ───────── ACT 3: CRISIS ───────── */
+.crisis{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.crisis::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--cc)}
+.crisis-top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
+.crisis-no{font-family:var(--mono);font-size:.7rem;color:var(--text3);letter-spacing:.1em;font-weight:700}
+.crisis h4{font-family:var(--display);font-size:1.4rem;font-weight:800;letter-spacing:-.02em;margin:3px 0 8px}
+.chip{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:20px;color:var(--cc);border:1.5px solid var(--cc)}
+.crisis-cost{text-align:right}
+.crisis-cost small{display:block;font-size:.66rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;font-weight:800}
+.crisis-cost b{font-family:var(--mono);font-size:1.05rem;font-weight:700}
+.crisis p.ctx{font-size:.92rem;color:var(--text2);max-width:70ch;margin-bottom:14px}
+.cover{padding:12px 14px;border-radius:var(--r-sm);background:var(--surface2);border:1px dashed var(--line2);margin-bottom:18px;font-size:.8rem;color:var(--text2)}
+.cover-line{display:flex;align-items:center;gap:10px}
+.cover.ok{border-color:var(--ok-bd);color:var(--ok-fg);background:var(--ok-bg);border-style:solid}
+.cover.low{border-color:var(--warn-bd);color:var(--warn-fg);background:var(--warn-bg);border-style:solid}
+.cover-bar{height:8px;border-radius:6px;background:var(--surface3);margin:10px 0 8px;overflow:hidden}
+.cover-bar i{display:block;height:100%;border-radius:6px;background:currentColor;transition:width .7s var(--ease)}
+.cover .loan{font-size:.76rem;color:var(--bad-fg)}
+.vs .field>label{display:flex;align-items:center;gap:8px;font-weight:800}
+.vs .sin>label{color:var(--bad-fg)}.vs .con>label{color:var(--ok-fg)}
+.vs .sin textarea{border-top:3px solid var(--rojo)}.vs .con textarea{border-top:3px solid var(--verde)}
+
+/* ───────── ACT 4 ───────── */
+.contract{background:var(--surface);border:1.5px solid var(--ok-bd);border-radius:var(--r-lg);padding:26px;box-shadow:var(--shadow)}
+.contract-h{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.contract-h h4{font-family:var(--display);font-size:1.55rem;font-weight:800;letter-spacing:-.02em}
+.contract-h small{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);font-weight:800}
+.a4prev{display:flex;align-items:center;gap:12px;padding:12px 14px;margin:-4px 0 18px;border-radius:var(--r-sm);background:var(--surface2);border:1px solid var(--line);font-size:.84rem;color:var(--text2)}
+.a4prev.ok{background:var(--ok-bg);border-color:var(--ok-bd);color:var(--ok-fg)}
+.a4prev b{color:inherit;font-family:var(--mono)}
+.stars{display:flex;align-items:center;gap:4px}
+.star{font-size:32px;line-height:1;cursor:pointer;color:var(--line2);background:none;border:0;transition:transform .15s,color .2s;padding:2px}
+.star:hover{transform:scale(1.18) rotate(-6deg)}
+.star.on{color:var(--ambar);text-shadow:0 0 16px rgba(227,155,18,.4)}
+.rate-val{margin-left:10px;font-family:var(--mono);font-weight:700;color:var(--ambar)}
+
+/* ───────── RESULTS ───────── */
+.scorecard{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line2);background:var(--surface);box-shadow:var(--shadow-lg);margin-bottom:28px}
+.sc-head{position:relative;padding:34px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;color:#fff;background:
+  radial-gradient(600px 260px at 90% 0,rgba(242,106,37,.3),transparent 70%),
+  linear-gradient(135deg,#17234A,#2D4271 60%,#1B2A52);overflow:hidden}
+.sc-head::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.025) 0 1px,transparent 1px 14px);pointer-events:none}
+.sc-head>*{position:relative;z-index:1}
+.sc-head .k{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:800}
+.sc-head h3{font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:8px 0 6px}
+.sc-head .meta{font-size:.86rem;color:rgba(255,255,255,.72);margin-bottom:16px}
+.roster{display:flex;flex-wrap:wrap;gap:8px}
+.roster span{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.14);padding:5px 12px 5px 6px;border-radius:30px;font-size:.78rem;font-weight:700}
+.roster .avatar{width:22px;height:22px;font-size:.62rem}
+.roster em{font-style:normal;color:rgba(255,255,255,.55);font-weight:500;font-size:.72rem}
+.ring-wrap{text-align:center}
+.ring{position:relative;width:168px;height:168px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+.ring .bg{stroke:rgba(255,255,255,.14)}
+.ring .fg{stroke:var(--rc);stroke-dasharray:339.29;stroke-dashoffset:339.29;transition:stroke-dashoffset 1.6s var(--ease) .2s;filter:drop-shadow(0 0 8px var(--rc))}
+.ring-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-c b{font-family:var(--display);font-size:3.1rem;font-weight:800;line-height:1;letter-spacing:-.04em}
+.ring-c small{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:4px}
+.grade{margin-top:12px;font-family:var(--mono);font-size:.78rem;color:rgba(255,255,255,.7)}
+.grade b{font-size:1.5rem;color:var(--gc);margin-left:8px}
+.sc-body{padding:30px;display:grid;grid-template-columns:1fr 280px;gap:34px;align-items:center}
+.dim{display:grid;grid-template-columns:160px 1fr 40px;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+.dim:last-child{border-bottom:0}
+.dim span{color:var(--text2);font-weight:700}.dim span small{display:block;color:var(--text3);font-weight:500;font-size:.7rem}
+.dim .tr{height:9px;border-radius:5px;background:var(--surface3)}
+.dim .tr i{display:block;height:100%;width:0;border-radius:5px;background:var(--c);transition:width 1.2s var(--ease) .3s}
+.dim b{font-family:var(--mono);text-align:right;font-weight:700}
+.radar{width:100%;max-width:280px;margin:auto}
+.radar text{fill:var(--text3);font:700 9px var(--sans);letter-spacing:.06em}
+.radar .grid{fill:none;stroke:var(--line2)}
+.radar .shape{fill:rgba(242,106,37,.22);stroke:var(--naranja);stroke-width:2;stroke-linejoin:round;transform-origin:120px 120px;animation:grow 1.2s var(--ease) .3s backwards}
+@keyframes grow{from{transform:scale(0);opacity:0}}
+.awards{display:flex;flex-wrap:wrap;gap:10px;padding:0 30px 24px}
+.award{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:30px;font-size:.8rem;font-weight:800;background:color-mix(in srgb,var(--c) 12%,transparent);border:1.5px solid color-mix(in srgb,var(--c) 45%,transparent);color:var(--c)}
+.feedback{margin:0 30px 30px;padding:20px 22px;background:var(--surface2);border:1px solid var(--line);border-radius:var(--r)}
+.feedback h6{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);font-weight:800;margin-bottom:12px}
+.fb{padding:10px 0 10px 16px;border-left:3px solid var(--c);font-size:.88rem;color:var(--text2);margin-bottom:8px}
+.fb b{color:var(--c)}
+.commit{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:12px;border-left:4px solid var(--verde);box-shadow:var(--shadow)}
+.commit-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.commit-h b{font-size:1rem}.commit-h small{color:var(--text3);font-size:.78rem;display:block}
+.cstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.cstat{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px}
+.cstat small{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-weight:800}
+.cstat b{font-family:var(--mono);font-size:1rem;font-weight:700}
+.commit p{font-size:.86rem;color:var(--text2);margin-top:6px}.commit p b{color:var(--text)}
+.quote{font-family:var(--display);font-weight:500;font-size:1.1rem;line-height:1.45;color:var(--text);padding-left:18px;border-left:3px solid var(--line3);margin:12px 0}
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.next label{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:var(--r-sm);background:var(--surface2);border:1px solid var(--line);font-size:.86rem;cursor:pointer;transition:all .2s}
+.next label:hover{border-color:var(--line3)}
+.next input{width:18px;height:18px;accent-color:var(--verde);margin-top:2px;flex-shrink:0}
+.next label:has(input:checked){background:var(--ok-bg);border-color:var(--ok-bd)}
+.next label:has(input:checked) span{text-decoration:line-through;color:var(--text3)}
+.foot{text-align:center;padding:28px;margin-top:28px;border-top:1px solid var(--line);color:var(--text3);font-size:.8rem}
+
+/* ───────── TOAST ───────── */
+#toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,140px);z-index:999;display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:40px;font-weight:800;font-size:.88rem;background:var(--surface);color:var(--text);border:1.5px solid var(--line3);box-shadow:var(--shadow-lg);transition:transform .45s var(--ease);max-width:92vw}
+#toast.show{transform:translate(-50%,0)}
+#toast.err{border-color:var(--bad-bd);color:var(--bad-fg)}#toast.okk{border-color:var(--ok-bd);color:var(--ok-fg)}
+
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:var(--line2);border-radius:6px}::-webkit-scrollbar-track{background:transparent}
+
+/* ───────── RESPONSIVE ───────── */
+@media(max-width:1100px){
+  .steps5{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+  .tips{grid-template-columns:1fr 1fr}
+}
+@media(max-width:980px){
+  .shell{display:block}
+  .rail{display:none}
+  .main{padding:0 16px 80px}
+  .mobilebar{display:block;position:sticky;top:0;z-index:20;margin:0 -16px 22px;padding:14px 16px 12px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  .mb-row{display:flex;align-items:center;gap:10px;font-size:.74rem;font-weight:800;margin-bottom:9px}
+  .mb-row span{color:var(--text3);letter-spacing:.12em;text-transform:uppercase}
+  .mb-row b{font-family:var(--display);font-size:1rem;margin-left:auto}
+  .mb-row .theme-btn{width:32px;height:32px;margin-left:0}
+  .mb-track{height:4px;background:var(--line2);border-radius:4px;overflow:hidden}
+  .mb-track i{display:block;height:100%;width:0;background:var(--grad-accent);transition:width .6s var(--ease)}
+  .mb-dots{display:flex;justify-content:space-between;margin-top:10px}
+  .mb-dots button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line2);background:var(--surface);color:var(--text3);font:700 .7rem var(--mono);cursor:pointer;display:grid;place-items:center}
+  .mb-dots button .ic{width:14px;height:14px}
+  .mb-dots button.active{background:var(--grad-accent);color:#fff;border-color:transparent}
+  .mb-dots button.done{color:var(--verde);border-color:var(--ok-bd)}
+  .mb-dots button.locked{opacity:.4}
+  .calc,.sc-body,.sim{grid-template-columns:1fr}
+  .sc-head{grid-template-columns:1fr;text-align:left}
+  .jar-wrap{order:-1}
+}
+@media(max-width:720px){
+  .pillars,.tips{grid-template-columns:1fr}
+  .metaphor{grid-template-columns:1fr}
+  .sim-out{grid-template-columns:1fr 1fr}
+  .drow{grid-template-columns:1fr 110px}.drow .dbar{grid-column:1/-1;order:3}
+  .ant{grid-template-columns:1fr}.ant-out{text-align:left}
+  .punch{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:620px){
+  .grid-2{grid-template-columns:1fr}
+  .panel{padding:20px 16px}
+  .dim{grid-template-columns:1fr 40px}.dim .tr{grid-column:1/-1;order:3}
+  .cstats{grid-template-columns:1fr}
+  .btn-row .right{width:100%}.btn-row .right .btn,.btn-row>.btn{flex:1}
+  .sc-head,.sc-body{padding:22px}.awards{padding:0 22px 20px}.feedback{margin:0 22px 22px}
+  .road-bar .flag span{font-size:.6rem}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ───────── PRINT ───────── */
+@media print{
+  body{background:#fff;color:#111}body::before,.rail,.mobilebar,.btn-row,#toast,.hero .eyebrow,.no-print{display:none!important}
+  .shell{display:block}.main{padding:0}
+  .screen{display:none!important}#screen-6{display:block!important;animation:none}
+  .scorecard,.commit,.feedback,.panel{box-shadow:none;background:#fff!important;border-color:#bbb!important;color:#111}
+  .sc-head{background:#1F2D55!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#fff}
+  .ring .fg{transition:none}.dim .tr i{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ICON SPRITE -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m10.3 3.9-8.5 14.7A2 2 0 0 0 3.5 21.6h17a2 2 0 0 0 1.7-3l-8.5-14.7a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8z"/></symbol>
+  <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 0-20 0z"/><path d="M12 12v7a2 2 0 0 0 4 0"/><path d="M12 2v1"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M20 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-4a2 2 0 0 0 0 4h4a1 1 0 0 0 1-1v-3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 1 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 0 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="m23 6-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+</svg>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div class="shell">
+
+  <!-- ═════════ RAIL ═════════ -->
+  <aside class="rail">
+    <div class="brand">
+      <div class="brand-mark"><svg class="ic"><use href="#i-shield"/></svg></div>
+      <div>
+        <div class="brand-name">Fondo de<br>Emergencia</div>
+        <div class="brand-sub">UNICESMAG · 2026</div>
+      </div>
+      <button class="theme-btn" type="button" onclick="toggleTheme()" aria-label="Cambiar tema claro/oscuro"><svg class="ic theme-ic"><use href="#i-moon"/></svg></button>
+    </div>
+
+    <ol class="stepper" id="stepNav">
+      <div class="fillline" id="fillLine"></div>
+      <li><button class="step-btn active" data-step="0" onclick="tryNav(0)"><span class="step-num"><svg class="ic"><use href="#i-book"/></svg></span><span class="step-txt"><b>Aprende</b><small>Lección express · 8 min</small></span></button></li>
+      <li><button class="step-btn" data-step="1" onclick="tryNav(1)"><span class="step-num">00</span><span class="step-txt"><b>Grupo</b><small>Registro · 3 min</small></span></button></li>
+      <li><button class="step-btn locked" data-step="2" onclick="tryNav(2)"><span class="step-num">01</span><span class="step-txt"><b>Mi Foto Financiera</b><small>Diagnóstico · 10 min</small></span></button></li>
+      <li><button class="step-btn locked" data-step="3" onclick="tryNav(3)"><span class="step-num">02</span><span class="step-txt"><b>Reto del Semestre</b><small>Plan de ahorro · 15 min</small></span></button></li>
+      <li><button class="step-btn locked" data-step="4" onclick="tryNav(4)"><span class="step-num">03</span><span class="step-txt"><b>Simulador de Crisis</b><small>Escenarios · 20 min</small></span></button></li>
+      <li><button class="step-btn locked" data-step="5" onclick="tryNav(5)"><span class="step-num">04</span><span class="step-txt"><b>Mi Compromiso</b><small>Acuerdo personal</small></span></button></li>
+      <li><button class="step-btn locked" data-step="6" onclick="tryNav(6)"><span class="step-num"><svg class="ic"><use href="#i-star"/></svg></span><span class="step-txt"><b>Resultados</b><small>Nota y retroalimentación</small></span></button></li>
+    </ol>
+
+    <div class="rail-card">
+      <h6>Sesión</h6>
+      <div class="rc-row"><span>Grupo</span><b id="rcGroup">—</b></div>
+      <div class="rc-row"><span>Integrantes</span><b id="rcMembers">—</b></div>
+      <div class="rc-row"><span>Fondo meta</span><b id="rcFund">—</b></div>
+      <div class="draft-chip"><span class="dot"></span><span id="draftTxt">Autoguardado activo</span><button type="button" onclick="clearDraft()">Reiniciar</button></div>
+    </div>
+  </aside>
+
+  <!-- ═════════ MAIN ═════════ -->
+  <main class="main">
+
+    <div class="mobilebar">
+      <div class="mb-row"><span>Fondo de Emergencia</span><b id="mbTitle">Aprende</b><button class="theme-btn" type="button" onclick="toggleTheme()" aria-label="Cambiar tema claro/oscuro"><svg class="ic theme-ic"><use href="#i-moon"/></svg></button></div>
+      <div class="mb-track"><i id="mbFill"></i></div>
+      <div class="mb-dots" id="mbDots"></div>
+    </div>
+
+    <!-- ═════════ SCREEN 0 · APRENDE ═════════ -->
+    <section class="screen active" id="screen-0">
+      <div class="hero">
+        <div class="eyebrow">Lección express <span class="time"><svg class="ic"><use href="#i-clock"/></svg>8 min</span></div>
+        <h2>Tu fondo de emergencia: el <em>airbag</em> que salva tu semestre</h2>
+        <p>Antes de las actividades, entiende en 8 minutos qué es, cuánto necesitas y cómo construirlo aunque tus ingresos sean pequeños. Juega con los números: son los tuyos.</p>
+        <div class="goal"><div class="gi"><svg class="ic"><use href="#i-target"/></svg></div><div><small>Al terminar podrás</small><span>Calcular tu meta, saber en cuántas semanas la alcanzas y distinguir una emergencia de un antojo.</span></div></div>
+      </div>
+
+      <div class="metaphor">
+        <div class="big-ic"><svg class="ic"><use href="#i-umbrella"/></svg></div>
+        <div>
+          <h3>Un fondo de emergencia es dinero guardado <u>solo</u> para imprevistos.</h3>
+          <p>No es para el viaje, ni para el celular nuevo, ni para la fiesta. Es la plata que te permite resolver una urgencia <b>sin endeudarte, sin pedirle a nadie y sin abandonar tus clases</b>. Como un paraguas: lo llevas aunque haga sol.</p>
+        </div>
+      </div>
+
+      <div class="sublabel">Las 3 reglas de oro</div>
+      <div class="pillars">
+        <div class="pillar" style="--pc:var(--naranja)"><div class="pn">×3</div><h4>Cuánto</h4><p>Tu meta mínima es <b>3 meses de gastos esenciales</b> (transporte, comida, materiales, datos). Empieza con una mini meta de $100.000.</p></div>
+        <div class="pillar" style="--pc:var(--celeste)"><div class="pn">1</div><h4>Dónde</h4><p>En <b>una cuenta o bolsillo separado</b> de tu plata del día a día, disponible en minutos (Nequi, Daviplata, Nu, cuenta de ahorros).</p></div>
+        <div class="pillar" style="--pc:var(--verde)"><div class="pn">IUN</div><h4>Cuándo usarlo</h4><p>Solo si el gasto es <b>Inesperado, Urgente y Necesario</b>. Si lo usas, tu siguiente meta es reponerlo.</p></div>
+      </div>
+
+      <!-- SIMULADOR PERSONAL -->
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-wallet"/></svg></div><div><h3>¿Cuánto necesitas tú? Simúlalo</h3><p>Mueve los controles con tus números reales. Nadie más los ve.</p></div></div>
+        <div class="sim">
+          <div>
+            <div class="slider-field">
+              <div class="slider-top"><label for="l_gasto">Mis gastos esenciales al mes</label><output id="o_gasto">$600.000</output></div>
+              <input type="range" id="l_gasto" min="100000" max="2500000" step="50000" value="600000">
+              <div class="slider-hint"><span>$100 mil</span><span>$2,5 millones</span></div>
+            </div>
+            <div class="slider-field">
+              <div class="slider-top"><label for="l_ahorro">Puedo ahorrar a la semana</label><output id="o_ahorro">$20.000</output></div>
+              <input type="range" id="l_ahorro" min="5000" max="150000" step="5000" value="20000">
+              <div class="slider-hint"><span>$5 mil</span><span>$150 mil</span></div>
+            </div>
+            <div class="sim-out">
+              <div class="stat"><small>Tu meta</small><b id="o_meta" style="color:var(--naranja)">$1.800.000</b><em>3 meses de gastos</em></div>
+              <div class="stat"><small>La alcanzas en</small><b id="o_semanas">90 semanas</b><em id="o_meses">~21 meses</em></div>
+              <div class="stat"><small>Fecha estimada</small><b id="o_fecha" style="color:var(--verde)">—</b><em>si empiezas hoy</em></div>
+            </div>
+            <div class="milestones" id="l_milestones"></div>
+          </div>
+          <div class="jar-wrap">
+            <div class="jar" aria-hidden="true">
+              <div class="lid"></div>
+              <div class="body"><div class="liquid" id="jarLiquid"></div>
+                <div class="marks"><i style="bottom:33.3%"></i><i style="bottom:66.6%"></i></div>
+                <div class="pct" id="jarPct">0%</div>
+              </div>
+            </div>
+            <div class="jar-cap" id="jarCap">En un semestre (18 semanas) llevarías <b>$0</b> de tu meta.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 PASOS -->
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--azul2)"><svg class="ic"><use href="#i-trend"/></svg></div><div><h3>Construye tu fondo en 5 pasos</h3><p>El método que usarán en las actividades</p></div></div>
+        <div class="steps5">
+          <div class="s5"><div class="n">1</div><h5>Calcula tus gastos esenciales</h5><p>Suma lo que necesitas sí o sí cada mes para estudiar y vivir.</p></div>
+          <div class="s5"><div class="n">2</div><h5>Define tu meta ×3</h5><p>Multiplica por 3. Pon primero una mini meta de $100.000: es la que más motiva.</p></div>
+          <div class="s5"><div class="n">3</div><h5>Págate primero</h5><p>El día que recibes plata, separa tu ahorro <b>antes</b> de gastar. No ahorres "lo que sobre".</p></div>
+          <div class="s5"><div class="n">4</div><h5>Sepáralo y automatízalo</h5><p>Bolsillo o cuenta aparte, con transferencia programada cada semana.</p></div>
+          <div class="s5"><div class="n">5</div><h5>Úsalo bien y repón</h5><p>Solo para emergencias IUN. Si lo usas, vuelve al paso 3 hasta recuperarlo.</p></div>
+        </div>
+      </div>
+
+      <!-- QUIZ -->
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-check"/></svg></div><div><h3>Juego: ¿es una emergencia?</h3><p>Aplica el filtro IUN a cada situación</p></div></div>
+        <div class="iun"><span><i>I</i>Inesperado</span><span><i>U</i>Urgente</span><span><i>N</i>Necesario</span></div>
+        <div class="quiz" id="quiz"></div>
+        <div class="qscore"><svg class="ic" style="color:var(--ambar)"><use href="#i-trophy"/></svg><span>Aciertos: <b id="qScore">0 / 6</b></span><button type="button" class="reset" onclick="resetQuiz()">Volver a jugar</button></div>
+      </div>
+
+      <!-- COSTO DE NO TENERLO -->
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--rojo)"><svg class="ic"><use href="#i-alert"/></svg></div><div><h3>Lo que cuesta NO tener fondo</h3><p>Una emergencia sin ahorro casi siempre termina en deuda</p></div></div>
+        <div class="slider-field">
+          <div class="slider-top"><label for="l_deuda">Valor de la emergencia (lo pagas en 3 meses)</label><output id="o_deuda">$300.000</output></div>
+          <input type="range" id="l_deuda" min="100000" max="1000000" step="50000" value="300000">
+        </div>
+        <div class="debt" id="debtRows"></div>
+        <div class="dlegend"><span style="--c:var(--azul2)">Lo que pediste</span><span style="--c:var(--rojo)">Intereses que pagas de más</span></div>
+        <div class="punch" id="debtPunch"></div>
+        <p class="src">Ejemplo ilustrativo con tasas aproximadas: tarjeta de crédito ≈2% mensual; préstamo informal "gota a gota" ≈20% mensual. Los gota a gota son ilegales, cobran a diario y suelen usar intimidación. Nunca son una opción.</p>
+      </div>
+
+      <!-- TRUCOS -->
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--ambar)"><svg class="ic"><use href="#i-spark"/></svg></div><div><h3>Trucos de ahorro para estudiantes</h3><p>Pequeños hábitos, resultados grandes</p></div></div>
+        <div class="tips">
+          <div class="tip" style="--c:var(--naranja)"><svg class="ic"><use href="#i-repeat"/></svg><h5>Reto de las 52 semanas</h5><p>Semana 1 ahorras $1.000, semana 2 $2.000… En un año juntas <b>$1.378.000</b> casi sin notarlo.</p></div>
+          <div class="tip" style="--c:var(--celeste)"><svg class="ic"><use href="#i-lock"/></svg><h5>Bolsillo "intocable"</h5><p>Crea un bolsillo con nombre fuerte, como "SOLO EMERGENCIAS". Ponerle nombre reduce la tentación de usarlo.</p></div>
+          <div class="tip" style="--c:var(--verde)"><svg class="ic"><use href="#i-wallet"/></svg><h5>Ahorra lo inesperado</h5><p>Plata de cumpleaños, devoluciones, un trabajo extra: guarda al menos la mitad en el fondo.</p></div>
+          <div class="tip" style="--c:var(--rojo)"><svg class="ic"><use href="#i-coffee"/></svg><h5>Caza los gastos hormiga</h5><p>Tintos, snacks, domicilios y suscripciones que no usas. Calcula abajo cuánto suman.</p></div>
+        </div>
+        <div class="ant">
+          <div class="slider-field" style="margin:0">
+            <div class="slider-top"><label for="l_hormiga">Gasto hormiga por día de clase (5 días/semana)</label><output id="o_hormiga">$6.000</output></div>
+            <input type="range" id="l_hormiga" min="1000" max="25000" step="1000" value="6000">
+            <div class="slider-hint"><span>$1.000</span><span>$25.000</span></div>
+          </div>
+          <div class="ant-out"><small>En un semestre</small><b id="o_hormigaSem">$540.000</b><em id="o_hormigaPct">= 30% de tu meta</em></div>
+        </div>
+      </div>
+
+      <div class="btn-row"><span></span><div class="right"><button class="btn btn-primary btn-lg" onclick="goTo(1)">¡Listo! Armar mi grupo<svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+    </section>
+
+    <!-- ═════════ SCREEN 1 · GRUPO ═════════ -->
+    <section class="screen" id="screen-1">
+      <div class="hero">
+        <div class="eyebrow">Finanzas Personales · Unidad 2</div>
+        <h2>Construyan su <em>red de seguridad</em> financiera</h2>
+        <p>Cuatro actividades colaborativas para diseñar, probar y comprometerse con un fondo de emergencia universitario. Empiecen registrando al grupo.</p>
+      </div>
+      <div class="note info"><svg class="ic"><use href="#i-info"/></svg><div>Mínimo 1 y máximo 4 integrantes. Su avance se guarda automáticamente en este dispositivo.</div></div>
+
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--celeste)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3>Integrantes del grupo</h3><p>Datos de cada estudiante</p></div></div>
+        <div id="membersContainer" class="grid-4"></div>
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-ghost" onclick="addMember()" id="addMemberBtn"><svg class="ic"><use href="#i-plus"/></svg>Agregar integrante</button>
+          <button class="btn btn-ghost" onclick="removeMember()" id="removeMemberBtn" style="display:none"><svg class="ic"><use href="#i-minus"/></svg>Quitar último</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-pen"/></svg></div><div><h3>Identidad del grupo</h3><p>La creatividad también cuenta</p></div></div>
+        <div class="grid-2">
+          <div class="field"><label for="groupName">Nombre del grupo *</label><input type="text" id="groupName" placeholder="Ej: Los Ahorradores del Futuro" autocomplete="off"></div>
+          <div class="field"><label for="groupSalon">Salón / Grupo académico *</label><input type="text" id="groupSalon" placeholder="Ej: Contaduría Semestre 3 - Noche" autocomplete="off"></div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="btn btn-ghost" onclick="goTo(0)"><svg class="ic"><use href="#i-back"/></svg>Lección</button><div class="right"><button class="btn btn-primary btn-lg" onclick="saveGroup()">Comenzar actividades<svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+    </section>
+
+    <!-- ═════════ SCREEN 2 · FOTO ═════════ -->
+    <section class="screen" id="screen-2">
+      <div class="hero">
+        <div class="eyebrow">Actividad 01 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>10 min</span></div>
+        <h2>Mi <em>foto financiera</em></h2>
+        <p>¿Cuál es tu situación real hoy? Responde cada integrante con honestidad; no hay respuestas correctas, hay decisiones que tomar. Primero individual, luego comparten en grupo.</p>
+        <div class="goal"><div class="gi"><svg class="ic"><use href="#i-camera"/></svg></div><div><small>Por qué importa</small><span>No puedes construir un fondo si no sabes dónde estás parado. Este es tu punto de partida.</span></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--rojo)"><svg class="ic"><use href="#i-camera"/></svg></div><div><h3>Diagnóstico individual</h3><p>El docente verá estos datos al final</p></div></div>
+        <div class="tabs" id="act1Tabs"></div>
+        <div id="act1Forms"></div>
+      </div>
+      <div class="btn-row"><button class="btn btn-ghost" onclick="goTo(1)"><svg class="ic"><use href="#i-back"/></svg>Volver</button><div class="right"><button class="btn btn-primary btn-lg" onclick="saveAct1()">Guardar y continuar<svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+    </section>
+
+    <!-- ═════════ SCREEN 3 · RETO ═════════ -->
+    <section class="screen" id="screen-3">
+      <div class="hero">
+        <div class="eyebrow">Actividad 02 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>15 min</span></div>
+        <h2>El <em>reto</em> del semestre</h2>
+        <p>Elijan un perfil universitario y diseñen su plan de fondo de emergencia. Sean creativos, pero que los números cierren.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-target"/></svg></div><div><h3>Paso 1 · Seleccionen el perfil</h3><p>Trabajarán con sus ingresos reales</p></div></div>
+        <div class="perfiles">
+          <button type="button" class="perfil" style="--pc:#C8233F" onclick="selectPerfil(this,'A')" data-perfil="A">
+            <svg class="ic tick"><use href="#i-check"/></svg>
+            <span class="perfil-tag">Perfil A</span>
+            <h4>Martina</h4><div class="sem">1er semestre · Admón. de Empresas</div>
+            <div class="inc">$350.000 <small>/ mes</small></div>
+            <div class="det">Mesada familiar. Vive con sus padres, sin ingresos propios. Nariño.</div>
+          </button>
+          <button type="button" class="perfil" style="--pc:#4F74C4" onclick="selectPerfil(this,'B')" data-perfil="B">
+            <svg class="ic tick"><use href="#i-check"/></svg>
+            <span class="perfil-tag">Perfil B</span>
+            <h4>Santiago</h4><div class="sem">4to semestre · Ing. de Sistemas</div>
+            <div class="inc">$120.000 <small>/ semana</small></div>
+            <div class="det">Trabaja los sábados. Paga su propio transporte.</div>
+          </button>
+          <button type="button" class="perfil" style="--pc:#0F9963" onclick="selectPerfil(this,'C')" data-perfil="C">
+            <svg class="ic tick"><use href="#i-check"/></svg>
+            <span class="perfil-tag">Perfil C</span>
+            <h4>Valentina</h4><div class="sem">6to semestre · Diseño Gráfico</div>
+            <div class="inc">$1.200.000 <small>/ semestre</small></div>
+            <div class="det">Vive sola. Arriendo + servicios: $500.000. Beca ICETEX.</div>
+          </button>
+        </div>
+      </div>
+
+      <div id="perfilDetails" style="display:none">
+        <div class="panel">
+          <div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-spark"/></svg></div><div><h3>Paso 2 · Calculen el fondo mínimo</h3><p>El fondo equivale a 3 meses de gastos esenciales</p></div></div>
+          <div class="calc">
+            <div>
+              <div class="income-box">
+                <div class="sublabel" style="margin-bottom:6px">Ingreso del perfil</div>
+                <div id="perfilIngresos"></div>
+              </div>
+              <div class="stack" id="stackBar"><i style="background:#4F74C4"></i><i style="background:#F26A25"></i><i style="background:#0F9963"></i><i style="background:#E39B12"></i></div>
+              <div class="legend"><span style="--c:#4F74C4">Transporte</span><span style="--c:#F26A25">Alimentación</span><span style="--c:#0F9963">Materiales</span><span style="--c:#E39B12">Otros</span></div>
+              <div id="margenAlert"></div>
+            </div>
+            <div>
+              <div class="sublabel">Gastos mensuales estimados</div>
+              <div class="field"><label for="g_transporte">Transporte</label><div class="money"><input type="number" id="g_transporte" placeholder="0" min="0"></div></div>
+              <div class="field"><label for="g_alimentacion">Alimentación</label><div class="money"><input type="number" id="g_alimentacion" placeholder="0" min="0"></div></div>
+              <div class="field"><label for="g_materiales">Materiales / Datos</label><div class="money"><input type="number" id="g_materiales" placeholder="0" min="0"></div></div>
+              <div class="field"><label for="g_otros">Otros</label><div class="money"><input type="number" id="g_otros" placeholder="0" min="0"></div></div>
+              <div class="kpi"><span>Total gastos / mes</span><b id="totalGastos" style="color:var(--naranja)">$0</b></div>
+              <div class="kpi hl"><span>Fondo mínimo (×3)</span><b id="fondoMinimo">$0</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-h"><div class="panel-ic" style="color:var(--celeste)"><svg class="ic"><use href="#i-pen"/></svg></div><div><h3>Paso 3 · Diseñen la estrategia</h3><p>Concreta, creativa y realista</p></div></div>
+          <div class="grid-2">
+            <div class="field"><label for="ahorroSemanal">Ahorro semanal realista para este perfil *</label><div class="money"><input type="number" id="ahorroSemanal" placeholder="0" min="0" oninput="calcTime()"></div></div>
+            <div class="field"><label for="mesesEstimados">Tiempo estimado para alcanzar el fondo</label><input type="text" id="mesesEstimados" readonly placeholder="Se calcula automáticamente"></div>
+          </div>
+          <div class="road">
+            <div class="sublabel" style="margin-bottom:0">Camino al fondo</div>
+            <div class="road-bar" id="roadBar"><i id="tlFill"></i></div>
+            <div class="road-lbl"><span id="roadSem">Escriban el ahorro semanal para ver el camino.</span><b id="tlLbl">—</b></div>
+          </div>
+          <div style="height:22px"></div>
+          <div class="field"><label for="estrategiaAhorro">¿Cómo consigue ese ahorro semanal? Estrategia concreta y creativa *</label><textarea id="estrategiaAhorro" data-min="100" placeholder="Describan estrategias específicas: ¿qué puede recortar? ¿qué ingreso extra puede generar? ¿qué app usará?"></textarea></div>
+          <div class="field"><label for="obstaculos">Principales obstáculos y cómo los superarán *</label><textarea id="obstaculos" data-min="80" placeholder="¿Qué puede sabotear el plan? ¿Cómo lo previenen? Piensen en situaciones reales de Nariño / UNICESMAG..."></textarea></div>
+          <div class="field"><label for="herramienta">¿Qué herramienta digital usará para guardar el fondo? ¿Por qué? *</label><textarea id="herramienta" data-min="50" style="min-height:76px" placeholder="Nequi, Daviplata, Nu, cuenta bancaria... razón de la elección y cómo la configurarán."></textarea></div>
+          <div class="field" style="margin-bottom:0"><label for="aprendizaje2">¿Cuál sería el aprendizaje más valioso para el grupo al analizar este perfil? *</label><textarea id="aprendizaje2" data-min="80" style="min-height:76px" placeholder="¿Qué insight les da este ejercicio sobre su propia situación financiera?"></textarea></div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="btn btn-ghost" onclick="goTo(2)"><svg class="ic"><use href="#i-back"/></svg>Volver</button><div class="right"><button class="btn btn-primary btn-lg" onclick="saveAct2()">Guardar y continuar<svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+    </section>
+
+    <!-- ═════════ SCREEN 4 · CRISIS ═════════ -->
+    <section class="screen" id="screen-4">
+      <div class="hero">
+        <div class="eyebrow">Actividad 03 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>20 min</span></div>
+        <h2>Simulador de <em>crisis</em></h2>
+        <p>Para cada escenario, debatan: ¿qué hace un estudiante sin fondo? ¿Y uno con fondo? La barra muestra si el fondo que calcularon en la Actividad 02 alcanzaría.</p>
+      </div>
+      <div id="crisisCards"></div>
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--celeste)"><svg class="ic"><use href="#i-bolt"/></svg></div><div><h3>Reflexión final del grupo</h3><p>Lo que se llevan de esta simulación</p></div></div>
+        <div class="field"><label for="crisisReflexion">¿Cuál de los 4 escenarios les parece más probable en su vida universitaria actual? ¿Por qué? *</label><textarea id="crisisReflexion" data-min="80" placeholder="Reflexión grupal honesta. Mencionen situaciones que hayan vivido o conocido..."></textarea></div>
+        <div class="field"><label for="crisisConsejo">Si el grupo tuviera UN consejo para un estudiante de 1er semestre sobre emergencias financieras, ¿cuál sería? *</label><textarea id="crisisConsejo" data-min="60" style="min-height:76px" placeholder="Un consejo práctico, concreto y memorable..."></textarea></div>
+        <div class="field" style="margin-bottom:0"><label for="crisisCarrera">¿Cómo conectan este tema con su futuro profesional? (según cada carrera del grupo) *</label><textarea id="crisisCarrera" data-min="80" placeholder="¿Cómo usará un Contador, un Diseñador Gráfico o un Ingeniero de Sistemas este conocimiento?"></textarea></div>
+      </div>
+      <div class="btn-row"><button class="btn btn-ghost" onclick="goTo(3)"><svg class="ic"><use href="#i-back"/></svg>Volver</button><div class="right"><button class="btn btn-primary btn-lg" onclick="saveAct3()">Guardar y continuar<svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+    </section>
+
+    <!-- ═════════ SCREEN 5 · COMPROMISO ═════════ -->
+    <section class="screen" id="screen-5">
+      <div class="hero">
+        <div class="eyebrow">Actividad 04 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>Compromiso</span></div>
+        <h2>Mi compromiso <em>financiero</em></h2>
+        <p>La actividad más importante: un acuerdo real que el docente revisará al inicio del siguiente módulo. Pon fecha, monto y meta: lo que no se agenda no se cumple.</p>
+      </div>
+      <div class="contract">
+        <div class="contract-h"><div><small>Acuerdo personal</small><h4>Compromiso individual</h4></div><svg class="ic" style="width:30px;height:30px;color:var(--verde)"><use href="#i-pen"/></svg></div>
+        <div class="tabs" id="act4Tabs"></div>
+        <div id="act4Forms"></div>
+      </div>
+      <div class="panel" style="margin-top:20px">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3>Compromiso del grupo</h3><p>Rendirse cuentas es la mitad del hábito</p></div></div>
+        <div class="field"><label for="compromisoGrupal">Como grupo, ¿qué acción concreta tomarán esta semana relacionada con su fondo de emergencia? *</label><textarea id="compromisoGrupal" data-min="80" placeholder="Ej: Los 3 integrantes abrimos una cuenta Nequi separada antes del viernes y hacemos el primer depósito de $10.000 cada uno..."></textarea></div>
+        <div class="field"><label for="compromisoAcompanamiento">¿Cómo se van a acompañar mutuamente para cumplir el compromiso? *</label><textarea id="compromisoAcompanamiento" style="min-height:76px" placeholder="Ej: Grupo de WhatsApp donde publicamos captura del saldo cada semana..."></textarea></div>
+        <div class="field" style="margin-bottom:0"><label>Autoevaluación: ¿qué tan innovadoras fueron las estrategias que diseñaron hoy?</label>
+          <div class="stars" id="selfRating" role="radiogroup" aria-label="Nivel de creatividad">
+            <button type="button" class="star" onclick="setSelfRating(1)" aria-label="1 estrella">★</button><button type="button" class="star" onclick="setSelfRating(2)" aria-label="2 estrellas">★</button><button type="button" class="star" onclick="setSelfRating(3)" aria-label="3 estrellas">★</button><button type="button" class="star" onclick="setSelfRating(4)" aria-label="4 estrellas">★</button><button type="button" class="star" onclick="setSelfRating(5)" aria-label="5 estrellas">★</button>
+            <span class="rate-val" id="selfRatingVal"></span>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="btn btn-ghost" onclick="goTo(4)"><svg class="ic"><use href="#i-back"/></svg>Volver</button><div class="right"><button class="btn btn-success btn-lg" onclick="saveAct4()"><svg class="ic"><use href="#i-check"/></svg>Finalizar y ver resultados<svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+    </section>
+
+    <!-- ═════════ SCREEN 6 · RESULTADOS ═════════ -->
+    <section class="screen" id="screen-6">
+      <div class="hero">
+        <div class="eyebrow">Resultados</div>
+        <h2>El <em>scorecard</em> del grupo</h2>
+        <p>Evaluación ponderada de las cuatro actividades, con reconocimientos, compromisos registrados y sus próximos pasos.</p>
+      </div>
+      <div id="resultsContent"></div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+'use strict';
+const COLORS={azul:'#2D4271',rojo:'#C8233F',naranja:'#F26A25',celeste:'#4F74C4',verde:'#0F9963',ambar:'#E39B12'};
+const MCOL=['#2D4271','#C8233F','#F26A25','#4F74C4'];
+const PROGRAMS=['Contaduría Pública','Administración de Empresas','Diseño Gráfico','Ingeniería de Sistemas','Otro'];
+const SEMESTERS=['1ro','2do','3ro','4to','5to','6to','7mo','8vo','9no','10mo'];
+const STEP_NAMES=['Aprende','Grupo','Foto financiera','Reto del semestre','Simulador de crisis','Compromiso','Resultados'];
+const LAST=STEP_NAMES.length-1;
+const DRAFT_KEY='fe_unicesmag_draft_v2',THEME_KEY='fe_unicesmag_theme';
+const WEEKS_SEM=18,CARD_RATE=.02,GOTA_RATE=.20;
+
+let state={step:0,maxUnlocked:1,members:[],groupName:'',groupSalon:'',act1:{},act2:{},act3:{},act4:{}};
+let selectedPerfil=null,selfRatingVal=0,currentFondo=0,draft={v:{},members:1,perfil:null,rating:0,quiz:{}},saveTimer=null;
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cop=n=>'$'+Math.round(n||0).toLocaleString('es-CO');
+const ico=n=>`<svg class="ic"><use href="#i-${n}"/></svg>`;
+const fdate=d=>d.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'});
+
+const crisisScenarios=[
+ {id:'dental',title:'Urgencia dental',badge:'Salud',color:'#C8233F',amount:'$280.000 – $450.000',max:450000,context:'A mitad del semestre, un molar fisurado requiere extracción urgente. El dolor no permite concentrarse. El odontólogo más económico cobra $280.000.'},
+ {id:'celular',title:'Celular dañado en parciales',badge:'Tecnología',color:'#4F74C4',amount:'$150.000 – $400.000',max:400000,context:'La pantalla del celular se rompe la semana de parciales. Sin celular no puedes ver el horario, recibir avisos del docente, ni usar las apps del curso.'},
+ {id:'transporte',title:'Paro regional de transporte',badge:'Movilidad',color:'#0F9963',amount:'$90.000 extra ese mes',max:90000,context:'Un paro de transporte dura 2 semanas. El taxi o mototaxi cuesta 3 veces más que el bus. Tienes que llegar a clases de todas formas para no perder el semestre.'},
+ {id:'familiar',title:'Enfermedad familiar urgente',badge:'Familia',color:'#E39B12',amount:'$200.000 – $500.000',max:500000,context:'Tu mamá o papá se enferma inesperadamente. No hay dinero para los medicamentos y el médico. La familia te pide ayuda y tú eres el único con algo de acceso a dinero.'}
+];
+const perfiles={
+ A:{nombre:'Martina',semestre:'1er semestre',ingresos:'Mesada familiar: $350.000/mes',ingMensual:350000,programa:'Administración de Empresas',color:'#C8233F'},
+ B:{nombre:'Santiago',semestre:'4to semestre',ingresos:'Trabajo sábados: $120.000/semana (~$480.000/mes)',ingMensual:480000,programa:'Ingeniería de Sistemas',color:'#4F74C4'},
+ C:{nombre:'Valentina',semestre:'6to semestre',ingresos:'Beca ICETEX: ~$600.000/mes + posibles trabajos (semestral: $1.200.000)',ingMensual:600000,programa:'Diseño Gráfico',color:'#0F9963'}
+};
+const quizItems=[
+ {q:'Se te daña el portátil una semana antes de entregar el proyecto final.',a:true,why:'<b>Sí.</b> Es inesperado, urgente y lo necesitas para no perder la materia.'},
+ {q:'Sale el celular que querías con 30% de descuento solo por hoy.',a:false,why:'<b>No.</b> Es una oportunidad, no una emergencia. Para eso crea una meta de ahorro aparte.'},
+ {q:'Tu mamá necesita un medicamento que la EPS no cubre.',a:true,why:'<b>Sí.</b> Inesperado, urgente y necesario para la salud de tu familia.'},
+ {q:'Concierto de tu artista favorito en Pasto este fin de semana.',a:false,why:'<b>No.</b> Es un gusto (válido), pero no es necesario. Se paga con tu presupuesto de ocio.'},
+ {q:'Llega el cobro de la matrícula del próximo semestre.',a:false,why:'<b>No.</b> Es necesario, pero NO inesperado: sabías la fecha. Los gastos previsibles se planean con un ahorro aparte.'},
+ {q:'Te roban la billetera con la plata del transporte del mes.',a:true,why:'<b>Sí.</b> Inesperado, urgente y necesario para seguir yendo a clases.'}
+];
+
+/* ───────── THEME ───────── */
+function applyTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.querySelectorAll('.theme-ic use').forEach(u=>u.setAttribute('href',t==='dark'?'#i-sun':'#i-moon'));
+}
+function toggleTheme(){
+  const t=document.documentElement.dataset.theme==='dark'?'light':'dark';
+  applyTheme(t);try{localStorage.setItem(THEME_KEY,t)}catch(e){}
+}
+
+/* ───────── DRAFT (autosave) ───────── */
+function loadDraft(){try{const r=localStorage.getItem(DRAFT_KEY);if(r){const d=JSON.parse(r);if(d&&d.v){draft=Object.assign({quiz:{}},d)}return true}}catch(e){}return false}
+function persist(){try{localStorage.setItem(DRAFT_KEY,JSON.stringify(draft))}catch(e){}$('draftTxt').textContent='Guardado '+new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}
+function queueSave(){clearTimeout(saveTimer);saveTimer=setTimeout(persist,350)}
+function restoreValues(root){(root||document).querySelectorAll('input[id],textarea[id],select[id]').forEach(el=>{if(draft.v[el.id]!==undefined&&!el.readOnly)el.value=draft.v[el.id]});enhance(root||document)}
+function clearDraft(){if(!confirm('¿Borrar todo el avance guardado y reiniciar?'))return;try{localStorage.removeItem(DRAFT_KEY)}catch(e){}location.reload()}
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.classList.contains('invalid'))el.classList.remove('invalid');
+  if(el.id&&el.type!=='button'&&!el.readOnly){draft.v[el.id]=el.value;queueSave()}
+  if(el.tagName==='TEXTAREA'&&el.dataset.min)updateMeter(el);
+  if(el.closest&&el.closest('.money'))updateFmt(el);
+  if(el.type==='range')updateLesson();
+  const m=el.id&&el.id.match(/^a4_(?:ahorro|meta)_(\d+)$/);if(m)updateA4Prev(+m[1]);
+});
+document.addEventListener('change',e=>{const el=e.target;if(el.id&&el.tagName==='SELECT'){draft.v[el.id]=el.value;queueSave()}});
+
+/* enhancers: meters and money formatting */
+function enhance(root){
+  root.querySelectorAll('textarea[data-min]').forEach(t=>{
+    if(!t.nextElementSibling||!t.nextElementSibling.classList.contains('meter')){
+      t.insertAdjacentHTML('afterend','<div class="meter"><div class="meter-track"><i class="meter-fill"></i></div><span class="meter-lbl"></span></div>');
+    }
+    updateMeter(t);
+  });
+  root.querySelectorAll('.money input').forEach(i=>{
+    if(!i.parentElement.nextElementSibling||!i.parentElement.nextElementSibling.classList.contains('fmt'))i.parentElement.insertAdjacentHTML('afterend','<span class="fmt"></span>');
+    updateFmt(i);
+  });
+}
+function updateMeter(t){
+  const m=t.nextElementSibling;if(!m||!m.classList.contains('meter'))return;
+  const min=+t.dataset.min,len=t.value.trim().length,p=Math.min(100,len/min*100),full=len>=min;
+  const f=m.querySelector('.meter-fill'),l=m.querySelector('.meter-lbl');
+  f.style.width=p+'%';f.classList.toggle('full',full);l.classList.toggle('full',full);
+  l.textContent=full?'Respuesta sólida':(len?'Desarrolla más':'Pendiente');
+}
+function updateFmt(i){
+  const f=i.parentElement.nextElementSibling;if(!f||!f.classList.contains('fmt'))return;
+  const v=parseFloat(i.value);f.textContent=v>0?cop(v)+' COP':'';f.classList.toggle('on',v>0);
+}
+
+/* ───────── LESSON (Aprende) ───────── */
+function rangeFill(r){r.style.setProperty('--p',((r.value-r.min)/(r.max-r.min)*100)+'%')}
+function updateLesson(){
+  document.querySelectorAll('input[type=range]').forEach(rangeFill);
+  const gasto=+$('l_gasto').value,ahorro=+$('l_ahorro').value,meta=gasto*3;
+  const semanas=Math.ceil(meta/ahorro),meses=Math.ceil(semanas/4.3);
+  const fin=new Date();fin.setDate(fin.getDate()+semanas*7);
+  $('o_gasto').textContent=cop(gasto);$('o_ahorro').textContent=cop(ahorro);
+  $('o_meta').textContent=cop(meta);$('o_semanas').textContent=semanas+' semanas';
+  $('o_meses').textContent='~'+meses+(meses===1?' mes':' meses');$('o_fecha').textContent=fdate(fin);
+  const mini=Math.ceil(100000/ahorro);
+  $('l_milestones').innerHTML=[
+    {c:COLORS.ambar,t:'Mini meta: $100.000',w:mini},
+    {c:COLORS.celeste,t:`1 mes cubierto (${cop(gasto)})`,w:Math.ceil(gasto/ahorro)},
+    {c:COLORS.naranja,t:`2 meses cubiertos (${cop(gasto*2)})`,w:Math.ceil(gasto*2/ahorro)},
+    {c:COLORS.verde,t:`Meta completa (${cop(meta)})`,w:semanas}
+  ].map((m,i)=>`<div class="ms" style="--mc:${m.c}"><div class="msd">${i+1}</div><span>${m.t}</span><b>sem. ${m.w}</b></div>`).join('');
+  const sem=Math.min(meta,ahorro*WEEKS_SEM),pct=Math.round(sem/meta*100);
+  $('jarLiquid').style.height=pct+'%';$('jarPct').textContent=pct+'%';
+  $('jarCap').innerHTML=pct>=100?`¡En un semestre (${WEEKS_SEM} semanas) <b>completas tu meta</b>! Podrías subirla a 6 meses.`:`En un semestre (${WEEKS_SEM} semanas) llevarías <b>${cop(sem)}</b>: el ${pct}% de tu meta.`;
+
+  const deuda=+$('l_deuda').value,card=deuda*(Math.pow(1+CARD_RATE,3)-1),gota=deuda*GOTA_RATE*3,top=deuda+gota;
+  $('o_deuda').textContent=cop(deuda);
+  $('debtRows').innerHTML=[
+    {l:'Con fondo',s:'Usas tu propio dinero',i:0,c:COLORS.verde},
+    {l:'Tarjeta de crédito',s:'≈2% mensual',i:card,c:COLORS.ambar},
+    {l:'Préstamo "gota a gota"',s:'≈20% mensual · ilegal',i:gota,c:COLORS.rojo}
+  ].map(r=>`<div class="drow" style="--c:${r.c}"><div class="dl"><b>${r.l}</b><small>${r.s}</small></div><div class="dbar"><i class="base" style="width:${deuda/top*100}%"></i><i class="int" style="width:${r.i/top*100}%"></i></div><div class="dv">${cop(deuda+r.i)}<small>${r.i?'+'+cop(r.i)+' de más':'$0 de intereses'}</small></div></div>`).join('');
+  const semGota=Math.ceil(gota/ahorro);
+  $('debtPunch').innerHTML=`<div class="pn">+${cop(gota)}</div><p>Eso pagarías de más con un gota a gota. Con tu ahorro de ${cop(ahorro)} semanales, son <b>${semGota} semanas de esfuerzo</b> regaladas en intereses. El fondo te protege de esa trampa.</p>`;
+
+  const hd=+$('l_hormiga').value,hs=hd*5*WEEKS_SEM;
+  $('o_hormiga').textContent=cop(hd);$('o_hormigaSem').textContent=cop(hs);
+  $('o_hormigaPct').textContent=`= ${Math.round(hs/meta*100)}% de tu meta de fondo`;
+}
+function renderQuiz(){
+  $('quiz').innerHTML=quizItems.map((it,i)=>{
+    const ans=draft.quiz[i],st=ans===undefined?'':(ans===it.a?'right':'wrong');
+    return`<div class="qcard ${st}" id="q_${i}"><p class="q">${it.q}</p>
+      <div class="qbtns"><button type="button" class="${ans===true?'pick':''}" onclick="answerQuiz(${i},true)">Sí, es emergencia</button><button type="button" class="${ans===false?'pick':''}" onclick="answerQuiz(${i},false)">No</button></div>
+      <div class="why">${it.why}</div></div>`}).join('');
+  const ok=quizItems.filter((it,i)=>draft.quiz[i]===it.a).length,done=Object.keys(draft.quiz).length;
+  $('qScore').textContent=`${ok} / ${quizItems.length}`;
+  if(done===quizItems.length&&!renderQuiz.cheered){renderQuiz.cheered=true;if(ok===quizItems.length)toast('¡Perfecto! Ya sabes cuándo usar tu fondo','ok')}
+}
+function answerQuiz(i,v){draft.quiz[i]=v;queueSave();renderQuiz()}
+function resetQuiz(){draft.quiz={};renderQuiz.cheered=false;queueSave();renderQuiz()}
+
+/* ───────── MEMBERS ───────── */
+function newMember(){return{name:'',program:'Contaduría Pública',semester:'1ro'}}
+function syncMembers(){state.members=state.members.map((m,i)=>({name:$('m_name_'+i)?.value??m.name,program:$('m_prog_'+i)?.value??m.program,semester:$('m_sem_'+i)?.value??m.semester}))}
+function renderMembers(){
+  const c=$('membersContainer');
+  if(!state.members.length)state.members=Array.from({length:Math.min(4,Math.max(1,draft.members||1))},newMember);
+  c.innerHTML=state.members.map((m,i)=>`
+    <div class="member" style="--mc:${MCOL[i]}">
+      <div class="member-top"><div class="avatar">${i+1}</div><span>Integrante ${i+1}</span></div>
+      <div class="field"><label for="m_name_${i}">Nombre completo *</label><input type="text" id="m_name_${i}" value="${esc(m.name)}" placeholder="Nombre y apellidos" autocomplete="off"></div>
+      <div class="field"><label for="m_prog_${i}">Programa *</label><select id="m_prog_${i}">${PROGRAMS.map(p=>`<option value="${p}"${m.program===p?' selected':''}>${p}</option>`).join('')}</select></div>
+      <div class="field"><label for="m_sem_${i}">Semestre</label><select id="m_sem_${i}">${SEMESTERS.map(s=>`<option value="${s}"${m.semester===s?' selected':''}>${s}</option>`).join('')}</select></div>
+    </div>`).join('');
+  $('addMemberBtn').style.display=state.members.length>=4?'none':'';
+  $('removeMemberBtn').style.display=state.members.length>1?'':'none';
+  restoreValues(c);updateRail();
+}
+function addMember(){if(state.members.length<4){syncMembers();state.members.push(newMember());draft.members=state.members.length;queueSave();renderMembers()}}
+function removeMember(){if(state.members.length>1){syncMembers();state.members.pop();draft.members=state.members.length;queueSave();renderMembers()}}
+
+function saveGroup(){
+  syncMembers();
+  state.groupName=$('groupName').value.trim();state.groupSalon=$('groupSalon').value.trim();
+  const bad=[...(state.members[0].name?[]:[$('m_name_0')]),...(state.groupName?[]:[$('groupName')]),...(state.groupSalon?[]:[$('groupSalon')])];
+  if(bad.length){flag(bad[0]);toast('Completa los campos obligatorios','err');return}
+  buildAct1Forms();buildAct4Forms();goTo(2);
+}
+
+/* ───────── ACT 1 ───────── */
+function buildAct1Forms(){
+  $('act1Tabs').innerHTML=state.members.map((m,i)=>`<button type="button" class="tab ${i===0?'active':''}" onclick="showAct1Tab(${i})" id="act1tab_${i}">${esc(m.name.split(' ')[0]||'Integrante '+(i+1))}</button>`).join('');
+  $('act1Forms').innerHTML=state.members.map((m,i)=>`
+    <div id="act1form_${i}" style="display:${i===0?'block':'none'}">
+      <div class="who" style="border-left-color:${MCOL[i]}"><div class="avatar" style="--mc:${MCOL[i]}">${esc((m.name||'?')[0].toUpperCase())}</div><div><b>${esc(m.name)}</b><small>${esc(m.program)} · ${esc(m.semester)} semestre</small></div></div>
+      <div class="field"><label for="a1_saldo_${i}">1. ¿Cuánto dinero tienes disponible AHORA MISMO para una emergencia? (saldo real o aproximado) *</label><div class="money"><input type="number" id="a1_saldo_${i}" placeholder="0" min="0"></div></div>
+      <div class="field"><label for="a1_fuente_${i}">2. Si mañana necesitas $200.000 urgentes, ¿de dónde los sacas SIN pedir prestado? *</label><textarea id="a1_fuente_${i}" data-min="40" placeholder="Sé honesto: ¿tienes ese dinero? ¿cómo lo conseguirías?"></textarea></div>
+      <div class="field"><label for="a1_pasado_${i}">3. En los últimos 3 meses, ¿tuviste algún gasto inesperado? ¿Cómo lo resolviste? *</label><textarea id="a1_pasado_${i}" data-min="50" placeholder="Cuenta brevemente la situación y cómo la manejaste..."></textarea></div>
+      <div class="field"><label for="a1_calculo_${i}">4. Si ahorras $10.000 por semana, ¿en cuántas semanas alcanzas tu fondo mínimo? Calcula tu gasto mensual básico y muestra el razonamiento. *</label><textarea id="a1_calculo_${i}" data-min="60" placeholder="Mis gastos mensuales son... por lo tanto mi fondo mínimo es... y lo alcanzo en..."></textarea></div>
+      <div class="field" style="margin-bottom:0"><label for="a1_obstaculo_${i}">5. ¿Cuál es el principal obstáculo que te impide ahorrar hoy? *</label><textarea id="a1_obstaculo_${i}" data-min="40" style="min-height:76px" placeholder="Sé específico: ¿ingresos, gastos fijos, disciplina, falta de información...?"></textarea></div>
+    </div>`).join('');
+  restoreValues($('act1Forms'));
+}
+function showAct1Tab(i){state.members.forEach((_,j)=>{$('act1form_'+j).style.display=j===i?'block':'none';$('act1tab_'+j)?.classList.toggle('active',j===i)})}
+function saveAct1(){
+  const data={};
+  for(let i=0;i<state.members.length;i++){
+    const f=['fuente','pasado','calculo','obstaculo'].map(k=>$(`a1_${k}_${i}`));
+    const bad=f.find(e=>!e.value.trim());
+    if(bad){showAct1Tab(i);flag(bad);toast('Completa todos los campos de cada integrante','err');return}
+    data[i]={saldo:$(`a1_saldo_${i}`).value||'0',fuente:f[0].value.trim(),pasado:f[1].value.trim(),calculo:f[2].value.trim(),obstaculo:f[3].value.trim()};
+  }
+  state.act1=data;goTo(3);
+}
+
+/* ───────── ACT 2 ───────── */
+function selectPerfil(el,key){
+  document.querySelectorAll('.perfil').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');selectedPerfil=key;draft.perfil=key;queueSave();
+  const p=perfiles[key];
+  $('perfilIngresos').innerHTML=`<div style="font-family:var(--display);font-size:1.5rem;font-weight:800;letter-spacing:-.02em">${p.nombre}</div><small>${p.programa} · ${p.semestre}</small><div class="big">${cop(p.ingMensual)}<span style="font-size:.8rem;color:var(--text3);font-weight:500"> /mes</span></div><small>${p.ingresos}</small>`;
+  $('perfilDetails').style.display='block';
+  ['g_transporte','g_alimentacion','g_materiales','g_otros'].forEach(id=>{$(id).oninput=calcFondo});
+  enhance($('perfilDetails'));calcFondo();
+}
+function gastosVals(){return['g_transporte','g_alimentacion','g_materiales','g_otros'].map(id=>parseFloat($(id)?.value)||0)}
+function calcFondo(){
+  const v=gastosVals(),total=v.reduce((a,b)=>a+b,0);currentFondo=total*3;
+  $('totalGastos').textContent=cop(total);$('fondoMinimo').textContent=cop(currentFondo);
+  const bars=$('stackBar').children,ing=selectedPerfil?perfiles[selectedPerfil].ingMensual:0,base=Math.max(total,ing)||1;
+  [...bars].forEach((b,i)=>b.style.width=(v[i]/base*100)+'%');
+  const al=$('margenAlert');
+  if(selectedPerfil&&total>0){
+    const margen=ing-total;
+    al.innerHTML=margen<0
+      ?`<div class="note bad" style="margin:16px 0 0">${ico('alert')}<div>Los gastos superan el ingreso por <b>${cop(-margen)}</b> al mes. Con este presupuesto no hay margen de ahorro: revisen qué recortar.</div></div>`
+      :`<div class="note ok" style="margin:16px 0 0">${ico('check')}<div>Margen mensual disponible: <b>${cop(margen)}</b> (${Math.round(margen/ing*100)}% del ingreso). Ese es el techo de su ahorro.</div></div>`;
+  }else al.innerHTML='';
+  calcTime();updateRail();updateCrisisCoverage();
+}
+function calcTime(){
+  const semanal=parseFloat($('ahorroSemanal')?.value)||0,out=$('mesesEstimados'),bar=$('roadBar');
+  bar.querySelectorAll('.flag').forEach(f=>f.remove());
+  if(!semanal||!currentFondo){out.value='';$('tlFill').style.width='0';$('tlLbl').textContent='—';$('roadSem').textContent='Escriban el ahorro semanal para ver el camino.';return}
+  const semanas=Math.ceil(currentFondo/semanal),meses=Math.ceil(semanas/4.3);
+  out.value=`${semanas} semanas (~${meses} meses)`;
+  const saved=Math.min(currentFondo,semanal*WEEKS_SEM),pct=saved/currentFondo*100;
+  $('tlFill').style.width=pct+'%';
+  bar.insertAdjacentHTML('beforeend',[1,2,3].map(k=>{
+    const pos=k/3*100,w=Math.ceil(currentFondo*k/3/semanal);
+    return`<div class="flag${pct>=pos-.01?' hit':''}" style="left:${pos}%"><span>${k===3?'Meta':k+(k===1?' mes':' meses')}</span><em>sem. ${w}</em></div>`}).join(''));
+  $('roadSem').innerHTML=`En 1 semestre (${WEEKS_SEM} semanas) llevarían <b>${cop(saved)}</b> (${Math.round(pct)}%).`;
+  $('tlLbl').textContent=semanas<=12?'Alcanzable en menos de un semestre':semanas<=WEEKS_SEM?'Alcanzable en un semestre':semanas<=WEEKS_SEM*2?'Plazo de 2 semestres':'Plazo largo: revisen la estrategia';
+  const ing=selectedPerfil?perfiles[selectedPerfil].ingMensual:0,gasto=gastosVals().reduce((a,b)=>a+b,0);
+  if(ing&&gasto&&semanal*4.3>ing-gasto)$('tlLbl').textContent='Ojo: ahorro mayor al margen mensual';
+}
+function saveAct2(){
+  if(!selectedPerfil){toast('Selecciona un perfil universitario','err');return}
+  const bad=['estrategiaAhorro','obstaculos','herramienta','aprendizaje2'].map($).find(e=>!e.value.trim());
+  if(bad){flag(bad);toast('Completa todos los campos obligatorios','err');return}
+  state.act2={perfil:selectedPerfil,perfilData:perfiles[selectedPerfil],
+    gastos:{transporte:gastosVals()[0],alimentacion:gastosVals()[1],materiales:gastosVals()[2],otros:gastosVals()[3]},
+    fondoMinimo:currentFondo,ahorroSemanal:parseFloat($('ahorroSemanal').value)||0,mesesEstimados:$('mesesEstimados').value||'',
+    estrategia:$('estrategiaAhorro').value.trim(),obstaculos:$('obstaculos').value.trim(),herramienta:$('herramienta').value.trim(),aprendizaje:$('aprendizaje2').value.trim()};
+  goTo(4);
+}
+
+/* ───────── ACT 3 ───────── */
+function renderCrisisCards(){
+  $('crisisCards').innerHTML=crisisScenarios.map((s,i)=>`
+    <div class="crisis" style="--cc:${s.color}">
+      <div class="crisis-top">
+        <div><div class="crisis-no">ESCENARIO 0${i+1}</div><h4>${s.title}</h4><span class="chip">${s.badge}</span></div>
+        <div class="crisis-cost"><small>Costo estimado</small><b>${s.amount}</b></div>
+      </div>
+      <p class="ctx">${s.context}</p>
+      <div class="cover" id="cover_${s.id}"></div>
+      <div class="grid-2 vs">
+        <div class="field sin"><label for="crisis_sin_${s.id}">${ico('alert')}SIN fondo: ¿qué hace el estudiante? *</label><textarea id="crisis_sin_${s.id}" data-min="60" style="min-height:92px" placeholder="¿Pide prestado? ¿Falta a clases? ¿Toma decisiones desesperadas?"></textarea></div>
+        <div class="field con"><label for="crisis_con_${s.id}">${ico('shield')}CON fondo: ¿cómo lo maneja? *</label><textarea id="crisis_con_${s.id}" data-min="60" style="min-height:92px" placeholder="¿Cuánto retira? ¿En cuánto tiempo lo recupera?"></textarea></div>
+      </div>
+      <div class="field" style="margin-bottom:0"><label for="crisis_impacto_${s.id}">Impacto académico de NO tener fondo en este caso *</label><textarea id="crisis_impacto_${s.id}" data-min="50" style="min-height:70px" placeholder="¿Pierde notas? ¿Se atrasa? ¿Aumenta el riesgo de deserción? Sé específico."></textarea></div>
+    </div>`).join('');
+  restoreValues($('crisisCards'));updateCrisisCoverage();
+}
+function updateCrisisCoverage(){
+  crisisScenarios.forEach(s=>{
+    const el=$('cover_'+s.id);if(!el)return;
+    const loan=`<div class="loan">Sin fondo y con un gota a gota (≈20% mensual, 3 meses) pagarías <b>${cop(s.max*(1+GOTA_RATE*3))}</b> por una emergencia de ${cop(s.max)}.</div>`;
+    if(!currentFondo){el.className='cover';el.innerHTML=`<div class="cover-line">${ico('info')}<span>Calculen su fondo en la Actividad 02 para medir la cobertura.</span></div>${loan}`;return}
+    const x=currentFondo/s.max,w=Math.min(100,x*100);
+    if(x>=1){el.className='cover ok';el.innerHTML=`<div class="cover-line">${ico('shield')}<span>Su fondo mínimo (${cop(currentFondo)}) cubre este evento <b>${x.toFixed(1)} veces</b> en el peor caso.</span></div><div class="cover-bar"><i style="width:${w}%"></i></div>${loan}`}
+    else{el.className='cover low';el.innerHTML=`<div class="cover-line">${ico('alert')}<span>Su fondo mínimo (${cop(currentFondo)}) cubre solo el <b>${Math.round(x*100)}%</b> del peor caso (${cop(s.max)}).</span></div><div class="cover-bar"><i style="width:${w}%"></i></div>${loan}`}
+  });
+}
+function saveAct3(){
+  const crisisData={};
+  for(const s of crisisScenarios){
+    const els=['sin','con','impacto'].map(k=>$(`crisis_${k}_${s.id}`)),bad=els.find(e=>!e.value.trim());
+    if(bad){flag(bad);toast('Completa todos los escenarios de crisis','err');return}
+    crisisData[s.id]={sin:els[0].value.trim(),con:els[1].value.trim(),impacto:els[2].value.trim()};
+  }
+  const r=['crisisReflexion','crisisConsejo','crisisCarrera'].map($),bad=r.find(e=>!e.value.trim());
+  if(bad){flag(bad);toast('Completa la reflexión final','err');return}
+  state.act3={crisis:crisisData,reflexion:r[0].value.trim(),consejo:r[1].value.trim(),carrera:r[2].value.trim()};
+  goTo(5);
+}
+
+/* ───────── ACT 4 ───────── */
+function buildAct4Forms(){
+  $('act4Tabs').innerHTML=state.members.map((m,i)=>`<button type="button" class="tab ${i===0?'active':''}" onclick="showAct4Tab(${i})" id="act4tab_${i}">${esc(m.name.split(' ')[0]||'Integrante '+(i+1))}</button>`).join('');
+  $('act4Forms').innerHTML=state.members.map((m,i)=>`
+    <div id="act4form_${i}" style="display:${i===0?'block':'none'}">
+      <div class="who" style="border-left-color:var(--verde)"><div class="avatar" style="--mc:${MCOL[i]}">${esc((m.name||'?')[0].toUpperCase())}</div><div><b>${esc(m.name)}</b><small>${esc(m.program)} · ${esc(m.semester)} semestre</small></div></div>
+      <div class="field"><label for="a4_fecha_${i}">Fecha en que abriré mi cuenta de ahorro para emergencias *</label><input type="date" id="a4_fecha_${i}"></div>
+      <div class="grid-2">
+        <div class="field"><label for="a4_ahorro_${i}">Ahorro semanal que me comprometo a depositar *</label><div class="money"><input type="number" id="a4_ahorro_${i}" placeholder="0" min="0"></div></div>
+        <div class="field"><label for="a4_meta_${i}">Mi meta de fondo mínimo (3 meses de mis gastos) *</label><div class="money"><input type="number" id="a4_meta_${i}" placeholder="0" min="0"></div></div>
+      </div>
+      <div class="a4prev" id="a4_prev_${i}"></div>
+      <div class="field"><label for="a4_app_${i}">App o herramienta que usaré para guardar el fondo *</label><input type="text" id="a4_app_${i}" placeholder="Nequi, Daviplata, Nu, cuenta bancaria..."></div>
+      <div class="field"><label for="a4_insight_${i}">¿Qué aprendizaje de la clase de hoy fue más impactante para ti? *</label><textarea id="a4_insight_${i}" data-min="60" style="min-height:76px" placeholder="El momento o dato que más te marcó de esta sesión..."></textarea></div>
+      <div class="field" style="margin-bottom:0"><label for="a4_profesional_${i}">¿Cómo aplicarás el conocimiento financiero de esta clase en tu futuro profesional? *</label><textarea id="a4_profesional_${i}" data-min="80" style="min-height:76px" placeholder="Piensa en tu programa: ¿cómo usarás esto en tu carrera?"></textarea></div>
+    </div>`).join('');
+  restoreValues($('act4Forms'));
+  state.members.forEach((_,i)=>updateA4Prev(i));
+}
+function updateA4Prev(i){
+  const el=$('a4_prev_'+i);if(!el)return;
+  const a=parseFloat($('a4_ahorro_'+i).value)||0,m=parseFloat($('a4_meta_'+i).value)||0;
+  if(!a||!m){el.className='a4prev';el.innerHTML=`${ico('info')}<span>Escribe tu ahorro semanal y tu meta para ver cuándo la alcanzas.</span>`;return}
+  const w=Math.ceil(m/a),d=new Date();d.setDate(d.getDate()+w*7);
+  el.className='a4prev ok';el.innerHTML=`${ico('target')}<span>Alcanzas tu meta en <b>${w} semanas</b>, alrededor del <b>${fdate(d)}</b>. En un semestre llevarías <b>${cop(Math.min(m,a*WEEKS_SEM))}</b>.</span>`;
+}
+function showAct4Tab(i){state.members.forEach((_,j)=>{$('act4form_'+j).style.display=j===i?'block':'none';$('act4tab_'+j)?.classList.toggle('active',j===i)})}
+function setSelfRating(n){
+  selfRatingVal=n;draft.rating=n;queueSave();
+  $('selfRating').querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('on',i<n));
+  $('selfRatingVal').textContent=n?n+' / 5':'';
+}
+function saveAct4(){
+  const cg=$('compromisoGrupal'),ac=$('compromisoAcompanamiento');
+  const members4={};
+  for(let i=0;i<state.members.length;i++){
+    const f=['fecha','ahorro','meta','app','insight','profesional'].map(k=>$(`a4_${k}_${i}`)),bad=f.find(e=>!String(e.value).trim());
+    if(bad){showAct4Tab(i);flag(bad);toast('Completa el compromiso de todos los integrantes','err');return}
+    members4[i]={fecha:f[0].value,ahorro:parseFloat(f[1].value)||0,meta:parseFloat(f[2].value)||0,app:f[3].value.trim(),insight:f[4].value.trim(),profesional:f[5].value.trim()};
+  }
+  const bad=[cg,ac].find(e=>!e.value.trim());
+  if(bad){flag(bad);toast('Completa el compromiso grupal','err');return}
+  state.act4={members:members4,compromisoGrupal:cg.value.trim(),acompañamiento:ac.value.trim(),selfRating:selfRatingVal};
+  generateResults();goTo(6);
+}
+
+/* ───────── EVALUATION ENGINE (lógica original) ───────── */
+function scoreAct1(){
+  let total=0;
+  state.members.forEach((_,i)=>{const d=state.act1[i];if(!d)return;let s=0;
+    if(d.calculo&&d.calculo.length>60)s+=30;else if(d.calculo)s+=15;
+    if(d.fuente&&d.fuente.length>40)s+=20;else if(d.fuente)s+=10;
+    if(d.pasado&&d.pasado.length>50)s+=25;else if(d.pasado)s+=12;
+    if(d.obstaculo&&d.obstaculo.length>40)s+=25;else if(d.obstaculo)s+=12;
+    total+=s});
+  return Math.min(100,Math.round(total/state.members.length));
+}
+function scoreAct2(){
+  let s=0;const d=state.act2;
+  if(d.fondoMinimo>0)s+=15;if(d.ahorroSemanal>0)s+=10;
+  if(d.estrategia&&d.estrategia.length>100)s+=25;else if(d.estrategia)s+=12;
+  if(d.obstaculos&&d.obstaculos.length>80)s+=20;else if(d.obstaculos)s+=10;
+  if(d.herramienta&&d.herramienta.length>50)s+=15;else if(d.herramienta)s+=8;
+  if(d.aprendizaje&&d.aprendizaje.length>80)s+=15;else if(d.aprendizaje)s+=8;
+  return Math.min(100,s);
+}
+function scoreAct3(){
+  let s=0;
+  for(const sc of crisisScenarios){const d=state.act3.crisis[sc.id];if(!d)continue;
+    if(d.sin&&d.sin.length>60)s+=10;else if(d.sin)s+=5;
+    if(d.con&&d.con.length>60)s+=10;else if(d.con)s+=5;
+    if(d.impacto&&d.impacto.length>50)s+=5;else if(d.impacto)s+=2}
+  if(state.act3.reflexion?.length>80)s+=15;else if(state.act3.reflexion)s+=8;
+  if(state.act3.consejo?.length>60)s+=10;else if(state.act3.consejo)s+=5;
+  if(state.act3.carrera?.length>80)s+=15;else if(state.act3.carrera)s+=8;
+  return Math.min(100,s);
+}
+function scoreAct4(){
+  let s=0;
+  Object.values(state.act4.members||{}).forEach(m=>{
+    if(m.ahorro>0)s+=15;if(m.meta>0)s+=10;
+    if(m.insight?.length>60)s+=15;else if(m.insight)s+=8;
+    if(m.profesional?.length>80)s+=20;else if(m.profesional)s+=10});
+  if(state.act4.compromisoGrupal?.length>80)s+=15;else if(state.act4.compromisoGrupal)s+=8;
+  if(state.act4.selfRating>=4)s+=10;else if(state.act4.selfRating>0)s+=5;
+  return Math.min(100,Math.round(s/state.members.length));
+}
+function getAwards(scores,act2,act4){
+  const a=[];
+  if(scores.act2>=85)a.push({icon:'spark',label:'Estrategia Innovadora',color:COLORS.celeste});
+  if(scores.act3>=85)a.push({icon:'bolt',label:'Análisis Profundo',color:COLORS.naranja});
+  if(scores.act4>=85)a.push({icon:'users',label:'Compromiso Real',color:COLORS.verde});
+  if(scores.act1+scores.act2+scores.act3+scores.act4>=340)a.push({icon:'trophy',label:'Grupo Excelente',color:COLORS.ambar});
+  if(act4.selfRating>=5)a.push({icon:'target',label:'Máxima Creatividad',color:COLORS.rojo});
+  if(act2.fondoMinimo>1500000)a.push({icon:'shield',label:'Meta Ambiciosa',color:COLORS.azul});
+  return a;
+}
+function scoreColor(n){return n>=90?COLORS.verde:n>=75?COLORS.celeste:n>=60?COLORS.naranja:COLORS.rojo}
+function nota(n){return n>=90?'5.0':n>=80?'4.5':n>=70?'4.0':n>=60?'3.5':n>=50?'3.0':'2.5'}
+function comment(n,act){
+  const l={1:'Mi Foto Financiera',2:'Reto del Semestre',3:'Simulador de Crisis',4:'Mi Compromiso'}[act];
+  if(n>=90)return`Excelente trabajo en ${l}. Respuestas completas, reflexivas y con aplicación real del conocimiento financiero.`;
+  if(n>=75)return`Buen desempeño en ${l}. Las respuestas muestran comprensión del tema con oportunidad de mayor profundidad.`;
+  if(n>=60)return`Desempeño aceptable en ${l}. Se evidencia comprensión básica pero falta mayor desarrollo y aplicación práctica.`;
+  return`En ${l} se recomienda ampliar las respuestas con más análisis y conexión con casos reales.`;
+}
+
+/* ───────── RESULTS ───────── */
+function radarSVG(sc){
+  const cx=120,cy=120,R=88,ang=[-90,0,90,180].map(a=>a*Math.PI/180),labs=['FOTO','RETO','CRISIS','COMPROMISO'];
+  const pt=(i,r)=>[cx+Math.cos(ang[i])*r,cy+Math.sin(ang[i])*r];
+  const poly=r=>ang.map((_,i)=>pt(i,r).join(',')).join(' ');
+  const shape=sc.map((v,i)=>pt(i,R*v/100).join(',')).join(' ');
+  return`<svg class="radar" viewBox="0 0 240 240" role="img" aria-label="Radar de desempeño">
+    ${[.25,.5,.75,1].map(k=>`<polygon class="grid" points="${poly(R*k)}"/>`).join('')}
+    ${ang.map((_,i)=>`<line class="grid" x1="${cx}" y1="${cy}" x2="${pt(i,R)[0]}" y2="${pt(i,R)[1]}"/>`).join('')}
+    <polygon class="shape" points="${shape}"/>
+    ${sc.map((v,i)=>`<circle cx="${pt(i,R*v/100)[0]}" cy="${pt(i,R*v/100)[1]}" r="3.5" fill="#F26A25"/>`).join('')}
+    <text x="120" y="16" text-anchor="middle">${labs[0]}</text><text x="232" y="123" text-anchor="end">${labs[1]}</text>
+    <text x="120" y="236" text-anchor="middle">${labs[2]}</text><text x="8" y="123" text-anchor="start">${labs[3]}</text></svg>`;
+}
+function generateResults(){
+  const s1=scoreAct1(),s2=scoreAct2(),s3=scoreAct3(),s4=scoreAct4();
+  const total=Math.round(s1*.2+s2*.3+s3*.25+s4*.25);
+  const awards=getAwards({act1:s1,act2:s2,act3:s3,act4:s4},state.act2,state.act4);
+  const nf=nota(total),tc=scoreColor(total),gc=total>=80?'#34CF8C':total>=60?'#FF9B5E':'#F0566F';
+  const sc=[s1,s2,s3,s4],lab=['Mi Foto Financiera','Reto del Semestre','Simulador de Crisis','Mi Compromiso'],w=[20,30,25,25],col=[COLORS.rojo,COLORS.naranja,COLORS.celeste,COLORS.verde];
+
+  const roster=state.members.map((m,i)=>`<span><div class="avatar" style="--mc:${MCOL[i]}">${esc((m.name||'?')[0].toUpperCase())}</div>${esc(m.name)} <em>${esc(m.program)} · ${esc(m.semester)}</em></span>`).join('');
+  const dims=lab.map((l,i)=>`<div class="dim" style="--c:${col[i]}"><span>${l}<small>Peso ${w[i]}%</small></span><div class="tr"><i data-w="${sc[i]}"></i></div><b style="color:${scoreColor(sc[i])}">${sc[i]}</b></div>`).join('');
+  const awardsH=awards.map(a=>`<span class="award" style="--c:${a.color}">${ico(a.icon)}${a.label}</span>`).join('');
+  const fb=sc.map((v,i)=>`<div class="fb" style="--c:${col[i]}"><b>${lab[i]}:</b> ${comment(v,i+1)}</div>`).join('');
+  const commits=state.members.map((m,i)=>{
+    const c=state.act4.members[i];if(!c)return'';
+    const meses=c.ahorro>0?Math.ceil(c.meta/(c.ahorro*4.3)):0;
+    const fecha=c.fecha?new Date(c.fecha+'T12:00:00').toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'}):'—';
+    return`<div class="commit"><div class="commit-h"><div class="avatar" style="--mc:${MCOL[i]}">${esc((m.name||'?')[0].toUpperCase())}</div><div><b>${esc(m.name)}</b><small>${esc(m.program)}</small></div></div>
+      <div class="cstats"><div class="cstat"><small>Meta</small><b style="color:var(--naranja)">${cop(c.meta)}</b></div><div class="cstat"><small>Ahorro / semana</small><b style="color:var(--celeste)">${cop(c.ahorro)}</b></div><div class="cstat"><small>Lo logra en</small><b style="color:var(--verde)">${meses>0?meses+(meses===1?' mes':' meses'):'—'}</b></div></div>
+      <p><b>Herramienta:</b> ${esc(c.app)} · <b>Abre su cuenta:</b> ${fecha}</p>
+      <div class="quote">“${esc(c.insight)}”</div></div>`}).join('');
+  const closing=total>=80?`<div class="note ok">${ico('trophy')}<div><b>Excelente sesión.</b> El grupo demostró comprensión profunda del tema y compromisos concretos. El docente revisará el progreso en el próximo módulo.</div></div>`
+    :total>=60?`<div class="note warn">${ico('info')}<div>El grupo muestra buena comprensión del tema. Se recomienda ampliar el análisis en las próximas sesiones y profundizar en los compromisos personales.</div></div>`
+    :`<div class="note bad">${ico('alert')}<div>El grupo debe reforzar el trabajo. El docente puede solicitar una revisión de las actividades con mayor detalle.</div></div>`;
+  const nextSteps=['Abre tu cuenta o bolsillo "SOLO EMERGENCIAS" en la fecha que elegiste.','Programa una transferencia automática semanal por el monto comprometido.','Haz tu primer depósito hoy, aunque sea de $5.000.','Comparte la captura de tu saldo con el grupo cada semana.','Celebra tu mini meta de $100.000 y revisa tu plan en 30 días.'];
+
+  $('resultsContent').innerHTML=`
+  <div class="scorecard">
+    <div class="sc-head">
+      <div><div class="k">Grupo evaluado</div><h3>${esc(state.groupName)}</h3><div class="meta">${esc(state.groupSalon)} · ${state.members.length} integrante${state.members.length>1?'s':''}</div><div class="roster">${roster}</div></div>
+      <div class="ring-wrap"><div class="ring" style="--rc:${tc}"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="54"/><circle class="fg" id="ringFg" cx="60" cy="60" r="54"/></svg><div class="ring-c"><b id="totalNum" data-n="${total}">0</b><small>de 100</small></div></div><div class="grade" style="--gc:${gc}">Calificación<b>${nf}</b></div></div>
+    </div>
+    <div class="sc-body"><div>${dims}</div>${radarSVG(sc)}</div>
+    ${awards.length?`<div class="awards">${awardsH}</div>`:''}
+    <div class="feedback"><h6>Retroalimentación del docente</h6>${fb}</div>
+  </div>
+  <div class="sublabel" style="margin-top:34px">Compromisos individuales</div>
+  ${commits}
+  <div class="panel" style="margin-top:20px;border-color:var(--ok-bd)">
+    <div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3>Compromiso del grupo</h3></div></div>
+    <div class="quote">“${esc(state.act4.compromisoGrupal)}”</div>
+    <p style="font-size:.88rem;color:var(--text2)"><b style="color:var(--text)">¿Cómo se acompañarán?</b><br>${esc(state.act4.acompañamiento)}</p>
+  </div>
+  <div class="panel no-print">
+    <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-target"/></svg></div><div><h3>Tus próximos pasos</h3><p>Marca cada uno cuando lo cumplas</p></div></div>
+    <div class="next">${nextSteps.map((t,i)=>`<label><input type="checkbox" id="next_${i}"><span>${t}</span></label>`).join('')}</div>
+  </div>
+  ${closing}
+  <div class="foot">Finanzas Personales · UNICESMAG · Grupo registrado: ${esc(state.groupName)} · ${new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})}<br><br>
+    <button class="btn btn-ghost no-print" onclick="window.print()">${ico('print')}Imprimir resultados</button></div>`;
+
+  document.querySelectorAll('.next input').forEach(c=>{c.checked=draft.v[c.id]==='1';c.onchange=()=>{draft.v[c.id]=c.checked?'1':'';queueSave()}});
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    $('ringFg').style.strokeDashoffset=339.29*(1-total/100);
+    document.querySelectorAll('.dim .tr i').forEach(i=>i.style.width=i.dataset.w+'%');
+    const el=$('totalNum'),t0=performance.now(),dur=1400;
+    (function tick(t){const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(total*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)})(t0);
+  }));
+}
+
+/* ───────── NAVIGATION / UI ───────── */
+function goTo(n){
+  state.step=n;if(n>state.maxUnlocked)state.maxUnlocked=n;
+  document.querySelectorAll('.screen').forEach((s,i)=>s.classList.toggle('active',i===n));
+  const cls=(b,i)=>{b.classList.remove('active','done','locked');if(i===n)b.classList.add('active');else if(i<=state.maxUnlocked)b.classList.add('done');else b.classList.add('locked')};
+  document.querySelectorAll('.step-btn').forEach((b,i)=>cls(b,i));
+  document.querySelectorAll('#mbDots button').forEach((b,i)=>cls(b,i));
+  $('fillLine').style.height=`calc((100% - 44px) * ${n/LAST})`;
+  $('mbFill').style.width=(n/LAST*100)+'%';$('mbTitle').textContent=STEP_NAMES[n];
+  if(n===4)updateCrisisCoverage();
+  updateRail();window.scrollTo({top:0,behavior:'smooth'});
+}
+function tryNav(n){if(n<=state.maxUnlocked)goTo(n);else toast('Completa la actividad actual primero','err')}
+function updateRail(){
+  const g=$('groupName')?.value.trim()||state.groupName;
+  $('rcGroup').textContent=g||'—';
+  $('rcMembers').textContent=state.members.length?state.members.length:'—';
+  $('rcFund').textContent=currentFondo?cop(currentFondo):'—';
+}
+function flag(el){if(!el)return;el.classList.remove('invalid');void el.offsetWidth;el.classList.add('invalid');el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>el.focus({preventScroll:true}),350)}
+let toastT;
+function toast(msg,kind){
+  const t=$('toast');t.className=kind==='err'?'err':'okk';
+  t.innerHTML=(kind==='err'?ico('alert'):ico('check'))+'<span>'+esc(msg)+'</span>';
+  requestAnimationFrame(()=>t.classList.add('show'));clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2900);
+}
+
+/* ───────── INIT ───────── */
+function init(){
+  let th='light';try{th=localStorage.getItem(THEME_KEY)||'light'}catch(e){}
+  applyTheme(th);
+  $('mbDots').innerHTML=STEP_NAMES.map((_,i)=>`<button type="button" class="${i===0?'active':i===1?'':'locked'}" onclick="tryNav(${i})" aria-label="${STEP_NAMES[i]}">${i===0?ico('book'):i===LAST?ico('star'):i-1}</button>`).join('');
+  const had=loadDraft();
+  renderMembers();renderCrisisCards();
+  restoreValues(document);
+  updateLesson();renderQuiz.cheered=Object.keys(draft.quiz).length===quizItems.length;renderQuiz();
+  if(draft.perfil&&perfiles[draft.perfil]){const el=document.querySelector(`.perfil[data-perfil="${draft.perfil}"]`);if(el){selectPerfil(el,draft.perfil);restoreValues($('perfilDetails'));calcFondo()}}
+  if(draft.rating)setSelfRating(draft.rating);
+  $('groupName').addEventListener('input',updateRail);
+  goTo(0);
+  if(had&&Object.keys(draft.v).length)setTimeout(()=>toast('Recuperamos tu avance anterior','ok'),500);
+}
+init();
+</script>
+</body>
+</html>
