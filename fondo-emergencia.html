@@ -499,7 +499,7 @@ body.dash-on{overflow:hidden}
 .grow.open .chev{transform:rotate(90deg)}
 .gbody{display:none;padding:4px 18px 20px;border-top:1px solid var(--line)}
 .grow.open .gbody{display:block}
-.gscores{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.gscores{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px;margin:12px 0}
 .gscores div{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px}
 .gscores small{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);font-weight:800}
 .gscores b{font-family:var(--mono);font-size:1.05rem}
@@ -541,6 +541,100 @@ details.ans .ab p b{color:var(--text)}
   .srow{grid-template-columns:minmax(0,1fr) 60px 60px}.srow>:nth-child(2),.srow>:nth-child(5){display:none}
   .filters select,.filters input{flex:1 1 100%}
 }
+
+/* ───────── MODALIDAD ───────── */
+body.m-ind .only-g{display:none!important}
+body:not(.m-ind) .only-i{display:none!important}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mode-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;padding:22px;border-radius:var(--r-lg);border:2px solid var(--line2);background:var(--surface2);color:var(--text);cursor:pointer;transition:all .25s var(--ease);position:relative}
+.mode-card:hover{transform:translateY(-3px);border-color:var(--line3)}
+.mode-card.sel{border-color:var(--naranja);background:var(--surface);box-shadow:0 0 0 4px rgba(242,106,37,.14),0 18px 36px -20px rgba(242,106,37,.5)}
+.mode-card .mi{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--grad-brand);color:#fff}
+.mode-card.sel .mi{background:var(--grad-accent)}
+.mode-card .mi .ic{width:24px;height:24px}
+.mode-card b{font-family:var(--display);font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.mode-card span{font-size:.84rem;color:var(--text2);line-height:1.45}
+.mode-card .tick{top:18px;right:18px;color:var(--naranja);width:22px;height:22px}
+.mode-card.sel .tick{opacity:1;transform:scale(1)}
+.modal-card.wide{max-width:640px;text-align:left}
+.modal-card.wide h3{font-size:1.7rem}
+.mode-pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:20px;font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--info-bg);color:var(--info-fg);border:1px solid var(--info-bd)}
+
+/* ───────── VISUALES INTERACTIVOS ───────── */
+.jar.sm{width:118px;height:154px}
+.jar.sm .lid{left:27px;right:27px;height:17px}
+.jar.sm .body{top:13px;border-radius:26px 26px 22px 22px}
+.jar.sm .pct{font-size:1.6rem}
+.viz{display:grid;grid-template-columns:auto minmax(0,1fr) 190px;gap:22px;align-items:center;padding:18px 20px;border-radius:var(--r);background:var(--surface2);border:1px solid var(--line);margin:2px 0 20px}
+.viz .sublabel{margin-bottom:8px}
+.vstats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vstats div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.vstats small{display:block;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);font-weight:800}
+.vstats b{font-family:var(--mono);font-size:.92rem}
+.vmsg{font-size:.8rem;color:var(--text2);margin-top:8px;line-height:1.45}
+.vmsg b{color:var(--text)}
+.gauge{width:100%;max-width:190px;display:block;margin:auto}
+.gauge path{fill:none;stroke-width:16;stroke-linecap:round}
+.gauge .gbg{stroke:var(--surface3)}
+.gauge .gfg{transition:stroke-dasharray .8s var(--ease)}
+.gauge .gv{font:800 30px var(--display);fill:var(--text)}
+.gauge .gt{font:700 10px var(--sans);fill:var(--text3)}
+.state{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:800;color:#fff;background:var(--c)}
+.viz2{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;margin-top:16px;padding:18px;border-radius:var(--r);background:var(--surface2);border:1px solid var(--line)}
+.viz2 .jar-cap{max-width:150px}
+.growth{width:100%;height:auto;display:block}
+.growth .gl{stroke:var(--line2);stroke-width:1}
+.growth text{fill:var(--text3);font:600 10px var(--sans)}
+.growth .area{fill:rgba(242,106,37,.14)}
+.growth .ln{fill:none;stroke:var(--naranja);stroke-width:2.6;stroke-linejoin:round}
+.growth .mline{stroke:var(--verde);stroke-dasharray:6 5;stroke-width:1.8}
+.growth .mtxt{fill:var(--verde);font-weight:800}
+.growth .sline{stroke:var(--celeste);stroke-dasharray:3 4;stroke-width:1.3}
+.growth .stxt{fill:var(--celeste)}
+.growth .dot{stroke:var(--surface);stroke-width:2}
+.chart-empty{padding:30px;text-align:center;color:var(--text3);font-size:.84rem}
+input[type=range].sync{margin-top:12px}
+.chip-btn{display:inline-flex;align-items:center;gap:8px;margin:-6px 0 16px;padding:8px 14px;border-radius:30px;border:1.5px dashed var(--ok-bd);background:var(--ok-bg);color:var(--ok-fg);font-weight:800;font-size:.8rem;cursor:pointer}
+.chip-btn:hover{border-style:solid}
+.chip-btn[hidden]{display:none}
+.r52{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:22px;align-items:center;margin-top:18px;padding:20px;border-radius:var(--r);background:var(--info-bg);border:1px solid var(--info-bd)}
+.r52 .ant-out small{color:var(--info-fg)}
+.bars52{width:100%;height:auto;display:block;margin-top:12px}
+.bars52 rect{fill:var(--celeste);opacity:.85}
+.bars52 .cum{fill:none;stroke:var(--naranja);stroke-width:2.2}
+.bars52 text{fill:var(--text3);font:600 9px var(--sans)}
+
+/* ───────── RESUMEN PERSONAL ───────── */
+.me{display:none}
+.me.active{display:block;animation:rise .45s var(--ease)}
+.me .sc-head .state{margin-top:12px}
+.sit{display:grid;grid-template-columns:auto minmax(0,1fr) 200px;gap:24px;align-items:center}
+.whatif{padding:18px 20px;border-radius:var(--r);background:var(--surface2);border:1px solid var(--line);margin-bottom:16px}
+.whatif .big{font-family:var(--display);font-size:1.35rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-top:12px}
+.whatif .big b{color:var(--naranja)}
+.cov{display:grid;grid-template-columns:minmax(0,1fr) 1.2fr 90px;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:.86rem}
+.cov:last-child{border-bottom:0}
+.cov b{display:block}.cov small{color:var(--text3);font-size:.74rem}
+.cov .t{height:10px;border-radius:6px;background:var(--surface3);overflow:hidden}
+.cov .t i{display:block;height:100%;border-radius:6px;background:var(--c)}
+.cov .v{text-align:right;font-weight:800;font-size:.8rem;color:var(--c)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.two .panel{margin:0}
+.rec{font-size:.8rem;color:var(--text);margin-top:4px;font-weight:600}
+.rec::before{content:'→ ';color:var(--naranja);font-weight:800}
+@media(max-width:980px){
+  .viz,.sit{grid-template-columns:auto minmax(0,1fr)}
+  .viz>:last-child,.sit>:last-child{grid-column:1/-1}
+  .two,.r52{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .modes{grid-template-columns:1fr}
+  .viz,.viz2,.sit{grid-template-columns:1fr;justify-items:center}
+  .viz>*,.viz2>*,.sit>*{width:100%}
+  .vstats{grid-template-columns:1fr 1fr}
+  .cov{grid-template-columns:1fr 70px}.cov .t{grid-column:1/-1;order:3}
+}
+@media print{.me{display:block!important;page-break-before:always}.whatif input,.me .tabs{display:none}}
 
 /* ───────── TOAST ───────── */
 #toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,140px);z-index:999;display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:40px;font-weight:800;font-size:.88rem;background:var(--surface);color:var(--text);border:1.5px solid var(--line3);box-shadow:var(--shadow-lg);transition:transform .45s var(--ease);max-width:92vw}
@@ -640,6 +734,19 @@ details.ans .ab p b{color:var(--text)}
 
 <div id="toast" role="status" aria-live="polite"></div>
 
+<!-- ═════════ MODALIDAD ═════════ -->
+<div class="modal" id="modeModal" role="dialog" aria-modal="true" aria-labelledby="modeTitle">
+  <div class="modal-card wide">
+    <div class="eyebrow">Bienvenido · Fondo de Emergencia</div>
+    <h3 id="modeTitle" style="margin:10px 0 4px">¿Cómo vas a trabajar hoy?</h3>
+    <p>Elige la modalidad. En las dos opciones <b>cada estudiante recibe su propia nota</b> y un resumen personal con su plan para construir el fondo.</p>
+    <div class="modes">
+      <button type="button" class="mode-card" data-mode="ind" onclick="chooseMode('ind')"><svg class="ic tick"><use href="#i-check"/></svg><div class="mi"><svg class="ic"><use href="#i-target"/></svg></div><b>Individual</b><span>Trabajas solo con tus propios números. Ideal para tarea o evaluación personal.</span></button>
+      <button type="button" class="mode-card" data-mode="grp" onclick="chooseMode('grp')"><svg class="ic tick"><use href="#i-check"/></svg><div class="mi"><svg class="ic"><use href="#i-users"/></svg></div><b>Grupal</b><span>De 2 a 4 integrantes. El reto y la crisis se resuelven juntos; el diagnóstico y el compromiso son personales.</span></button>
+    </div>
+  </div>
+</div>
+
 <!-- ═════════ ACCESO DOCENTE ═════════ -->
 <div class="modal" id="pwModal" role="dialog" aria-modal="true" aria-labelledby="pwTitle">
   <form class="modal-card" onsubmit="event.preventDefault();checkDocente()">
@@ -655,7 +762,7 @@ details.ans .ab p b{color:var(--text)}
 <div class="dash" id="dash" aria-label="Panel docente">
   <div class="dash-in">
     <div class="dash-top">
-      <div><small>Panel docente · Fondo de Emergencia</small><h2>Aciertos y errores por grupo</h2><span class="src-chip" id="srcChip"><i></i><span>Cargando…</span></span></div>
+      <div><small>Panel docente · Fondo de Emergencia</small><h2>Notas, aciertos y errores por estudiante</h2><span class="src-chip" id="srcChip"><i></i><span>Cargando…</span></span></div>
       <div class="acts">
         <button class="btn btn-ghost" type="button" onclick="loadDash()"><svg class="ic"><use href="#i-repeat"/></svg>Actualizar</button>
         <button class="btn btn-success" type="button" onclick="exportDashCSV()"><svg class="ic"><use href="#i-print"/></svg>Exportar CSV (Moodle)</button>
@@ -665,6 +772,7 @@ details.ans .ab p b{color:var(--text)}
     </div>
     <div class="filters">
       <select id="fSalon" onchange="renderDash()" aria-label="Filtrar por salón"><option value="">Todos los salones</option></select>
+      <select id="fMode" onchange="renderDash()" aria-label="Filtrar por modalidad"><option value="">Individual y grupal</option><option value="ind">Solo individual</option><option value="grp">Solo grupal</option></select>
       <input type="text" id="fSearch" oninput="renderDash()" placeholder="Buscar grupo o estudiante…" aria-label="Buscar">
     </div>
     <div class="kpis" id="dKpis"></div>
@@ -672,7 +780,7 @@ details.ans .ab p b{color:var(--text)}
       <div class="panel"><div class="panel-h"><div class="panel-ic" style="color:var(--rojo)"><svg class="ic"><use href="#i-alert"/></svg></div><div><h3>Errores más frecuentes</h3><p>% de evaluados que fallan cada criterio</p></div></div><div id="dErr"></div></div>
       <div class="panel"><div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-check"/></svg></div><div><h3>Juego IUN: ¿es una emergencia?</h3><p>% de grupos que acertaron cada situación</p></div></div><div id="dQuiz"></div></div>
     </div>
-    <div class="vtabs"><button type="button" class="tab active" id="vtG" onclick="setView('g')">Por grupo</button><button type="button" class="tab" id="vtS" onclick="setView('s')">Por estudiante</button></div>
+    <div class="vtabs"><button type="button" class="tab active" id="vtG" onclick="setView('g')">Por registro</button><button type="button" class="tab" id="vtS" onclick="setView('s')">Por estudiante</button></div>
     <div id="dList"></div>
   </div>
 </div>
@@ -694,7 +802,7 @@ details.ans .ab p b{color:var(--text)}
     <ol class="stepper" id="stepNav">
       <div class="fillline" id="fillLine"></div>
       <li><button class="step-btn active" data-step="0" onclick="tryNav(0)"><span class="step-num"><svg class="ic"><use href="#i-book"/></svg></span><span class="step-txt"><b>Aprende</b><small>Lección express · 8 min</small></span></button></li>
-      <li><button class="step-btn" data-step="1" onclick="tryNav(1)"><span class="step-num">00</span><span class="step-txt"><b>Grupo</b><small>Registro · 3 min</small></span></button></li>
+      <li><button class="step-btn" data-step="1" onclick="tryNav(1)"><span class="step-num">00</span><span class="step-txt"><b>Registro</b><small>Individual o grupal · 3 min</small></span></button></li>
       <li><button class="step-btn locked" data-step="2" onclick="tryNav(2)"><span class="step-num">01</span><span class="step-txt"><b>Mi Foto Financiera</b><small>Diagnóstico · 10 min</small></span></button></li>
       <li><button class="step-btn locked" data-step="3" onclick="tryNav(3)"><span class="step-num">02</span><span class="step-txt"><b>Reto del Semestre</b><small>Plan de ahorro · 15 min</small></span></button></li>
       <li><button class="step-btn locked" data-step="4" onclick="tryNav(4)"><span class="step-num">03</span><span class="step-txt"><b>Simulador de Crisis</b><small>Escenarios · 20 min</small></span></button></li>
@@ -704,7 +812,8 @@ details.ans .ab p b{color:var(--text)}
 
     <div class="rail-card">
       <h6>Sesión</h6>
-      <div class="rc-row"><span>Grupo</span><b id="rcGroup">—</b></div>
+      <div class="rc-row"><span>Modalidad</span><b id="rcMode">—</b></div>
+      <div class="rc-row"><span>Nombre</span><b id="rcGroup">—</b></div>
       <div class="rc-row"><span>Integrantes</span><b id="rcMembers">—</b></div>
       <div class="rc-row"><span>Fondo meta</span><b id="rcFund">—</b></div>
       <div class="draft-chip"><span class="dot"></span><span id="draftTxt">Autoguardado activo</span><button type="button" onclick="clearDraft()">Reiniciar</button></div>
@@ -832,33 +941,50 @@ details.ans .ab p b{color:var(--text)}
           </div>
           <div class="ant-out"><small>En un semestre</small><b id="o_hormigaSem">$540.000</b><em id="o_hormigaPct">= 30% de tu meta</em></div>
         </div>
+        <div class="r52">
+          <div>
+            <div class="slider-field" style="margin:0">
+              <div class="slider-top"><label for="l_reto52">Reto de las 52 semanas: la semana 1 ahorro…</label><output id="o_reto52">$1.000</output></div>
+              <input type="range" id="l_reto52" min="500" max="5000" step="500" value="1000">
+            </div>
+            <div id="r52chart"></div>
+          </div>
+          <div class="ant-out"><small>En 52 semanas juntas</small><b id="o_reto52tot">$1.378.000</b><em id="o_reto52txt"></em></div>
+        </div>
       </div>
 
-      <div class="btn-row"><span></span><div class="right"><button class="btn btn-primary btn-lg" onclick="goTo(1)">¡Listo! Armar mi grupo<svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
+      <div class="btn-row"><span></span><div class="right"><button class="btn btn-primary btn-lg" onclick="goTo(1)">¡Listo! Empezar las actividades<svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
     </section>
 
-    <!-- ═════════ SCREEN 1 · GRUPO ═════════ -->
+    <!-- ═════════ SCREEN 1 · REGISTRO ═════════ -->
     <section class="screen" id="screen-1">
       <div class="hero">
         <div class="eyebrow">Finanzas Personales · Unidad 2</div>
-        <h2>Construyan su <em>red de seguridad</em> financiera</h2>
-        <p>Cuatro actividades colaborativas para diseñar, probar y comprometerse con un fondo de emergencia universitario. Empiecen registrando al grupo.</p>
+        <h2>Construye tu <em>red de seguridad</em> financiera</h2>
+        <p>Cuatro actividades para diseñar, probar y comprometerte con tu fondo de emergencia. Al final recibirás <b>tu nota personal</b> y un resumen de tu situación con un plan para lograr tu meta.</p>
       </div>
-      <div class="note info"><svg class="ic"><use href="#i-info"/></svg><div>Mínimo 1 y máximo 4 integrantes. Su avance se guarda automáticamente en este dispositivo.</div></div>
+      <div class="panel">
+        <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-spark"/></svg></div><div><h3>Modalidad de trabajo</h3><p>Puedes cambiarla antes de comenzar</p></div></div>
+        <div class="modes">
+          <button type="button" class="mode-card" data-mode="ind" onclick="setMode('ind')"><svg class="ic tick"><use href="#i-check"/></svg><div class="mi"><svg class="ic"><use href="#i-target"/></svg></div><b>Individual</b><span>Solo tú, con tus propios números.</span></button>
+          <button type="button" class="mode-card" data-mode="grp" onclick="setMode('grp')"><svg class="ic tick"><use href="#i-check"/></svg><div class="mi"><svg class="ic"><use href="#i-users"/></svg></div><b>Grupal</b><span>De 2 a 4 integrantes, cada uno con su nota.</span></button>
+        </div>
+      </div>
+      <div class="note info"><svg class="ic"><use href="#i-info"/></svg><div><span class="only-g">Máximo 4 integrantes. </span>El avance se guarda automáticamente en este dispositivo y se envía al docente.</div></div>
 
       <div class="panel">
-        <div class="panel-h"><div class="panel-ic" style="color:var(--celeste)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3>Integrantes del grupo</h3><p>Datos de cada estudiante</p></div></div>
+        <div class="panel-h"><div class="panel-ic" style="color:var(--celeste)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3><span class="only-g">Integrantes del grupo</span><span class="only-i">Tus datos</span></h3><p><span class="only-g">Datos de cada estudiante</span><span class="only-i">Para tu resumen y tu nota personal</span></p></div></div>
         <div id="membersContainer" class="grid-4"></div>
-        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+        <div class="only-g" style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn btn-ghost" onclick="addMember()" id="addMemberBtn"><svg class="ic"><use href="#i-plus"/></svg>Agregar integrante</button>
           <button class="btn btn-ghost" onclick="removeMember()" id="removeMemberBtn" style="display:none"><svg class="ic"><use href="#i-minus"/></svg>Quitar último</button>
         </div>
       </div>
 
       <div class="panel">
-        <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-pen"/></svg></div><div><h3>Identidad del grupo</h3><p>La creatividad también cuenta</p></div></div>
+        <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-pen"/></svg></div><div><h3><span class="only-g">Identidad del grupo</span><span class="only-i">Tu curso</span></h3><p>Para que el docente encuentre tu trabajo</p></div></div>
         <div class="grid-2">
-          <div class="field"><label for="groupName">Nombre del grupo *</label><input type="text" id="groupName" placeholder="Ej: Los Ahorradores del Futuro" autocomplete="off"></div>
+          <div class="field only-g"><label for="groupName">Nombre del grupo *</label><input type="text" id="groupName" placeholder="Ej: Los Ahorradores del Futuro" autocomplete="off"></div>
           <div class="field"><label for="groupSalon">Salón / Grupo académico *</label><input type="text" id="groupSalon" placeholder="Ej: Contaduría Semestre 3 - Noche" autocomplete="off"></div>
         </div>
       </div>
@@ -886,7 +1012,7 @@ details.ans .ab p b{color:var(--text)}
       <div class="hero">
         <div class="eyebrow">Actividad 02 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>15 min</span></div>
         <h2>El <em>reto</em> del semestre</h2>
-        <p>Elijan un perfil universitario y diseñen su plan de fondo de emergencia. Sean creativos, pero que los números cierren.</p>
+        <p><span class="only-g">Elijan un perfil universitario y diseñen su plan de fondo de emergencia. Sean creativos, pero que los números cierren.</span><span class="only-i">Elige un perfil universitario y diseña su plan de fondo de emergencia. Sé creativo, pero que los números cierren.</span></p>
       </div>
       <div class="panel">
         <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-target"/></svg></div><div><h3>Paso 1 · Seleccionen el perfil</h3><p>Trabajarán con sus ingresos reales</p></div></div>
@@ -946,11 +1072,13 @@ details.ans .ab p b{color:var(--text)}
             <div class="field"><label for="ahorroSemanal">Ahorro semanal realista para este perfil *</label><div class="money"><input type="number" id="ahorroSemanal" placeholder="0" min="0" oninput="calcTime()"></div></div>
             <div class="field"><label for="mesesEstimados">Tiempo estimado para alcanzar el fondo</label><input type="text" id="mesesEstimados" readonly placeholder="Se calcula automáticamente"></div>
           </div>
+          <input type="range" class="sync" data-for="ahorroSemanal" min="0" max="150000" step="1000" value="0" aria-label="Ajustar ahorro semanal" style="margin:-6px 0 18px">
           <div class="road">
             <div class="sublabel" style="margin-bottom:0">Camino al fondo</div>
             <div class="road-bar" id="roadBar"><i id="tlFill"></i></div>
             <div class="road-lbl"><span id="roadSem">Escriban el ahorro semanal para ver el camino.</span><b id="tlLbl">—</b></div>
           </div>
+          <div class="viz2"><div class="jar-wrap"><div class="jar sm" aria-hidden="true"><div class="lid"></div><div class="body"><div class="liquid" id="a2jL"></div><div class="marks"><i style="bottom:33.3%"></i><i style="bottom:66.6%"></i></div><div class="pct" id="a2jP">0%</div></div></div><div class="jar-cap" id="a2cap">Lo que llevarían en 1 semestre</div></div><div id="a2chart"></div></div>
           <div style="height:22px"></div>
           <div class="field"><label for="estrategiaAhorro">¿Cómo consigue ese ahorro semanal? Estrategia concreta y creativa *</label><textarea id="estrategiaAhorro" data-min="100" placeholder="Describan estrategias específicas: ¿qué puede recortar? ¿qué ingreso extra puede generar? ¿qué app usará?"></textarea></div>
           <div class="field"><label for="obstaculos">Principales obstáculos y cómo los superarán *</label><textarea id="obstaculos" data-min="80" placeholder="¿Qué puede sabotear el plan? ¿Cómo lo previenen? Piensen en situaciones reales de Nariño / UNICESMAG..."></textarea></div>
@@ -966,7 +1094,7 @@ details.ans .ab p b{color:var(--text)}
       <div class="hero">
         <div class="eyebrow">Actividad 03 <span class="time"><svg class="ic"><use href="#i-clock"/></svg>20 min</span></div>
         <h2>Simulador de <em>crisis</em></h2>
-        <p>Para cada escenario, debatan: ¿qué hace un estudiante sin fondo? ¿Y uno con fondo? La barra muestra si el fondo que calcularon en la Actividad 02 alcanzaría.</p>
+        <p><span class="only-g">Para cada escenario, debatan</span><span class="only-i">Para cada escenario, analiza</span>: ¿qué hace un estudiante sin fondo? ¿Y uno con fondo? La barra muestra si el fondo que calcularon en la Actividad 02 alcanzaría.</p>
       </div>
       <div id="crisisCards"></div>
       <div class="panel">
@@ -991,10 +1119,10 @@ details.ans .ab p b{color:var(--text)}
         <div id="act4Forms"></div>
       </div>
       <div class="panel" style="margin-top:20px">
-        <div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3>Compromiso del grupo</h3><p>Rendirse cuentas es la mitad del hábito</p></div></div>
-        <div class="field"><label for="compromisoGrupal">Como grupo, ¿qué acción concreta tomarán esta semana relacionada con su fondo de emergencia? *</label><textarea id="compromisoGrupal" data-min="80" placeholder="Ej: Los 3 integrantes abrimos una cuenta Nequi separada antes del viernes y hacemos el primer depósito de $10.000 cada uno..."></textarea></div>
-        <div class="field"><label for="compromisoAcompanamiento">¿Cómo se van a acompañar mutuamente para cumplir el compromiso? *</label><textarea id="compromisoAcompanamiento" style="min-height:76px" placeholder="Ej: Grupo de WhatsApp donde publicamos captura del saldo cada semana..."></textarea></div>
-        <div class="field" style="margin-bottom:0"><label>Autoevaluación: ¿qué tan innovadoras fueron las estrategias que diseñaron hoy?</label>
+        <div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3><span class="only-g">Compromiso del grupo</span><span class="only-i">Tu plan de acción</span></h3><p>Rendir cuentas es la mitad del hábito</p></div></div>
+        <div class="field"><label for="compromisoGrupal"><span class="only-g">Como grupo, ¿qué acción concreta tomarán esta semana relacionada con su fondo de emergencia? *</span><span class="only-i">¿Qué acción concreta tomarás esta semana para tu fondo de emergencia? (incluye monto y fecha) *</span></label><textarea id="compromisoGrupal" data-min="80" placeholder="Ej: Los 3 integrantes abrimos una cuenta Nequi separada antes del viernes y hacemos el primer depósito de $10.000 cada uno..."></textarea></div>
+        <div class="field"><label for="compromisoAcompanamiento"><span class="only-g">¿Cómo se van a acompañar mutuamente para cumplir el compromiso? *</span><span class="only-i">¿Quién te acompañará o cómo harás seguimiento a tu compromiso? *</span></label><textarea id="compromisoAcompanamiento" style="min-height:76px" placeholder="Ej: Grupo de WhatsApp donde publicamos captura del saldo cada semana..."></textarea></div>
+        <div class="field" style="margin-bottom:0"><label>Autoevaluación: ¿qué tan innovadoras fueron las estrategias que <span class="only-g">diseñaron</span><span class="only-i">diseñaste</span> hoy?</label>
           <div class="stars" id="selfRating" role="radiogroup" aria-label="Nivel de creatividad">
             <button type="button" class="star" onclick="setSelfRating(1)" aria-label="1 estrella">★</button><button type="button" class="star" onclick="setSelfRating(2)" aria-label="2 estrellas">★</button><button type="button" class="star" onclick="setSelfRating(3)" aria-label="3 estrellas">★</button><button type="button" class="star" onclick="setSelfRating(4)" aria-label="4 estrellas">★</button><button type="button" class="star" onclick="setSelfRating(5)" aria-label="5 estrellas">★</button>
             <span class="rate-val" id="selfRatingVal"></span>
@@ -1008,8 +1136,8 @@ details.ans .ab p b{color:var(--text)}
     <section class="screen" id="screen-6">
       <div class="hero">
         <div class="eyebrow">Resultados</div>
-        <h2>El <em>scorecard</em> del grupo</h2>
-        <p>Evaluación ponderada de las cuatro actividades, con reconocimientos, compromisos registrados y sus próximos pasos.</p>
+        <h2>Tu nota y tu <em>plan de ahorro</em></h2>
+        <p>Calificación personal, cómo está tu situación hoy y los pasos concretos para completar tu fondo de emergencia.</p>
       </div>
       <div id="resultsContent"></div>
     </section>
@@ -1025,7 +1153,7 @@ const COLORS={azul:'#2D4271',rojo:'#C8233F',naranja:'#F26A25',celeste:'#4F74C4',
 const MCOL=['#2D4271','#C8233F','#F26A25','#4F74C4'];
 const PROGRAMS=['Contaduría Pública','Administración de Empresas','Diseño Gráfico','Ingeniería de Sistemas','Otro'];
 const SEMESTERS=['1ro','2do','3ro','4to','5to','6to','7mo','8vo','9no','10mo'];
-const STEP_NAMES=['Aprende','Grupo','Foto financiera','Reto del semestre','Simulador de crisis','Compromiso','Resultados'];
+const STEP_NAMES=['Aprende','Registro','Foto financiera','Reto del semestre','Simulador de crisis','Compromiso','Resultados'];
 const LAST=STEP_NAMES.length-1;
 const DRAFT_KEY='fe_unicesmag_draft_v2',THEME_KEY='fe_unicesmag_theme';
 const WEEKS_SEM=18,CARD_RATE=.02,CARD_N=12,GOTA_RATE=.20;
@@ -1078,16 +1206,20 @@ function clearDraft(){if(!confirm('¿Borrar todo el avance guardado y reiniciar?
 document.addEventListener('input',e=>{
   const el=e.target;
   if(el.classList.contains('invalid'))el.classList.remove('invalid');
+  if(el.dataset.for){const tg=$(el.dataset.for);rangeFill(el);if(tg){tg.value=el.value;tg.dispatchEvent(new Event('input',{bubbles:true}))}return}
   if(el.id&&el.type!=='button'&&!el.readOnly){draft.v[el.id]=el.value;queueSave()}
+  if(el.id){const r=document.querySelector(`input[type=range][data-for="${el.id}"]`);if(r){r.value=parseFloat(el.value)||0;rangeFill(r)}}
   if(el.tagName==='TEXTAREA'&&el.dataset.min)updateMeter(el);
   if(el.closest&&el.closest('.money'))updateFmt(el);
-  if(el.type==='range')updateLesson();
-  const m=el.id&&el.id.match(/^a4_(?:ahorro|meta)_(\d+)$/);if(m)updateA4Prev(+m[1]);
+  if(el.type==='range'&&el.closest('#screen-0'))updateLesson();
+  let m=el.id&&el.id.match(/^a4_(?:ahorro|meta)_(\d+)$/);if(m)updateA4Prev(+m[1]);
+  m=el.id&&el.id.match(/^a1_(?:saldo|ingreso|gastos)_(\d+)$/);if(m){updateA1Viz(+m[1]);updateA4Prev(+m[1])}
 });
 document.addEventListener('change',e=>{const el=e.target;if(el.id&&el.tagName==='SELECT'){draft.v[el.id]=el.value;queueSave()}});
 
 /* enhancers: meters and money formatting */
 function enhance(root){
+  syncRanges(root);
   root.querySelectorAll('textarea[data-min]').forEach(t=>{
     if(!t.nextElementSibling||!t.nextElementSibling.classList.contains('meter')){
       t.insertAdjacentHTML('afterend','<div class="meter"><div class="meter-track"><i class="meter-fill"></i></div><span class="meter-lbl"></span></div>');
@@ -1144,6 +1276,12 @@ function updateLesson(){
   const semGota=Math.ceil(gota/ahorro);
   $('debtPunch').innerHTML=`<div class="pn">+${cop(gota)}</div><p>Eso pagarías de más con un gota a gota. Con tu ahorro de ${cop(ahorro)} semanales, son <b>${semGota} semanas de esfuerzo</b> regaladas en intereses. El fondo te protege de esa trampa.</p>`;
 
+  const r52=+$('l_reto52').value,tot52=r52*1378,bw=600/52;
+  $('o_reto52').textContent=cop(r52);$('o_reto52tot').textContent=cop(tot52);
+  $('o_reto52txt').textContent=`= ${Math.round(tot52/meta*100)}% de tu meta · última semana: ${cop(r52*52)}`;
+  let cum=0;const cpts=[];
+  $('r52chart').innerHTML=`<svg class="bars52" viewBox="0 0 600 150" role="img" aria-label="Depósitos semanales del reto de 52 semanas">${Array.from({length:52},(_,k)=>{const v=r52*(k+1);cum+=v;cpts.push(((k+.5)*bw).toFixed(1)+','+(130-cum/tot52*120).toFixed(1));return`<rect x="${(k*bw+1).toFixed(1)}" y="${(130-(k+1)/52*60).toFixed(1)}" width="${(bw-2).toFixed(1)}" height="${((k+1)/52*60).toFixed(1)}" rx="1.5"/>`}).join('')}<polyline class="cum" points="${cpts.join(' ')}"/><text x="0" y="146">Semana 1</text><text x="600" y="146" text-anchor="end">Semana 52</text><text x="600" y="12" text-anchor="end">Acumulado ${cop(tot52)}</text></svg>`;
+
   const hd=+$('l_hormiga').value,hs=hd*5*WEEKS_SEM;
   $('o_hormiga').textContent=cop(hd);$('o_hormigaSem').textContent=cop(hs);
   $('o_hormigaPct').textContent=`= ${Math.round(hs/meta*100)}% de tu meta de fondo`;
@@ -1161,56 +1299,126 @@ function renderQuiz(){
 function answerQuiz(i,v){draft.quiz[i]=v;queueSave();renderQuiz();syncCloud()}
 function resetQuiz(){draft.quiz={};renderQuiz.cheered=false;queueSave();renderQuiz()}
 
+/* ───────── VISUALES (tarro, medidor, proyección) ───────── */
+const isInd=()=>draft.mode==='ind';
+const num=id=>parseFloat($(id)?.value)||0;
+const short=n=>n>=1e6?'$'+(n/1e6).toLocaleString('es-CO',{maximumFractionDigits:1})+' M':'$'+Math.round(n/1000)+' mil';
+const addWeeks=w=>{const d=new Date();d.setDate(d.getDate()+w*7);return d};
+const jarHTML=(id,cls)=>`<div class="jar ${cls||''}" aria-hidden="true"><div class="lid"></div><div class="body"><div class="liquid" id="${id}L"></div><div class="marks"><i style="bottom:33.3%"></i><i style="bottom:66.6%"></i></div><div class="pct" id="${id}P">0%</div></div></div>`;
+function setJar(id,pct){const l=$(id+'L');if(!l)return;pct=Math.max(0,Math.min(100,pct||0));l.style.height=pct+'%';$(id+'P').textContent=Math.round(pct)+'%'}
+function finState(m){return m>=3?{t:'Protegido',c:COLORS.verde}:m>=1?{t:'En construcción',c:COLORS.ambar}:{t:'Vulnerable',c:COLORS.rojo}}
+function gaugeSVG(m){
+  const p=Math.min(1,Math.max(0,m)/3)*100,st=finState(m);
+  return`<svg class="gauge" viewBox="0 0 200 118" role="img" aria-label="${m.toFixed(1)} meses de gastos cubiertos"><path d="M20 100 A80 80 0 0 1 180 100" pathLength="100" class="gbg"/><path d="M20 100 A80 80 0 0 1 180 100" pathLength="100" class="gfg" style="stroke:${st.c};stroke-dasharray:${p.toFixed(1)} 100"/><text x="100" y="86" text-anchor="middle" class="gv">${m.toLocaleString('es-CO',{maximumFractionDigits:1})}</text><text x="100" y="108" text-anchor="middle" class="gt">MESES CUBIERTOS DE 3</text></svg>`;
+}
+function growthSVG(start,weekly,meta){
+  if(!weekly||!meta)return'<div class="chart-empty">Define tu ahorro semanal y tu meta para ver la proyección.</div>';
+  const W=600,H=230,pl=58,pr=16,pt=18,pb=30,need=Math.ceil(Math.max(0,meta-start)/weekly);
+  const N=Math.max(WEEKS_SEM+2,Math.min(104,Math.ceil(need*1.2)||WEEKS_SEM));
+  const top=Math.max(meta,start+weekly*N)*1.06,x=w=>pl+(W-pl-pr)*w/N,y=v=>pt+(H-pt-pb)*(1-v/top);
+  const pts=[];for(let w=0;w<=N;w++)pts.push(x(w).toFixed(1)+','+y(start+weekly*w).toFixed(1));
+  const grid=[0,.25,.5,.75,1].map(k=>`<line class="gl" x1="${pl}" x2="${W-pr}" y1="${y(top*k)}" y2="${y(top*k)}"/><text x="${pl-8}" y="${y(top*k)+3}" text-anchor="end">${short(top*k)}</text>`).join('');
+  const ms=[1,2,3].map(k=>{const v=meta*k/3;if(v<=start)return'';const w=Math.ceil((v-start)/weekly);if(w>N)return'';
+    return`<circle class="dot" cx="${x(w)}" cy="${y(v)}" r="6" fill="${[COLORS.celeste,COLORS.naranja,COLORS.verde][k-1]}"/><text x="${x(w)}" y="${y(v)-11}" text-anchor="middle">sem. ${w}</text>`}).join('');
+  const sx=x(WEEKS_SEM);
+  return`<svg class="growth" viewBox="0 0 ${W} ${H}" role="img" aria-label="Proyección del ahorro semana a semana">${grid}
+    <line class="sline" x1="${sx}" x2="${sx}" y1="${pt}" y2="${H-pb}"/><text class="stxt" x="${sx+4}" y="${pt+10}">1 semestre</text>
+    <polygon class="area" points="${x(0)},${y(0)} ${pts.join(' ')} ${x(N)},${y(0)}"/><polyline class="ln" points="${pts.join(' ')}"/>
+    <line class="mline" x1="${pl}" x2="${W-pr}" y1="${y(meta)}" y2="${y(meta)}"/><text class="mtxt" x="${pl+6}" y="${y(meta)-6}">Meta ${cop(meta)}</text>
+    ${ms}<text x="${pl}" y="${H-10}">Hoy</text><text x="${(pl+W-pr)/2}" y="${H-10}" text-anchor="middle">semana ${Math.round(N/2)}</text><text x="${W-pr}" y="${H-10}" text-anchor="end">semana ${N}</text></svg>`;
+}
+
+/* ───────── MODALIDAD ───────── */
+function chooseMode(m){setMode(m);$('modeModal').classList.remove('open')}
+function setMode(m){
+  if(draft.mode===m&&document.body.classList.contains(m==='ind'?'m-ind':'m-grp'))return;
+  syncMembers();draft.mode=m;
+  if(m==='ind'&&state.members.length>1){state.members=state.members.slice(0,1);draft.members=1}
+  queueSave();applyMode();renderMembers();
+}
+function applyMode(){
+  const ind=isInd();
+  document.body.classList.toggle('m-ind',ind);document.body.classList.toggle('m-grp',!ind);
+  document.querySelectorAll('.mode-card').forEach(c=>c.classList.toggle('sel',c.dataset.mode===draft.mode));
+  $('rcMode').textContent=draft.mode?(ind?'Individual':'Grupal'):'—';
+}
+
 /* ───────── MEMBERS ───────── */
 function newMember(){return{name:'',program:'Contaduría Pública',semester:'1ro'}}
 function syncMembers(){state.members=state.members.map((m,i)=>({name:$('m_name_'+i)?.value??m.name,program:$('m_prog_'+i)?.value??m.program,semester:$('m_sem_'+i)?.value??m.semester}))}
 function renderMembers(){
-  const c=$('membersContainer');
-  if(!state.members.length)state.members=Array.from({length:Math.min(4,Math.max(1,draft.members||1))},newMember);
+  const c=$('membersContainer'),ind=isInd();
+  if(!state.members.length)state.members=Array.from({length:ind?1:Math.min(4,Math.max(1,draft.members||1))},newMember);
   c.innerHTML=state.members.map((m,i)=>`
     <div class="member" style="--mc:${MCOL[i]}">
-      <div class="member-top"><div class="avatar">${i+1}</div><span>Integrante ${i+1}</span></div>
+      <div class="member-top"><div class="avatar">${i+1}</div><span>${ind?'Tus datos':'Integrante '+(i+1)}</span></div>
       <div class="field"><label for="m_name_${i}">Nombre completo *</label><input type="text" id="m_name_${i}" value="${esc(m.name)}" placeholder="Nombre y apellidos" autocomplete="off"></div>
       <div class="field"><label for="m_prog_${i}">Programa *</label><select id="m_prog_${i}">${PROGRAMS.map(p=>`<option value="${p}"${m.program===p?' selected':''}>${p}</option>`).join('')}</select></div>
       <div class="field"><label for="m_sem_${i}">Semestre</label><select id="m_sem_${i}">${SEMESTERS.map(s=>`<option value="${s}"${m.semester===s?' selected':''}>${s}</option>`).join('')}</select></div>
     </div>`).join('');
-  $('addMemberBtn').style.display=state.members.length>=4?'none':'';
-  $('removeMemberBtn').style.display=state.members.length>1?'':'none';
+  $('addMemberBtn').style.display=ind||state.members.length>=4?'none':'';
+  $('removeMemberBtn').style.display=!ind&&state.members.length>1?'':'none';
   restoreValues(c);updateRail();
 }
 function addMember(){if(state.members.length<4){syncMembers();state.members.push(newMember());draft.members=state.members.length;queueSave();renderMembers()}}
 function removeMember(){if(state.members.length>1){syncMembers();state.members.pop();draft.members=state.members.length;queueSave();renderMembers()}}
 
 function saveGroup(){
+  if(!draft.mode){$('modeModal').classList.add('open');toast('Elige si trabajas de forma individual o grupal','err');return}
   syncMembers();
-  state.groupName=$('groupName').value.trim();state.groupSalon=$('groupSalon').value.trim();
-  const bad=[...(state.members[0].name?[]:[$('m_name_0')]),...(state.groupName?[]:[$('groupName')]),...(state.groupSalon?[]:[$('groupSalon')])];
+  const ind=isInd();
+  state.mode=draft.mode;
+  state.groupName=ind?state.members[0].name.trim():$('groupName').value.trim();state.groupSalon=$('groupSalon').value.trim();
+  const bad=[...(state.members[0].name.trim()?[]:[$('m_name_0')]),...(ind||state.groupName?[]:[$('groupName')]),...(state.groupSalon?[]:[$('groupSalon')])];
   if(bad.length){flag(bad[0]);toast('Completa los campos obligatorios','err');return}
   ensureGroupId();syncCloud();buildAct1Forms();buildAct4Forms();goTo(2);
 }
 
 /* ───────── ACT 1 ───────── */
 function buildAct1Forms(){
+  const many=state.members.length>1;
+  $('act1Tabs').style.display=many?'':'none';
   $('act1Tabs').innerHTML=state.members.map((m,i)=>`<button type="button" class="tab ${i===0?'active':''}" onclick="showAct1Tab(${i})" id="act1tab_${i}">${esc(m.name.split(' ')[0]||'Integrante '+(i+1))}</button>`).join('');
   $('act1Forms').innerHTML=state.members.map((m,i)=>`
     <div id="act1form_${i}" style="display:${i===0?'block':'none'}">
       <div class="who" style="border-left-color:${MCOL[i]}"><div class="avatar" style="--mc:${MCOL[i]}">${esc((m.name||'?')[0].toUpperCase())}</div><div><b>${esc(m.name)}</b><small>${esc(m.program)} · ${esc(m.semester)} semestre</small></div></div>
+      <div class="grid-2">
+        <div class="field"><label for="a1_ingreso_${i}">Mis ingresos al mes (mesada, trabajo, beca…) *</label><div class="money"><input type="number" id="a1_ingreso_${i}" placeholder="0" min="0"></div></div>
+        <div class="field"><label for="a1_gastos_${i}">Mis gastos esenciales al mes (transporte, comida, datos, materiales) *</label><div class="money"><input type="number" id="a1_gastos_${i}" placeholder="0" min="0"></div></div>
+      </div>
       <div class="field"><label for="a1_saldo_${i}">1. ¿Cuánto dinero tienes disponible AHORA MISMO para una emergencia? (saldo real o aproximado) *</label><div class="money"><input type="number" id="a1_saldo_${i}" placeholder="0" min="0"></div></div>
+      <div class="viz">
+        <div class="jar-wrap">${jarHTML('a1j_'+i,'sm')}</div>
+        <div><div class="sublabel">Mi tarro hoy</div><div class="vstats" id="a1s_${i}"></div><div class="vmsg" id="a1m_${i}"></div></div>
+        <div id="a1g_${i}"></div>
+      </div>
       <div class="field"><label for="a1_fuente_${i}">2. Si mañana necesitas $200.000 urgentes, ¿de dónde los sacas SIN pedir prestado? *</label><textarea id="a1_fuente_${i}" data-min="40" placeholder="Sé honesto: ¿tienes ese dinero? ¿cómo lo conseguirías?"></textarea></div>
       <div class="field"><label for="a1_pasado_${i}">3. En los últimos 3 meses, ¿tuviste algún gasto inesperado? ¿Cómo lo resolviste? *</label><textarea id="a1_pasado_${i}" data-min="50" placeholder="Cuenta brevemente la situación y cómo la manejaste..."></textarea></div>
-      <div class="field"><label for="a1_calculo_${i}">4. Si ahorras $10.000 por semana, ¿en cuántas semanas alcanzas tu fondo mínimo? Calcula tu gasto mensual básico y muestra el razonamiento. *</label><textarea id="a1_calculo_${i}" data-min="60" placeholder="Mis gastos mensuales son... por lo tanto mi fondo mínimo es... y lo alcanzo en..."></textarea></div>
+      <div class="field"><label for="a1_calculo_${i}">4. Si ahorras $10.000 por semana, ¿en cuántas semanas alcanzas tu fondo mínimo? Muestra el razonamiento con tus números. *</label><textarea id="a1_calculo_${i}" data-min="60" placeholder="Mis gastos mensuales son... por lo tanto mi fondo mínimo es... y lo alcanzo en..."></textarea></div>
       <div class="field" style="margin-bottom:0"><label for="a1_obstaculo_${i}">5. ¿Cuál es el principal obstáculo que te impide ahorrar hoy? *</label><textarea id="a1_obstaculo_${i}" data-min="40" style="min-height:76px" placeholder="Sé específico: ¿ingresos, gastos fijos, disciplina, falta de información...?"></textarea></div>
     </div>`).join('');
   restoreValues($('act1Forms'));
+  state.members.forEach((_,i)=>updateA1Viz(i));
+}
+function updateA1Viz(i){
+  if(!$('a1s_'+i))return;
+  const saldo=num('a1_saldo_'+i),ing=num('a1_ingreso_'+i),gas=num('a1_gastos_'+i),meta=gas*3,m=gas?saldo/gas:0,mg=ing-gas;
+  setJar('a1j_'+i,meta?saldo/meta*100:0);
+  $('a1s_'+i).innerHTML=`<div><small>Meta (3× gastos)</small><b style="color:var(--naranja)">${gas?cop(meta):'—'}</b></div><div><small>Te falta</small><b>${gas?cop(Math.max(0,meta-saldo)):'—'}</b></div><div><small>Te sobra al mes</small><b style="color:${mg<0?'var(--rojo)':'var(--verde)'}">${ing||gas?cop(mg):'—'}</b></div><div><small>Ahorrando $10.000/sem</small><b>${gas?Math.ceil(Math.max(0,meta-saldo)/10000)+' sem.':'—'}</b></div>`;
+  const st=finState(m);
+  $('a1m_'+i).innerHTML=!gas?'Escribe tus gastos esenciales para ver tu tarro.':`Estado: <span class="state" style="--c:${st.c}">${st.t}</span> ${mg<0?' · <b>Gastas más de lo que recibes</b>: sin margen no hay ahorro.':''}`;
+  $('a1g_'+i).innerHTML=gaugeSVG(m);
 }
 function showAct1Tab(i){state.members.forEach((_,j)=>{$('act1form_'+j).style.display=j===i?'block':'none';$('act1tab_'+j)?.classList.toggle('active',j===i)})}
 function saveAct1(){
   const data={};
   for(let i=0;i<state.members.length;i++){
+    const nums=['ingreso','gastos','saldo'].map(k=>$(`a1_${k}_${i}`)),badN=nums.find(e=>e.value.trim()==='')||(num('a1_gastos_'+i)>0?null:nums[1]);
+    if(badN){showAct1Tab(i);flag(badN);toast('Escribe tus ingresos, gastos esenciales (mayor que $0) y saldo','err');return}
     const f=['fuente','pasado','calculo','obstaculo'].map(k=>$(`a1_${k}_${i}`));
     const bad=f.find(e=>!e.value.trim());
-    if(bad){showAct1Tab(i);flag(bad);toast('Completa todos los campos de cada integrante','err');return}
-    data[i]={saldo:$(`a1_saldo_${i}`).value||'0',fuente:f[0].value.trim(),pasado:f[1].value.trim(),calculo:f[2].value.trim(),obstaculo:f[3].value.trim()};
+    if(bad){showAct1Tab(i);flag(bad);toast(isInd()?'Completa todas las preguntas':'Completa todos los campos de cada integrante','err');return}
+    data[i]={ingreso:num('a1_ingreso_'+i),gastos:num('a1_gastos_'+i),saldo:$(`a1_saldo_${i}`).value||'0',fuente:f[0].value.trim(),pasado:f[1].value.trim(),calculo:f[2].value.trim(),obstaculo:f[3].value.trim()};
   }
   state.act1=data;syncCloud();goTo(3);
 }
@@ -1243,6 +1451,7 @@ function calcFondo(){
 function calcTime(){
   const semanal=parseFloat($('ahorroSemanal')?.value)||0,out=$('mesesEstimados'),bar=$('roadBar');
   bar.querySelectorAll('.flag').forEach(f=>f.remove());
+  updateA2Viz(semanal);
   if(!semanal||!currentFondo){out.value='';$('tlFill').style.width='0';$('tlLbl').textContent='—';$('roadSem').textContent='Escriban el ahorro semanal para ver el camino.';return}
   const semanas=Math.ceil(currentFondo/semanal),meses=Math.ceil(semanas/4.3);
   out.value=`${semanas} semanas (~${meses} meses)`;
@@ -1255,6 +1464,12 @@ function calcTime(){
   $('tlLbl').textContent=semanas<=12?'Alcanzable en menos de un semestre':semanas<=WEEKS_SEM?'Alcanzable en un semestre':semanas<=WEEKS_SEM*2?'Plazo de 2 semestres':'Plazo largo: revisen la estrategia';
   const ing=selectedPerfil?perfiles[selectedPerfil].ingMensual:0,gasto=gastosVals().reduce((a,b)=>a+b,0);
   if(ing&&gasto&&semanal*4.3>ing-gasto)$('tlLbl').textContent='Ojo: ahorro mayor al margen mensual';
+}
+function updateA2Viz(semanal){
+  const sem=Math.min(currentFondo,semanal*WEEKS_SEM);
+  setJar('a2j',currentFondo?sem/currentFondo*100:0);
+  $('a2cap').innerHTML=currentFondo&&semanal?`En 1 semestre llevarían <b>${cop(sem)}</b> de ${cop(currentFondo)}.`:'Lo que llevarían en 1 semestre';
+  $('a2chart').innerHTML=growthSVG(0,semanal,currentFondo);
 }
 function saveAct2(){
   if(!selectedPerfil){toast('Selecciona un perfil universitario','err');return}
@@ -1309,17 +1524,22 @@ function saveAct3(){
 }
 
 /* ───────── ACT 4 ───────── */
+function syncRanges(root){(root||document).querySelectorAll('input[type=range][data-for]').forEach(r=>{const t=$(r.dataset.for);if(t){r.value=parseFloat(t.value)||0;rangeFill(r)}})}
 function buildAct4Forms(){
+  const many=state.members.length>1;
+  $('act4Tabs').style.display=many?'':'none';
   $('act4Tabs').innerHTML=state.members.map((m,i)=>`<button type="button" class="tab ${i===0?'active':''}" onclick="showAct4Tab(${i})" id="act4tab_${i}">${esc(m.name.split(' ')[0]||'Integrante '+(i+1))}</button>`).join('');
   $('act4Forms').innerHTML=state.members.map((m,i)=>`
     <div id="act4form_${i}" style="display:${i===0?'block':'none'}">
       <div class="who" style="border-left-color:var(--verde)"><div class="avatar" style="--mc:${MCOL[i]}">${esc((m.name||'?')[0].toUpperCase())}</div><div><b>${esc(m.name)}</b><small>${esc(m.program)} · ${esc(m.semester)} semestre</small></div></div>
       <div class="field"><label for="a4_fecha_${i}">Fecha en que abriré mi cuenta de ahorro para emergencias *</label><input type="date" id="a4_fecha_${i}"></div>
       <div class="grid-2">
-        <div class="field"><label for="a4_ahorro_${i}">Ahorro semanal que me comprometo a depositar *</label><div class="money"><input type="number" id="a4_ahorro_${i}" placeholder="0" min="0"></div></div>
-        <div class="field"><label for="a4_meta_${i}">Mi meta de fondo mínimo (3 meses de mis gastos) *</label><div class="money"><input type="number" id="a4_meta_${i}" placeholder="0" min="0"></div></div>
+        <div class="field"><label for="a4_ahorro_${i}">Ahorro semanal que me comprometo a depositar *</label><div class="money"><input type="number" id="a4_ahorro_${i}" placeholder="0" min="0"></div><input type="range" class="sync" data-for="a4_ahorro_${i}" min="0" max="200000" step="1000" value="0" aria-label="Ajustar ahorro semanal"></div>
+        <div class="field"><label for="a4_meta_${i}">Mi meta de fondo (3 meses de mis gastos) *</label><div class="money"><input type="number" id="a4_meta_${i}" placeholder="0" min="0"></div><input type="range" class="sync" data-for="a4_meta_${i}" min="0" max="6000000" step="50000" value="0" aria-label="Ajustar meta"></div>
       </div>
+      <button type="button" class="chip-btn" id="a4_sug_${i}" onclick="useSuggested(${i})" hidden></button>
       <div class="a4prev" id="a4_prev_${i}"></div>
+      <div class="viz2" style="margin:-4px 0 20px"><div class="jar-wrap">${jarHTML('a4j_'+i,'sm')}<div class="jar-cap" id="a4cap_${i}"></div></div><div id="a4c_${i}"></div></div>
       <div class="field"><label for="a4_app_${i}">App o herramienta que usaré para guardar el fondo *</label><input type="text" id="a4_app_${i}" placeholder="Nequi, Daviplata, Nu, cuenta bancaria..."></div>
       <div class="field"><label for="a4_insight_${i}">¿Qué aprendizaje de la clase de hoy fue más impactante para ti? *</label><textarea id="a4_insight_${i}" data-min="60" style="min-height:76px" placeholder="El momento o dato que más te marcó de esta sesión..."></textarea></div>
       <div class="field" style="margin-bottom:0"><label for="a4_profesional_${i}">¿Cómo aplicarás el conocimiento financiero de esta clase en tu futuro profesional? *</label><textarea id="a4_profesional_${i}" data-min="80" style="min-height:76px" placeholder="Piensa en tu programa: ¿cómo usarás esto en tu carrera?"></textarea></div>
@@ -1329,11 +1549,17 @@ function buildAct4Forms(){
 }
 function updateA4Prev(i){
   const el=$('a4_prev_'+i);if(!el)return;
-  const a=parseFloat($('a4_ahorro_'+i).value)||0,m=parseFloat($('a4_meta_'+i).value)||0;
-  if(!a||!m){el.className='a4prev';el.innerHTML=`${ico('info')}<span>Escribe tu ahorro semanal y tu meta para ver cuándo la alcanzas.</span>`;return}
-  const w=Math.ceil(m/a),d=new Date();d.setDate(d.getDate()+w*7);
-  el.className='a4prev ok';el.innerHTML=`${ico('target')}<span>Alcanzas tu meta en <b>${w} semanas</b>, alrededor del <b>${fdate(d)}</b>. En un semestre llevarías <b>${cop(Math.min(m,a*WEEKS_SEM))}</b>.</span>`;
+  const a=num('a4_ahorro_'+i),m=num('a4_meta_'+i),saldo=num('a1_saldo_'+i),gas=num('a1_gastos_'+i),sug=gas*3,sb=$('a4_sug_'+i);
+  sb.hidden=!sug||Math.round(m)===Math.round(sug);
+  sb.innerHTML=`${ico('target')}Usar mi meta sugerida: ${cop(sug)} (3 × ${cop(gas)} de gastos)`;
+  $('a4c_'+i).innerHTML=growthSVG(saldo,a,m);
+  const sem=Math.min(m,saldo+a*WEEKS_SEM);setJar('a4j_'+i,m?sem/m*100:0);
+  $('a4cap_'+i).innerHTML=m?`En 1 semestre llevarías <b>${cop(sem)}</b>${saldo?` (empiezas con ${cop(saldo)})`:''}.`:'Define tu meta.';
+  if(!a||!m){el.className='a4prev';el.innerHTML=`${ico('info')}<span>Mueve los controles o escribe tu ahorro semanal y tu meta para ver cuándo la alcanzas.</span>`;return}
+  const w=Math.ceil(Math.max(0,m-saldo)/a);
+  el.className='a4prev ok';el.innerHTML=`${ico('target')}<span>${w?`Alcanzas tu meta en <b>${w} semanas</b>, alrededor del <b>${fdate(addWeeks(w))}</b>.`:'¡Tu saldo actual ya cubre esta meta!'}</span>`;
 }
+function useSuggested(i){const t=$('a4_meta_'+i);t.value=num('a1_gastos_'+i)*3;draft.v[t.id]=t.value;queueSave();updateFmt(t);syncRanges($('act4form_'+i));updateA4Prev(i)}
 function showAct4Tab(i){state.members.forEach((_,j)=>{$('act4form_'+j).style.display=j===i?'block':'none';$('act4tab_'+j)?.classList.toggle('active',j===i)})}
 function setSelfRating(n){
   selfRatingVal=n;draft.rating=n;queueSave();
@@ -1345,146 +1571,223 @@ function saveAct4(){
   const members4={};
   for(let i=0;i<state.members.length;i++){
     const f=['fecha','ahorro','meta','app','insight','profesional'].map(k=>$(`a4_${k}_${i}`)),bad=f.find(e=>!String(e.value).trim());
-    if(bad){showAct4Tab(i);flag(bad);toast('Completa el compromiso de todos los integrantes','err');return}
+    if(bad){showAct4Tab(i);flag(bad);toast(isInd()?'Completa tu compromiso':'Completa el compromiso de todos los integrantes','err');return}
     members4[i]={fecha:f[0].value,ahorro:parseFloat(f[1].value)||0,meta:parseFloat(f[2].value)||0,app:f[3].value.trim(),insight:f[4].value.trim(),profesional:f[5].value.trim()};
   }
   const bad=[cg,ac].find(e=>!e.value.trim());
-  if(bad){flag(bad);toast('Completa el compromiso grupal','err');return}
+  if(bad){flag(bad);toast(isInd()?'Completa tu plan de acción':'Completa el compromiso grupal','err');return}
   state.act4={members:members4,compromisoGrupal:cg.value.trim(),acompañamiento:ac.value.trim(),selfRating:selfRatingVal};
   syncCloud();generateResults();goTo(6);
 }
 
-/* ───────── EVALUATION ENGINE (lógica original) ───────── */
-function scoreAct1(){
-  let total=0;
-  state.members.forEach((_,i)=>{const d=state.act1[i];if(!d)return;let s=0;
-    if(d.calculo&&d.calculo.length>60)s+=30;else if(d.calculo)s+=15;
-    if(d.fuente&&d.fuente.length>40)s+=20;else if(d.fuente)s+=10;
-    if(d.pasado&&d.pasado.length>50)s+=25;else if(d.pasado)s+=12;
-    if(d.obstaculo&&d.obstaculo.length>40)s+=25;else if(d.obstaculo)s+=12;
-    total+=s});
-  return Math.min(100,Math.round(total/state.members.length));
+/* ───────── CALIFICACIÓN POR ESTUDIANTE ───────── */
+/* Cada actividad vale 40% por desarrollo de las respuestas y 60% por sus criterios de aciertos/errores.
+   Las actividades personales (foto y compromiso) pesan más porque la nota es individual. */
+const PARTS=[{l:'Foto financiera',w:25,c:COLORS.rojo},{l:'Reto del semestre',w:20,c:COLORS.naranja},{l:'Simulador de crisis',w:15,c:COLORS.celeste},{l:'Compromiso',w:30,c:COLORS.verde},{l:'Juego IUN',w:10,c:COLORS.azul}];
+const pts=(v,min,a,b)=>TL(v)>min?a:TL(v)?b:0;
+function sFoto(d){return d?Math.min(100,pts(d.calculo,60,30,15)+pts(d.fuente,40,20,10)+pts(d.pasado,50,25,12)+pts(d.obstaculo,40,25,12)):0}
+function sReto(d){return d&&d.perfil?Math.min(100,(d.fondoMinimo>0?15:0)+(d.ahorroSemanal>0?10:0)+pts(d.estrategia,100,25,12)+pts(d.obstaculos,80,20,10)+pts(d.herramienta,50,15,8)+pts(d.aprendizaje,80,15,8)):0}
+function sCrisis(d){
+  if(!d||!(d.reflexion||d.crisis))return 0;
+  const c=d.crisis||{};let s=0;
+  crisisScenarios.forEach(sc=>{const x=c[sc.id];if(x)s+=pts(x.sin,60,10,5)+pts(x.con,60,10,5)+pts(x.impacto,50,5,2)});
+  return Math.min(100,s+pts(d.reflexion,80,15,8)+pts(d.consejo,60,10,5)+pts(d.carrera,80,15,8));
 }
-function scoreAct2(){
-  let s=0;const d=state.act2;
-  if(d.fondoMinimo>0)s+=15;if(d.ahorroSemanal>0)s+=10;
-  if(d.estrategia&&d.estrategia.length>100)s+=25;else if(d.estrategia)s+=12;
-  if(d.obstaculos&&d.obstaculos.length>80)s+=20;else if(d.obstaculos)s+=10;
-  if(d.herramienta&&d.herramienta.length>50)s+=15;else if(d.herramienta)s+=8;
-  if(d.aprendizaje&&d.aprendizaje.length>80)s+=15;else if(d.aprendizaje)s+=8;
-  return Math.min(100,s);
+function sComp(c,a4){
+  if(!c)return 0;a4=a4||{};const r=+a4.selfRating||0;
+  return Math.min(100,Math.round(((+c.ahorro>0?15:0)+(+c.meta>0?10:0)+pts(c.insight,60,15,8)+pts(c.profesional,80,20,10)+pts(a4.compromisoGrupal,80,15,8)+(r>=4?10:r>0?5:0))/85*100));
 }
-function scoreAct3(){
-  let s=0;
-  for(const sc of crisisScenarios){const d=state.act3.crisis[sc.id];if(!d)continue;
-    if(d.sin&&d.sin.length>60)s+=10;else if(d.sin)s+=5;
-    if(d.con&&d.con.length>60)s+=10;else if(d.con)s+=5;
-    if(d.impacto&&d.impacto.length>50)s+=5;else if(d.impacto)s+=2}
-  if(state.act3.reflexion?.length>80)s+=15;else if(state.act3.reflexion)s+=8;
-  if(state.act3.consejo?.length>60)s+=10;else if(state.act3.consejo)s+=5;
-  if(state.act3.carrera?.length>80)s+=15;else if(state.act3.carrera)s+=8;
-  return Math.min(100,s);
-}
-function scoreAct4(){
-  let s=0;
-  Object.values(state.act4.members||{}).forEach(m=>{
-    if(m.ahorro>0)s+=15;if(m.meta>0)s+=10;
-    if(m.insight?.length>60)s+=15;else if(m.insight)s+=8;
-    if(m.profesional?.length>80)s+=20;else if(m.profesional)s+=10});
-  if(state.act4.compromisoGrupal?.length>80)s+=15;else if(state.act4.compromisoGrupal)s+=8;
-  if(state.act4.selfRating>=4)s+=10;else if(state.act4.selfRating>0)s+=5;
-  return Math.min(100,Math.round(s/state.members.length));
-}
-function getAwards(scores,act2,act4){
-  const a=[];
-  if(scores.act2>=85)a.push({icon:'spark',label:'Estrategia Innovadora',color:COLORS.celeste});
-  if(scores.act3>=85)a.push({icon:'bolt',label:'Análisis Profundo',color:COLORS.naranja});
-  if(scores.act4>=85)a.push({icon:'users',label:'Compromiso Real',color:COLORS.verde});
-  if(scores.act1+scores.act2+scores.act3+scores.act4>=340)a.push({icon:'trophy',label:'Grupo Excelente',color:COLORS.ambar});
-  if(act4.selfRating>=5)a.push({icon:'target',label:'Máxima Creatividad',color:COLORS.rojo});
-  if(act2.fondoMinimo>1500000)a.push({icon:'shield',label:'Meta Ambiciosa',color:COLORS.azul});
-  return a;
-}
+/* % de criterios cumplidos (advertencia = medio punto) */
+function precision(list){const ev=list.filter(c=>c.s!=='pend');return ev.length?Math.round(ev.reduce((a,c)=>a+(c.s==='ok'?1:c.s==='warn'?.5:0),0)/ev.length*100):0}
+function mix(dev,list){const ev=list.filter(c=>c.s!=='pend');return ev.length?Math.round(dev*.4+precision(ev)*.6):dev}
 function scoreColor(n){return n>=90?COLORS.verde:n>=75?COLORS.celeste:n>=60?COLORS.naranja:COLORS.rojo}
 function nota(n){return n>=90?'5.0':n>=80?'4.5':n>=70?'4.0':n>=60?'3.5':n>=50?'3.0':'2.5'}
-function comment(n,act){
-  const l={1:'Mi Foto Financiera',2:'Reto del Semestre',3:'Simulador de Crisis',4:'Mi Compromiso'}[act];
+function comment(n,l){
+  if(l==='Juego IUN')return n>=80?'Distingues muy bien cuándo usar el fondo: solo para lo inesperado, urgente y necesario.':n>=50?'Confundes algunas situaciones: repasa el filtro IUN antes de usar tu fondo.':'Repasa el filtro IUN: varias situaciones que no son emergencia las tomaste como tal (o al revés).';
   if(n>=90)return`Excelente trabajo en ${l}. Respuestas completas, reflexivas y con aplicación real del conocimiento financiero.`;
-  if(n>=75)return`Buen desempeño en ${l}. Las respuestas muestran comprensión del tema con oportunidad de mayor profundidad.`;
-  if(n>=60)return`Desempeño aceptable en ${l}. Se evidencia comprensión básica pero falta mayor desarrollo y aplicación práctica.`;
-  return`En ${l} se recomienda ampliar las respuestas con más análisis y conexión con casos reales.`;
+  if(n>=75)return`Buen desempeño en ${l}. Muestra comprensión del tema con oportunidad de mayor profundidad.`;
+  if(n>=60)return`Desempeño aceptable en ${l}. Hay comprensión básica, pero falta desarrollo y aplicación práctica.`;
+  return`En ${l} se recomienda ampliar las respuestas y corregir los errores señalados.`;
 }
+const RECS={
+  'Distingue una emergencia (filtro IUN)':'Antes de usar tu fondo pregúntate: ¿es Inesperado, Urgente y Necesario? Si falta uno, no es emergencia.',
+  'Incluye todos los gastos esenciales':'Anota todo lo que pagas en un mes (transporte, comida, datos, materiales) para no quedarte corto en la meta.',
+  'Gastos dentro del ingreso':'Si gastas más de lo que recibes, primero recorta gastos no esenciales: sin margen no hay ahorro.',
+  'Ahorro semanal realista':'Ajusta el ahorro a lo que de verdad sobra: un plan que se cumple vale más que uno ambicioso.',
+  'Plazo alcanzable (≤ 2 semestres)':'Divide la meta en mini metas o sube un poco el ahorro semanal para no perder la motivación.',
+  'Guarda el fondo en un lugar separado':'Abre un bolsillo o cuenta solo para emergencias (Nequi, Daviplata, cuenta de ahorros).',
+  'Estrategia desarrollada':'Explica la estrategia con acciones concretas: qué recortas, cuánto y cuándo.',
+  'Su fondo cubre los escenarios':'Una meta de 3 meses de gastos protege frente a la mayoría de imprevistos de un estudiante.',
+  'Contrasta SIN vs CON fondo':'Compara siempre qué pasaría con y sin fondo: así ves el valor real de ahorrar.',
+  'Reflexión final del grupo':'Desarrolla más las reflexiones: conecta con casos reales y cifras.',
+  'Acción grupal concreta (monto o fecha)':'Toda acción necesita monto y fecha: "el viernes deposito $10.000".',
+  'Plan de acompañamiento':'Busca a alguien que te pida cuentas cada semana: compartir el avance duplica el cumplimiento.',
+  'Registra ingresos y gastos':'Conocer tus ingresos y gastos es el primer paso: sin esos números no hay meta clara.',
+  'Tiene colchón para una urgencia de $200.000':'Tu primera meta: reunir $200.000 cuanto antes. Es el costo típico de una urgencia.',
+  'Muestra un cálculo con números':'Haz la cuenta con cifras: gastos del mes × 3 = meta; meta ÷ ahorro semanal = semanas.',
+  'Aplica la regla de 3 meses':'Tu meta mínima es 3 veces tus gastos esenciales mensuales.',
+  'Diagnóstico desarrollado':'Responde con más detalle y ejemplos de tu vida real.',
+  'Meta = 3 meses de sus gastos':'Sube tu meta hasta cubrir 3 meses de tus gastos esenciales.',
+  'Meta ≥ mini meta de $100.000':'Tu meta debe ser al menos $100.000 para empezar a protegerte.',
+  'Ahorro semanal coherente con la meta':'El ahorro semanal debe ser una parte pequeña de la meta: revisa los dos valores.',
+  'Ahorro cabe en su presupuesto':'Tu ahorro supera lo que te sobra al mes: bájalo o recorta gastos para que sea sostenible.',
+  'Plazo realista (≤ 1 año)':'Más de un año desanima: sube un poco el ahorro o busca un ingreso extra.',
+  'Abre su cuenta en ≤ 30 días':'Abre tu cuenta esta misma semana: empezar pronto es lo que más ayuda.',
+  'Elige dónde guardar el fondo':'Elige una cuenta o app concreta, separada de tu dinero del día a día.',
+  'Reflexión personal':'Desarrolla más tu reflexión personal y cómo lo aplicarás en tu carrera.'
+};
 
-/* ───────── RESULTS ───────── */
-function radarSVG(sc){
-  const cx=120,cy=120,R=88,ang=[-90,0,90,180].map(a=>a*Math.PI/180),labs=['FOTO','RETO','CRISIS','COMPROMISO'];
-  const pt=(i,r)=>[cx+Math.cos(ang[i])*r,cy+Math.sin(ang[i])*r];
+/* ───────── RESULTADOS ───────── */
+function currentRecord(){
+  return JSON.parse(JSON.stringify({_v:3,mode:draft.mode||'grp',_groupId:draft.groupId,_savedAt:new Date().toISOString(),groupName:state.groupName,groupSalon:state.groupSalon,members:state.members,maxUnlocked:state.maxUnlocked,quiz:draft.quiz,act1:state.act1,act2:state.act2,act3:state.act3,act4:state.act4}));
+}
+function radarSVG(sc,labs){
+  const cx=130,cy=118,R=80,n=sc.length,ang=sc.map((_,i)=>(-90+360/n*i)*Math.PI/180);
+  const pt=(i,r)=>[cx+Math.cos(ang[i])*r,cy+Math.sin(ang[i])*r].map(v=>+v.toFixed(1));
   const poly=r=>ang.map((_,i)=>pt(i,r).join(',')).join(' ');
-  const shape=sc.map((v,i)=>pt(i,R*v/100).join(',')).join(' ');
-  return`<svg class="radar" viewBox="0 0 240 240" role="img" aria-label="Radar de desempeño">
+  return`<svg class="radar" viewBox="-24 0 308 240" role="img" aria-label="Radar de desempeño">
     ${[.25,.5,.75,1].map(k=>`<polygon class="grid" points="${poly(R*k)}"/>`).join('')}
     ${ang.map((_,i)=>`<line class="grid" x1="${cx}" y1="${cy}" x2="${pt(i,R)[0]}" y2="${pt(i,R)[1]}"/>`).join('')}
-    <polygon class="shape" points="${shape}"/>
+    <polygon class="shape" style="transform-origin:${cx}px ${cy}px" points="${sc.map((v,i)=>pt(i,R*v/100).join(',')).join(' ')}"/>
     ${sc.map((v,i)=>`<circle cx="${pt(i,R*v/100)[0]}" cy="${pt(i,R*v/100)[1]}" r="3.5" fill="#F26A25"/>`).join('')}
-    <text x="120" y="16" text-anchor="middle">${labs[0]}</text><text x="232" y="123" text-anchor="end">${labs[1]}</text>
-    <text x="120" y="236" text-anchor="middle">${labs[2]}</text><text x="8" y="123" text-anchor="start">${labs[3]}</text></svg>`;
+    ${labs.map((l,i)=>{const[x,y]=pt(i,R+12),c=Math.cos(ang[i]);return`<text x="${x}" y="${y+3}" text-anchor="${Math.abs(c)<.2?'middle':c>0?'start':'end'}">${l}</text>`}).join('')}</svg>`;
+}
+const ringHTML=(id,total,color)=>`<div class="ring" style="--rc:${color}"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="54"/><circle class="fg" id="${id}F" cx="60" cy="60" r="54"/></svg><div class="ring-c"><b id="${id}N">0</b><small>de 100</small></div></div>`;
+function animRing(id,total){
+  const f=$(id+'F'),el=$(id+'N');if(!f||f.dataset.done)return;f.dataset.done='1';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    f.style.strokeDashoffset=339.29*(1-total/100);
+    document.querySelectorAll('.me.active .dim .tr i,#grpCard .dim .tr i').forEach(i=>i.style.width=i.dataset.w+'%');
+    const t0=performance.now();(function tick(t){const p=Math.min(1,(t-t0)/1400);el.textContent=Math.round(total*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)})(t0);
+  }));
+}
+let meCtx=[];
+function personalHTML(rec,d,s){
+  const i=s.i,a1=s.d||{},c=s.c||{},m=s.m,ind=rec.mode==='ind';
+  const saldo=+a1.saldo||0,gas=+a1.gastos||0,ing=+a1.ingreso||0,ah=+c.ahorro||0,mg=ing-gas;
+  /* el resumen mide contra el fondo recomendado (3 meses de gastos), no contra una meta comprometida más baja */
+  const meta=Math.max(gas*3,+c.meta||0)||+((rec.act2||{}).fondoMinimo)||0,lowMeta=gas&&+c.meta&&+c.meta<gas*3;
+  const months=gas?saldo/gas:0,st=finState(months),parts=s.sc.s,tot=s.sc.total;
+  meCtx[i]={saldo,meta,gas,ah};
+  let sit=st.t==='Protegido'?`¡Tu dinero disponible cubre ${months.toFixed(1)} meses de gastos! Mantenlo separado y considera subir tu meta a 6 meses.`
+    :st.t==='En construcción'?`Ya cubres ${months.toFixed(1)} meses de gastos. Vas bien: sigue hasta completar 3 meses (${cop(gas*3)}).`
+    :gas?`Hoy tu dinero cubre ${months.toFixed(1)} meses de gastos. Un imprevisto podría obligarte a endeudarte. Prioridad: tu mini meta de $100.000 y luego 1 mes de gastos (${cop(gas)}).`:'Registra tus gastos esenciales para medir tu protección.';
+  if(lowMeta)sit+=` Tu compromiso fue de ${cop(c.meta)}, pero tu fondo recomendado es <b>${cop(gas*3)}</b> (3 × tus gastos).`;
+  if(mg<0)sit+=` <b>Atención:</b> tus gastos superan tus ingresos en ${cop(-mg)} al mes; antes de ahorrar ajusta tu presupuesto.`;
+  else if(ah&&ah*4.3>mg)sit+=` <b>Ojo:</b> tu ahorro comprometido (≈${cop(ah*4.3)}/mes) supera lo que te sobra (${cop(mg)}/mes).`;
+  const all=d.group.concat(s.checks).filter(x=>x.s!=='pend'),good=all.filter(x=>x.s==='ok'),fix=all.filter(x=>x.s!=='ok');
+  const fixH=fix.map(x=>`<div class="chk ${x.s}">${ico(x.s==='bad'?'alert':'info')}<div><b>${x.label}</b>${x.tip?`<small>${esc(x.tip)}</small>`:''}${RECS[x.label]?`<div class="rec">${RECS[x.label]}</div>`:''}</div></div>`).join('');
+  const goodH=good.map(x=>`<div class="chk ok">${ico('check')}<div><b>${x.label}</b>${x.tip?`<small>${esc(x.tip)}</small>`:''}</div></div>`).join('');
+  const covMeta=crisisScenarios.filter(sc=>meta>=sc.max).length;
+  const cov=crisisScenarios.map(sc=>{const p=Math.min(100,saldo/sc.max*100),ok=saldo>=sc.max,col=ok?COLORS.verde:p>=50?COLORS.ambar:COLORS.rojo;
+    return`<div class="cov" style="--c:${col}"><div><b>${sc.title}</b><small>Peor caso ${cop(sc.max)}</small></div><div class="t"><i style="width:${p}%"></i></div><div class="v">${ok?'La cubres':'Faltan '+cop(sc.max-saldo)}</div></div>`}).join('');
+  return`<div class="me" id="me_${i}">
+    <div class="scorecard">
+      <div class="sc-head">
+        <div><div class="k">Resumen personal${ind?'':' · '+esc(rec.groupName)}</div><h3>${esc(m.name)}</h3><div class="meta">${esc(m.program)} · ${esc(m.semester)} semestre · ${esc(rec.groupSalon)}</div>
+          <span class="state" style="--c:${st.c}">${ico('shield')}Situación: ${st.t}</span></div>
+        <div class="ring-wrap">${ringHTML('rg'+i,tot,scoreColor(tot))}<div class="grade" style="--gc:${tot>=80?'#34CF8C':tot>=60?'#FF9B5E':'#F0566F'}">Calificación<b>${nota(tot)}</b></div></div>
+      </div>
+      <div class="sc-body"><div>${PARTS.map((p,k)=>`<div class="dim" style="--c:${p.c}"><span>${p.l}<small>Peso ${p.w}%</small></span><div class="tr"><i data-w="${parts[k]}"></i></div><b style="color:${scoreColor(parts[k])}">${parts[k]}</b></div>`).join('')}</div>${radarSVG(parts,['FOTO','RETO','CRISIS','COMPROMISO','IUN'])}</div>
+      <div class="feedback"><h6>Retroalimentación</h6>${PARTS.map((p,k)=>`<div class="fb" style="--c:${p.c}"><b>${p.l}:</b> ${comment(parts[k],p.l)}</div>`).join('')}</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-wallet"/></svg></div><div><h3>Tu situación hoy</h3><p>Lo que tienes frente a lo que necesitas</p></div></div>
+      <div class="sit">
+        <div class="jar-wrap">${jarHTML('mej_'+i)}<div class="jar-cap">Tienes <b>${cop(saldo)}</b> de una meta de <b>${cop(meta)}</b></div></div>
+        <div><div class="vstats">
+          <div><small>Saldo hoy</small><b>${cop(saldo)}</b></div><div><small>Gastos esenciales / mes</small><b>${gas?cop(gas):'—'}</b></div>
+          <div><small>Ingresos / mes</small><b>${ing||gas?cop(ing):'—'}</b></div><div><small>Te sobra al mes</small><b style="color:${mg<0?'var(--rojo)':'var(--verde)'}">${ing||gas?cop(mg):'—'}</b></div>
+          <div><small>Tu meta</small><b style="color:var(--naranja)">${cop(meta)}</b></div><div><small>Te falta</small><b>${cop(Math.max(0,meta-saldo))}</b></div>
+        </div><div class="vmsg">${sit}</div></div>
+        <div>${gaugeSVG(months)}</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-trend"/></svg></div><div><h3>Cómo lograr tu meta</h3><p>Mueve el control: ¿qué pasa si ahorras más o menos cada semana?</p></div></div>
+      <div class="whatif">
+        <div class="slider-top"><label>Si ahorro cada semana</label><output id="wio_${i}"></output></div>
+        <input type="range" data-wi="${i}" min="1000" max="${Math.max(200000,ah*2)}" step="1000" value="${ah||10000}" oninput="updateWhatIf(${i},this)" aria-label="Ahorro semanal simulado">
+        <div class="big" id="wib_${i}"></div>
+      </div>
+      <div id="wic_${i}"></div>
+      <div class="milestones" id="wim_${i}"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><div class="panel-ic" style="color:var(--rojo)"><svg class="ic"><use href="#i-umbrella"/></svg></div><div><h3>Si hoy llegara una emergencia…</h3><p>¿Alcanza tu dinero actual para cada escenario?</p></div></div>
+      ${cov}
+      <div class="note ${covMeta>=3?'ok':'warn'}" style="margin:16px 0 0">${ico(covMeta>=3?'shield':'info')}<div>Con tu meta completa (${cop(meta)}) cubrirías <b>${covMeta} de 4</b> escenarios en el peor caso.</div></div>
+    </div>
+
+    <div class="two">
+      <div class="panel"><div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-check"/></svg></div><div><h3>Lo que hiciste bien</h3><p>${good.length} acierto${good.length===1?'':'s'}</p></div></div>${goodH||'<div class="empty">Aún sin aciertos registrados.</div>'}</div>
+      <div class="panel"><div class="panel-h"><div class="panel-ic" style="color:var(--rojo)"><svg class="ic"><use href="#i-alert"/></svg></div><div><h3>Lo que debes mejorar</h3><p>${fix.length} punto${fix.length===1?'':'s'} con su recomendación</p></div></div>${fixH||'<div class="empty">¡Nada que corregir! Excelente.</div>'}</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-target"/></svg></div><div><h3>Tu plan de acción</h3><p>Marca cada paso cuando lo cumplas</p></div></div>
+      <div class="next" id="plan_${i}"></div>
+      ${c.insight?`<div class="quote">“${esc(c.insight)}”</div>`:''}
+    </div>
+  </div>`;
+}
+function updateWhatIf(i,r){
+  const x=meCtx[i];if(!x)return;
+  r=r||document.querySelector(`input[data-wi="${i}"]`);rangeFill(r);
+  const w=+r.value,need=Math.max(0,x.meta-x.saldo),weeks=Math.ceil(need/w);
+  $('wio_'+i).textContent=cop(w);
+  $('wic_'+i).innerHTML=growthSVG(x.saldo,w,x.meta);
+  setJar('mej_'+i,x.meta?x.saldo/x.meta*100:0);
+  let txt=!x.meta?'Define una meta para ver tu plan.':!need?'¡Tu saldo actual ya cubre tu meta! Súbela a 6 meses de gastos.':`Ahorrando <b>${cop(w)}</b> por semana completas tu fondo en <b>${weeks} semanas</b>, el <b>${fdate(addWeeks(weeks))}</b>.`;
+  if(need&&x.ah&&w!==x.ah){const base=Math.ceil(need/x.ah),diff=base-weeks;if(diff)txt+=` Son ${Math.abs(diff)} semanas ${diff>0?'menos':'más'} que con tu compromiso de ${cop(x.ah)}.`}
+  $('wib_'+i).innerHTML=txt;
+  const hit=v=>v<=x.saldo?'¡Ya lo tienes!':fdate(addWeeks(Math.ceil((v-x.saldo)/w)));
+  const steps=[{c:COLORS.ambar,t:'Mini meta: $100.000',v:100000}];
+  if(x.gas){steps.push({c:COLORS.celeste,t:`1 mes de gastos (${cop(x.gas)})`,v:x.gas},{c:COLORS.naranja,t:`2 meses de gastos (${cop(x.gas*2)})`,v:x.gas*2})}
+  steps.push({c:COLORS.verde,t:`Meta completa (${cop(x.meta)})`,v:x.meta});
+  $('wim_'+i).innerHTML=steps.filter(s=>s.v<=x.meta||s.v===100000).map((s,k)=>`<div class="ms" style="--mc:${s.c}"><div class="msd">${k+1}</div><span>${s.t}</span><b>${hit(s.v)}</b></div>`).join('');
+  renderPlan(i,w);
+}
+function renderPlan(i,w){
+  const x=meCtx[i],c=(state.act4.members||{})[i]||{},el=$('plan_'+i);if(!el)return;
+  const fecha=c.fecha?fdate(new Date(c.fecha+'T12:00:00')):'esta semana',app=c.app||'tu app de ahorro';
+  const when=v=>v<=x.saldo?'(ya lo tienes)':`antes del ${fdate(addWeeks(Math.ceil((v-x.saldo)/w)))}`;
+  const items=[`Abre tu bolsillo o cuenta "SOLO EMERGENCIAS" en ${app} el ${fecha}.`,`Programa una transferencia automática de ${cop(w)} cada semana, el día que recibes dinero.`,`Llega a tu mini meta de $100.000 ${when(100000)}.`];
+  if(x.gas)items.push(`Cubre 1 mes de gastos (${cop(x.gas)}) ${when(x.gas)}.`);
+  items.push(`Completa tu fondo de ${cop(x.meta)} ${when(x.meta)}.`,'Si usas el fondo en una emergencia IUN, vuelve a llenarlo antes de cualquier otro gasto.');
+  el.innerHTML=items.map((t,k)=>{const id=`plan_${i}_${k}`;return`<label><input type="checkbox" data-plan="${id}"${draft.v[id]==='1'?' checked':''} onchange="draft.v['${id}']=this.checked?'1':'';queueSave()"><span>${esc(t)}</span></label>`}).join('');
+}
+function showMe(i){
+  document.querySelectorAll('.me').forEach((e,j)=>e.classList.toggle('active',j===i));
+  document.querySelectorAll('#meTabs .tab').forEach((t,j)=>t.classList.toggle('active',j===i));
+  const x=window._res&&window._res.d.students[i];if(x)animRing('rg'+i,x.sc.total);
 }
 function generateResults(){
-  const s1=scoreAct1(),s2=scoreAct2(),s3=scoreAct3(),s4=scoreAct4();
-  const total=Math.round(s1*.2+s2*.3+s3*.25+s4*.25);
-  const awards=getAwards({act1:s1,act2:s2,act3:s3,act4:s4},state.act2,state.act4);
-  const nf=nota(total),tc=scoreColor(total),gc=total>=80?'#34CF8C':total>=60?'#FF9B5E':'#F0566F';
-  const sc=[s1,s2,s3,s4],lab=['Mi Foto Financiera','Reto del Semestre','Simulador de Crisis','Mi Compromiso'],w=[20,30,25,25],col=[COLORS.rojo,COLORS.naranja,COLORS.celeste,COLORS.verde];
-
-  const roster=state.members.map((m,i)=>`<span><div class="avatar" style="--mc:${MCOL[i]}">${esc((m.name||'?')[0].toUpperCase())}</div>${esc(m.name)} <em>${esc(m.program)} · ${esc(m.semester)}</em></span>`).join('');
-  const dims=lab.map((l,i)=>`<div class="dim" style="--c:${col[i]}"><span>${l}<small>Peso ${w[i]}%</small></span><div class="tr"><i data-w="${sc[i]}"></i></div><b style="color:${scoreColor(sc[i])}">${sc[i]}</b></div>`).join('');
-  const awardsH=awards.map(a=>`<span class="award" style="--c:${a.color}">${ico(a.icon)}${a.label}</span>`).join('');
-  const fb=sc.map((v,i)=>`<div class="fb" style="--c:${col[i]}"><b>${lab[i]}:</b> ${comment(v,i+1)}</div>`).join('');
-  const commits=state.members.map((m,i)=>{
-    const c=state.act4.members[i];if(!c)return'';
-    const meses=c.ahorro>0?Math.ceil(c.meta/(c.ahorro*4.3)):0;
-    const fecha=c.fecha?new Date(c.fecha+'T12:00:00').toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'}):'—';
-    return`<div class="commit"><div class="commit-h"><div class="avatar" style="--mc:${MCOL[i]}">${esc((m.name||'?')[0].toUpperCase())}</div><div><b>${esc(m.name)}</b><small>${esc(m.program)}</small></div></div>
-      <div class="cstats"><div class="cstat"><small>Meta</small><b style="color:var(--naranja)">${cop(c.meta)}</b></div><div class="cstat"><small>Ahorro / semana</small><b style="color:var(--celeste)">${cop(c.ahorro)}</b></div><div class="cstat"><small>Lo logra en</small><b style="color:var(--verde)">${meses>0?meses+(meses===1?' mes':' meses'):'—'}</b></div></div>
-      <p><b>Herramienta:</b> ${esc(c.app)} · <b>Abre su cuenta:</b> ${fecha}</p>
-      <div class="quote">“${esc(c.insight)}”</div></div>`}).join('');
-  const closing=total>=80?`<div class="note ok">${ico('trophy')}<div><b>Excelente sesión.</b> El grupo demostró comprensión profunda del tema y compromisos concretos. El docente revisará el progreso en el próximo módulo.</div></div>`
-    :total>=60?`<div class="note warn">${ico('info')}<div>El grupo muestra buena comprensión del tema. Se recomienda ampliar el análisis en las próximas sesiones y profundizar en los compromisos personales.</div></div>`
-    :`<div class="note bad">${ico('alert')}<div>El grupo debe reforzar el trabajo. El docente puede solicitar una revisión de las actividades con mayor detalle.</div></div>`;
-  const nextSteps=['Abre tu cuenta o bolsillo "SOLO EMERGENCIAS" en la fecha que elegiste.','Programa una transferencia automática semanal por el monto comprometido.','Haz tu primer depósito hoy, aunque sea de $5.000.','Comparte la captura de tu saldo con el grupo cada semana.','Celebra tu mini meta de $100.000 y revisa tu plan en 30 días.'];
-
-  $('resultsContent').innerHTML=`
-  <div class="scorecard">
-    <div class="sc-head">
-      <div><div class="k">Grupo evaluado</div><h3>${esc(state.groupName)}</h3><div class="meta">${esc(state.groupSalon)} · ${state.members.length} integrante${state.members.length>1?'s':''}</div><div class="roster">${roster}</div></div>
-      <div class="ring-wrap"><div class="ring" style="--rc:${tc}"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="54"/><circle class="fg" id="ringFg" cx="60" cy="60" r="54"/></svg><div class="ring-c"><b id="totalNum" data-n="${total}">0</b><small>de 100</small></div></div><div class="grade" style="--gc:${gc}">Calificación<b>${nf}</b></div></div>
+  const rec=currentRecord(),d=diagnose(rec),ind=rec.mode==='ind',S=d.students;
+  window._res={rec,d};meCtx=[];
+  const avg=S.length?Math.round(S.reduce((a,s)=>a+s.sc.total,0)/S.length):0;
+  const roster=S.map(s=>`<span><div class="avatar" style="--mc:${MCOL[s.i%4]}">${esc((s.m.name||'?')[0].toUpperCase())}</div>${esc(s.m.name)} <em>nota ${nota(s.sc.total)}</em></span>`).join('');
+  const grp=ind?'':`<div class="scorecard" id="grpCard">
+      <div class="sc-head"><div><div class="k">Resumen del grupo</div><h3>${esc(rec.groupName)}</h3><div class="meta">${esc(rec.groupSalon)} · ${S.length} integrante${S.length>1?'s':''} · cada estudiante tiene su propia nota</div><div class="roster">${roster}</div></div>
+        <div class="ring-wrap">${ringHTML('rgG',avg,scoreColor(avg))}<div class="grade" style="--gc:#FFB48A">Promedio<b>${nota(avg)}</b></div></div></div>
+      <div class="feedback" style="margin-top:24px"><h6>Criterios evaluados al grupo</h6>${chkList(d.group)}</div>
     </div>
-    <div class="sc-body"><div>${dims}</div>${radarSVG(sc)}</div>
-    ${awards.length?`<div class="awards">${awardsH}</div>`:''}
-    <div class="feedback"><h6>Retroalimentación del docente</h6>${fb}</div>
-  </div>
-  <div class="sublabel" style="margin-top:34px">Compromisos individuales</div>
-  ${commits}
-  <div class="panel" style="margin-top:20px;border-color:var(--ok-bd)">
-    <div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3>Compromiso del grupo</h3></div></div>
-    <div class="quote">“${esc(state.act4.compromisoGrupal)}”</div>
-    <p style="font-size:.88rem;color:var(--text2)"><b style="color:var(--text)">¿Cómo se acompañarán?</b><br>${esc(state.act4.acompañamiento)}</p>
-  </div>
-  <div class="panel no-print">
-    <div class="panel-h"><div class="panel-ic" style="color:var(--naranja)"><svg class="ic"><use href="#i-target"/></svg></div><div><h3>Tus próximos pasos</h3><p>Marca cada uno cuando lo cumplas</p></div></div>
-    <div class="next">${nextSteps.map((t,i)=>`<label><input type="checkbox" id="next_${i}"><span>${t}</span></label>`).join('')}</div>
-  </div>
-  ${closing}
-  <div class="foot">Finanzas Personales · UNICESMAG · Grupo registrado: ${esc(state.groupName)} · ${new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})}<br><br>
-    <button class="btn btn-ghost no-print" onclick="window.print()">${ico('print')}Imprimir resultados</button></div>`;
-
-  document.querySelectorAll('.next input').forEach(c=>{c.checked=draft.v[c.id]==='1';c.onchange=()=>{draft.v[c.id]=c.checked?'1':'';queueSave()}});
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    $('ringFg').style.strokeDashoffset=339.29*(1-total/100);
-    document.querySelectorAll('.dim .tr i').forEach(i=>i.style.width=i.dataset.w+'%');
-    const el=$('totalNum'),t0=performance.now(),dur=1400;
-    (function tick(t){const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(total*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)})(t0);
-  }));
+    <div class="sublabel" style="margin-top:30px">Resumen personal de cada integrante</div>
+    <div class="tabs no-print" id="meTabs">${S.map((s,k)=>`<button type="button" class="tab${k?'':' active'}" onclick="showMe(${k})">${esc(s.m.name.split(' ')[0]||'Integrante '+(k+1))} · ${nota(s.sc.total)}</button>`).join('')}</div>`;
+  const low=Math.min(...S.map(s=>s.sc.total));
+  const closing=low>=80?`<div class="note ok">${ico('trophy')}<div><b>Excelente sesión.</b> ${ind?'Demostraste':'Todos demostraron'} comprensión del tema y compromisos concretos. El docente revisará el progreso en el próximo módulo.</div></div>`
+    :low>=60?`<div class="note warn">${ico('info')}<div>Buena comprensión del tema. Revisa la sección "Lo que debes mejorar" y ajusta tu plan antes de la próxima sesión.</div></div>`
+    :`<div class="note bad">${ico('alert')}<div>Hay puntos importantes por reforzar. Corrige los errores señalados y conversa tu plan con el docente.</div></div>`;
+  const grpCommit=`<div class="panel" style="border-color:var(--ok-bd)"><div class="panel-h"><div class="panel-ic" style="color:var(--verde)"><svg class="ic"><use href="#i-users"/></svg></div><div><h3>${ind?'Tu acción de esta semana':'Compromiso del grupo'}</h3></div></div>
+    <div class="quote">“${esc(state.act4.compromisoGrupal)}”</div><p style="font-size:.88rem;color:var(--text2)"><b style="color:var(--text)">${ind?'¿Quién te acompañará?':'¿Cómo se acompañarán?'}</b><br>${esc(state.act4.acompañamiento)}</p></div>`;
+  $('resultsContent').innerHTML=grp+S.map(s=>personalHTML(rec,d,s)).join('')+grpCommit+closing+
+    `<div class="foot">Finanzas Personales · UNICESMAG · ${esc(rec.groupName)} · ${new Date().toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})}<br><br><button class="btn btn-ghost no-print" onclick="window.print()">${ico('print')}Imprimir resultados</button></div>`;
+  S.forEach(s=>updateWhatIf(s.i));
+  if(!ind)animRing('rgG',avg);
+  showMe(0);
 }
 
 /* ───────── NAVIGATION / UI ───────── */
@@ -1497,6 +1800,7 @@ function goTo(n){
   $('fillLine').style.height=`calc((100% - 44px) * ${n/LAST})`;
   $('mbFill').style.width=(n/LAST*100)+'%';$('mbTitle').textContent=STEP_NAMES[n];
   if(n===4)updateCrisisCoverage();
+  if(n===5)state.members.forEach((_,i)=>updateA4Prev(i));
   updateRail();window.scrollTo({top:0,behavior:'smooth'});
 }
 function tryNav(n){if(n<=state.maxUnlocked)goTo(n);else toast('Completa la actividad actual primero','err')}
@@ -1528,7 +1832,7 @@ const GROUP_KEY='fe_unicesmag_group_v2',DOC_SESSION='fe_unicesmag_doc';
 /* Contraseña docente: solo se guarda su huella SHA-256, nunca el texto.
    Para cambiarla, calcula el SHA-256 de la nueva clave (p. ej. printf '%s' 'NuevaClave' | sha256sum)
    y reemplaza este valor. */
-const DOC_HASH='0fe1bed5fc62094e9903e436b07c5a2122b09402adb70564b676a91eddb0cd3a';
+const DOC_HASH='059a50ce956b7ec61527c7ecc0c55b5a009dc54ab4acddce8852b46baa2aba30';
 let db=null,cloudOn=false;
 try{if(window.firebase){firebase.initializeApp(firebaseConfig);db=firebase.database();db.ref('.info/connected').on('value',s=>{cloudOn=s.val()===true;updateCloud()})}}catch(e){console.warn('Firebase no disponible:',e)}
 function updateCloud(){
@@ -1541,7 +1845,7 @@ function ensureGroupId(){if(!draft.groupId){draft.groupId=slug(state.groupName)+
 const isEmpty=o=>!o||(typeof o==='object'&&!Object.keys(o).length);
 function syncCloud(){
   if(!draft.groupId||!state.groupName)return;
-  const p=JSON.parse(JSON.stringify({_v:2,_groupId:draft.groupId,_savedAt:new Date().toISOString(),groupName:state.groupName,groupSalon:state.groupSalon,members:state.members,maxUnlocked:state.maxUnlocked,quiz:draft.quiz,act1:state.act1,act2:state.act2,act3:state.act3,act4:state.act4}));
+  const p=currentRecord();
   /* tras recargar la página las actividades aún no guardadas llegan vacías: no se sobrescriben */
   ['act1','act2','act3','act4'].forEach(k=>{if(isEmpty(p[k]))delete p[k]});
   try{const prev=JSON.parse(localStorage.getItem(GROUP_KEY)||'null');localStorage.setItem(GROUP_KEY,JSON.stringify(prev&&prev._groupId===p._groupId?Object.assign(prev,p):p))}catch(e){}
@@ -1596,13 +1900,6 @@ const APP_RE=/nequi|daviplata|\bnu\b|nubank|bolsillo|cuenta|banco|bancolombia|da
 const TL=s=>String(s==null?'':s).trim().length;
 const arr=x=>!x?[]:Array.isArray(x)?x:Object.values(x);
 const chk=(area,label,s,tip)=>({area,label,s,tip:tip||''});
-function scoresFor(g){
-  const bak=state;
-  state={members:arr(g.members),act1:g.act1||{},act2:g.act2||{},act3:Object.assign({crisis:{}},g.act3),act4:Object.assign({members:{}},g.act4)};
-  state.act4.members=arr(state.act4.members).filter(Boolean);
-  try{const s=[scoreAct1(),scoreAct2(),scoreAct3(),scoreAct4()].map(v=>v||0);return{s,total:Math.round(s[0]*.2+s[1]*.3+s[2]*.25+s[3]*.25)}}
-  catch(e){return{s:[0,0,0,0],total:0}}finally{state=bak}
-}
 function diagnose(g){
   const members=arr(g.members).filter(Boolean),a2=g.act2||{},a3=g.act3||{},a4=g.act4||{};
   const has1=members.length>0&&members.every((_,i)=>g.act1&&g.act1[i]),has2=!!a2.perfil,has3=!!(a3.reflexion||a3.crisis),has4=!!a4.compromisoGrupal;
@@ -1631,22 +1928,26 @@ function diagnose(g){
   const sh3=[['reflexion',80],['consejo',60],['carrera',80]].filter(([k,m])=>TL(a3[k])<m).length;
   G.push(chk('Crisis','Reflexión final del grupo',P3||(!sh3?'ok':sh3===1?'warn':'bad'),has3&&sh3?`${sh3} de 3 respuestas muy cortas.`:''));
 
-  const P4=has4?null:'pend',cg=String(a4.compromisoGrupal||''),num=/\d/.test(cg);
-  G.push(chk('Compromiso','Acción grupal concreta (monto o fecha)',P4||(num&&TL(cg)>=80?'ok':num||TL(cg)>=80?'warn':'bad'),has4?(num?'Incluye cifras o fechas.':'No incluye monto ni fecha.'):''));
+  const P4=has4?null:'pend',cg=String(a4.compromisoGrupal||''),hasNum=/\d/.test(cg);
+  G.push(chk('Compromiso','Acción grupal concreta (monto o fecha)',P4||(hasNum&&TL(cg)>=80?'ok':hasNum||TL(cg)>=80?'warn':'bad'),has4?(hasNum?'Incluye cifras o fechas.':'No incluye monto ni fecha.'):''));
   G.push(chk('Compromiso','Plan de acompañamiento',P4||(TL(a4.acompañamiento)>=40?'ok':TL(a4.acompañamiento)?'warn':'bad'),''));
 
   const S=members.map((m,i)=>{
     const d=g.act1?g.act1[i]:null,c=a4.members?a4.members[i]:null,C=[],P1=d?null:'pend',calc=String(d&&d.calculo||''),saldo=+(d&&d.saldo)||0;
+    const known=d&&d.gastos!=null,gas=+(d&&d.gastos)||0,ingS=+(d&&d.ingreso)||0;
+    if(!d||known)C.push(chk('Foto','Registra ingresos y gastos',P1||(gas>0?'ok':'bad'),d&&gas?`Ingresos ${cop(ingS)} · gastos esenciales ${cop(gas)} al mes.`:''));
     C.push(chk('Foto','Tiene colchón para una urgencia de $200.000',P1||(saldo>=200000?'ok':'warn'),d?`Saldo disponible: ${cop(saldo)}.`:''));
     C.push(chk('Foto','Muestra un cálculo con números',P1||(/\d/.test(calc)?'ok':'bad'),d&&!/\d/.test(calc)?'Su razonamiento no incluye cifras.':''));
     const x3=/(x|×|\*|por)\s*3\b|tres\s+meses|3\s*meses|triple/i.test(calc);
     C.push(chk('Foto','Aplica la regla de 3 meses',P1||(x3?'ok':'bad'),d&&!x3?'No multiplica sus gastos por 3.':''));
     const sh1=[['fuente',40],['pasado',50],['calculo',60],['obstaculo',40]].filter(([k,mn])=>TL(d&&d[k])<mn).length;
     C.push(chk('Foto','Diagnóstico desarrollado',P1||(!sh1?'ok':sh1===1?'warn':'bad'),d&&sh1?`${sh1} de 4 respuestas muy cortas.`:''));
-    const Pc=c?null:'pend',meta=+(c&&c.meta)||0,ah=+(c&&c.ahorro)||0,w=ah&&meta?Math.ceil(meta/ah):0;
-    C.push(chk('Compromiso','Meta ≥ mini meta de $100.000',Pc||(meta>=100000?'ok':'bad'),c?`Meta: ${cop(meta)}.`:''));
+    const Pc=c?null:'pend',meta=+(c&&c.meta)||0,ah=+(c&&c.ahorro)||0,w=ah&&meta?Math.ceil(Math.max(0,meta-saldo)/ah):0;
+    if(gas)C.push(chk('Compromiso','Meta = 3 meses de sus gastos',Pc||(meta>=gas*3*.95?'ok':meta>=gas?'warn':'bad'),c?`Meta ${cop(meta)} · sugerida ${cop(gas*3)}.`:''));
+    else C.push(chk('Compromiso','Meta ≥ mini meta de $100.000',Pc||(meta>=100000?'ok':'bad'),c?`Meta: ${cop(meta)}.`:''));
     C.push(chk('Compromiso','Ahorro semanal coherente con la meta',Pc||(ah>0&&ah<meta?'ok':'bad'),c?(ah&&ah>=meta?'El ahorro semanal es igual o mayor que la meta.':`${cop(ah)} / semana.`):''));
-    C.push(chk('Compromiso','Plazo realista (≤ 1 año)',Pc||(!w?'bad':w<=52?'ok':'warn'),c&&w?`${w} semanas.`:''));
+    if(known&&(ingS||gas)){const mg=ingS-gas;C.push(chk('Compromiso','Ahorro cabe en su presupuesto',Pc||(mg>0&&ah*4.3<=mg?'ok':'bad'),c?(mg<=0?`Sus gastos (${cop(gas)}) igualan o superan sus ingresos (${cop(ingS)}).`:ah*4.3<=mg?`≈${cop(ah*4.3)} / mes de un margen de ${cop(mg)}.`:`≈${cop(ah*4.3)} / mes supera su margen de ${cop(mg)}.`):''))}
+    C.push(chk('Compromiso','Plazo realista (≤ 1 año)',Pc||(!ah||!meta?'bad':w<=52?'ok':'warn'),c&&ah&&meta?`${w} semanas.`:''));
     let fs='pend',ft='';
     if(c){
       const fd=c.fecha?new Date(c.fecha+'T12:00:00'):null,base=g._savedAt?new Date(g._savedAt):new Date(),diff=fd&&!isNaN(fd)?Math.round((fd-base)/864e5):null;
@@ -1656,11 +1957,15 @@ function diagnose(g){
     C.push(chk('Compromiso','Elige dónde guardar el fondo',Pc||(APP_RE.test(String(c&&c.app||''))?'ok':'bad'),c?`Herramienta: ${c.app||'—'}.`:''));
     const shc=[['insight',60],['profesional',80]].filter(([k,mn])=>TL(c&&c[k])<mn).length;
     C.push(chk('Compromiso','Reflexión personal',Pc||(!shc?'ok':shc===1?'warn':'bad'),c&&shc?`${shc} de 2 respuestas muy cortas.`:''));
-    return{m,i,d,c,checks:C,ok:C.filter(x=>x.s==='ok').length,bad:C.filter(x=>x.s==='bad').length,warn:C.filter(x=>x.s==='warn').length};
+    const inArea=(l,a)=>l.filter(x=>x.area===a);
+    const parts=[mix(sFoto(d),inArea(C,'Foto')),mix(sReto(a2),inArea(G,'Reto')),mix(sCrisis(a3),inArea(G,'Crisis')),mix(sComp(c,a4),inArea(C,'Compromiso').concat(inArea(G,'Compromiso'))),qa?Math.round(qok/quizItems.length*100):0];
+    return{m,i,d,c,checks:C,complete:!!(d&&c&&has2&&has3&&has4),sc:{s:parts,total:Math.round(parts.reduce((a,v,k)=>a+v*PARTS[k].w/100,0))},
+      ok:C.filter(x=>x.s==='ok').length,bad:C.filter(x=>x.s==='bad').length,warn:C.filter(x=>x.s==='warn').length};
   });
 
-  const all=G.concat(...S.map(s=>s.checks));
-  return{group:G,students:S,quiz,done:[has1,has2,has3,has4],complete:has4,sc:scoresFor(g),
+  const all=G.concat(...S.map(s=>s.checks)),n=S.length||1;
+  return{group:G,students:S,quiz,done:[has1,has2,has3,has4],complete:has4,mode:g.mode==='ind'?'ind':'grp',
+    sc:{s:PARTS.map((_,k)=>Math.round(S.reduce((a,s)=>a+s.sc.s[k],0)/n)),total:Math.round(S.reduce((a,s)=>a+s.sc.total,0)/n)},
     ok:all.filter(x=>x.s==='ok').length,bad:all.filter(x=>x.s==='bad').length,warn:all.filter(x=>x.s==='warn').length};
 }
 
@@ -1679,42 +1984,43 @@ async function loadDash(){
   try{const l=JSON.parse(localStorage.getItem(GROUP_KEY)||'null');if(l&&l.groupName&&!list.some(g=>g._groupId===l._groupId))list.push(l)}catch(e){}
   dashGroups=list.map(g=>({g,d:diagnose(g)})).sort((a,b)=>String(b.g._savedAt||'').localeCompare(String(a.g._savedAt||'')));
   chip.className='src-chip'+(cloud?' on':'');
-  chip.querySelector('span').textContent=cloud?`Nube conectada · ${dashGroups.length} grupo${dashGroups.length===1?'':'s'}`:'Sin conexión a la nube · solo datos de este dispositivo';
+  chip.querySelector('span').textContent=cloud?`Nube conectada · ${dashGroups.length} registro${dashGroups.length===1?'':'s'}`:'Sin conexión a la nube · solo datos de este dispositivo';
   const sel=$('fSalon'),cur=sel.value,salones=[...new Set(dashGroups.map(x=>String(x.g.groupSalon||'').trim()).filter(Boolean))].sort();
   sel.innerHTML='<option value="">Todos los salones</option>'+salones.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
   sel.value=salones.includes(cur)?cur:'';
   renderDash();
 }
 function dashFiltered(){
-  const sal=$('fSalon').value,q=norm($('fSearch').value.trim());
-  return dashGroups.filter(({g})=>(!sal||String(g.groupSalon||'').trim()===sal)&&(!q||norm([g.groupName,g.groupSalon,...arr(g.members).map(m=>m&&m.name)].join(' ')).includes(q)));
+  const sal=$('fSalon').value,mode=$('fMode').value,q=norm($('fSearch').value.trim());
+  return dashGroups.filter(({g,d})=>(!sal||String(g.groupSalon||'').trim()===sal)&&(!mode||d.mode===mode)&&(!q||norm([g.groupName,g.groupSalon,...arr(g.members).map(m=>m&&m.name)].join(' ')).includes(q)));
 }
 function setView(v){dashView=v;$('vtG').classList.toggle('active',v==='g');$('vtS').classList.toggle('active',v==='s');renderDash()}
 const pctColor=p=>p>=75?COLORS.verde:p>=50?COLORS.ambar:COLORS.rojo;
 const stIco={ok:'check',bad:'alert',warn:'info',pend:'clock'};
+const modeLbl=m=>m==='ind'?'Individual':'Grupal';
 function renderDash(){
-  const F=dashFiltered(),studs=F.flatMap(x=>x.d.students.map(s=>({x,s})));
-  const done=F.filter(x=>x.d.complete),avg=done.length?done.reduce((a,x)=>a+x.d.sc.total,0)/done.length:0;
+  const F=dashFiltered(),studs=F.flatMap(x=>x.d.students.map(s=>({x,s}))),doneS=studs.filter(({s})=>s.complete);
+  const avg=doneS.length?doneS.reduce((a,{s})=>a+s.sc.total,0)/doneS.length:0;
   const ok=F.reduce((a,x)=>a+x.d.ok,0),ev=F.reduce((a,x)=>a+x.d.ok+x.d.bad+x.d.warn,0);
   $('dKpis').innerHTML=[
-    ['Grupos',F.length,'registrados'],
-    ['Estudiantes',studs.length,'en estos grupos'],
-    ['Completaron',done.length,F.length?`${Math.round(done.length/F.length*100)}% de los grupos`:'—'],
-    ['Nota promedio',done.length?nota(avg):'—',done.length?`${Math.round(avg)} / 100 · grupos completos`:'sin grupos completos'],
+    ['Estudiantes',studs.length,`${F.filter(x=>x.d.mode==='ind').length} individuales · ${F.filter(x=>x.d.mode!=='ind').length} grupos`],
+    ['Completaron',doneS.length,studs.length?`${Math.round(doneS.length/studs.length*100)}% de los estudiantes`:'—'],
+    ['Nota promedio',doneS.length?nota(avg):'—',doneS.length?`${Math.round(avg)} / 100 · estudiantes que completaron`:'sin estudiantes completos'],
+    ['Aprobados',doneS.length?doneS.filter(({s})=>s.sc.total>=60).length:'—',doneS.length?'nota ≥ 3.5':'—'],
     ['Aciertos',ev?Math.round(ok/ev*100)+'%':'—',ev?`${ok} de ${ev} criterios evaluados`:'sin datos aún']
   ].map(([k,v,e])=>`<div class="kt"><small>${k}</small><b>${v}</b><em>${e}</em></div>`).join('');
 
   const agg={};
   const add=(c,who)=>{if(c.s==='pend')return;const a=agg[c.label]=agg[c.label]||{label:c.label,area:c.area,who,ev:0,bad:0};a.ev++;if(c.s==='bad')a.bad++};
-  F.forEach(x=>{x.d.group.forEach(c=>add(c,'grupos'));x.d.students.forEach(s=>s.checks.forEach(c=>add(c,'estudiantes')))});
+  F.forEach(x=>{x.d.group.forEach(c=>add(c,'registros'));x.d.students.forEach(s=>s.checks.forEach(c=>add(c,'estudiantes')))});
   const errs=Object.values(agg).filter(a=>a.bad).sort((a,b)=>b.bad/b.ev-a.bad/a.ev||b.bad-a.bad).slice(0,8);
-  $('dErr').innerHTML=errs.length?errs.map(a=>{const p=Math.round(a.bad/a.ev*100);return`<div class="hb" style="--c:${p>=50?COLORS.rojo:p>=25?COLORS.ambar:COLORS.celeste}"><span>${a.label}<small>${a.area} · ${a.bad} de ${a.ev} ${a.who}</small></span><div class="t"><i style="width:${p}%"></i></div><b>${p}%</b></div>`}).join(''):`<div class="empty">${F.length?'Sin errores registrados todavía.':'Aún no hay grupos.'}</div>`;
+  $('dErr').innerHTML=errs.length?errs.map(a=>{const p=Math.round(a.bad/a.ev*100);return`<div class="hb" style="--c:${p>=50?COLORS.rojo:p>=25?COLORS.ambar:COLORS.celeste}"><span>${a.label}<small>${a.area} · ${a.bad} de ${a.ev} ${a.who}</small></span><div class="t"><i style="width:${p}%"></i></div><b>${p}%</b></div>`}).join(''):`<div class="empty">${F.length?'Sin errores registrados todavía.':'Aún no hay registros.'}</div>`;
 
   $('dQuiz').innerHTML=F.some(x=>x.d.quiz.some(v=>v!==null))?quizItems.map((it,i)=>{
     const ans=F.map(x=>x.d.quiz[i]).filter(v=>v!==null),r=ans.filter(Boolean).length,p=ans.length?Math.round(r/ans.length*100):0;
-    return`<div class="hb" style="--c:${pctColor(p)}"><span>${esc(it.q)}<small>Correcto: ${it.a?'Sí es emergencia':'No es emergencia'} · ${r} de ${ans.length}</small></span><div class="t"><i style="width:${p}%"></i></div><b>${ans.length?p+'%':'—'}</b></div>`}).join(''):'<div class="empty">Ningún grupo ha jugado todavía.</div>';
+    return`<div class="hb" style="--c:${pctColor(p)}"><span>${esc(it.q)}<small>Correcto: ${it.a?'Sí es emergencia':'No es emergencia'} · ${r} de ${ans.length}</small></span><div class="t"><i style="width:${p}%"></i></div><b>${ans.length?p+'%':'—'}</b></div>`}).join(''):'<div class="empty">Nadie ha jugado todavía.</div>';
 
-  if(!F.length){$('dList').innerHTML=`<div class="panel empty">${dashGroups.length?'Ningún grupo coincide con el filtro.':'Todavía no hay grupos registrados. Cuando los estudiantes registren su grupo aparecerán aquí.'}</div>`;return}
+  if(!F.length){$('dList').innerHTML=`<div class="panel empty">${dashGroups.length?'Ningún registro coincide con el filtro.':'Todavía no hay registros. Cuando los estudiantes se registren aparecerán aquí.'}</div>`;return}
   $('dList').innerHTML=dashView==='g'?F.map(groupRow).join(''):studentTable(studs);
 }
 function chkList(list){
@@ -1722,18 +2028,19 @@ function chkList(list){
   return list.map(c=>{const h=c.area!==area?`<div class="chk-area">${c.area}</div>`:'';area=c.area;
     return h+`<div class="chk ${c.s}">${ico(stIco[c.s])}<div><b>${c.label}</b>${c.s==='pend'?'<small>Actividad pendiente.</small>':c.tip?`<small>${esc(c.tip)}</small>`:''}</div></div>`}).join('');
 }
+const notaTag=s=>s.complete?`<b style="color:${scoreColor(s.sc.total)}">${nota(s.sc.total)}</b>`:`<b style="color:var(--text3)">—</b>`;
 function groupRow({g,d}){
-  const id=String(g._groupId||g.groupName),n=d.done.filter(Boolean).length,nm=arr(g.members).filter(Boolean),fecha=g._savedAt?new Date(g._savedAt).toLocaleString('es-CO',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
-  const notaH=d.complete?`<b style="color:${scoreColor(d.sc.total)}">${nota(d.sc.total)}</b><small>${d.sc.total}/100</small>`:`<b style="color:var(--text3);font-size:.9rem">En curso</b><small>parcial ${d.sc.total}</small>`;
-  const labs=['Foto (20%)','Reto (30%)','Crisis (25%)','Compromiso (25%)'];
-  const studs=d.students.map(s=>`<div class="stud"><div class="stud-h"><div class="avatar" style="--mc:${MCOL[s.i%4]}">${esc((s.m.name||'?')[0].toUpperCase())}</div><div><b>${esc(s.m.name||'Sin nombre')}</b><small>${esc(s.m.program||'')} · ${esc(s.m.semester||'')} semestre</small></div><span class="cnt ok">${ico('check')}${s.ok}</span><span class="cnt bad">${ico('alert')}${s.bad}</span></div>${chkList(s.checks)}</div>`).join('');
+  const id=String(g._groupId||g.groupName),n=d.done.filter(Boolean).length,nm=d.students.length,fecha=g._savedAt?new Date(g._savedAt).toLocaleString('es-CO',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
+  const notaH=d.complete?`<b style="color:${scoreColor(d.sc.total)}">${nota(d.sc.total)}</b><small>${d.mode==='ind'?'':'prom. '}${d.sc.total}/100</small>`:`<b style="color:var(--text3);font-size:.9rem">En curso</b><small>${n} de 4</small>`;
+  const studs=d.students.map(s=>`<div class="stud"><div class="stud-h"><div class="avatar" style="--mc:${MCOL[s.i%4]}">${esc((s.m.name||'?')[0].toUpperCase())}</div><div><b>${esc(s.m.name||'Sin nombre')}</b><small>${esc(s.m.program||'')} · ${esc(s.m.semester||'')} semestre</small></div><span class="cnt ok">${ico('check')}${s.ok}</span><span class="cnt bad">${ico('alert')}${s.bad}</span><div class="gnota">${notaTag(s)}<small>${s.sc.total}/100</small></div></div>
+    <div class="gscores">${PARTS.map((p,k)=>`<div><small>${p.l} (${p.w}%)</small><b style="color:${scoreColor(s.sc.s[k])}">${s.sc.s[k]}</b></div>`).join('')}</div>${chkList(s.checks)}</div>`).join('');
   const a2=g.act2||{},a3=g.act3||{},a4=g.act4||{};
   const P=(k,v)=>v?`<p><b>${k}:</b> ${esc(v)}</p>`:'';
-  const answers=P('Perfil',a2.perfilData&&a2.perfilData.nombre)+P('Estrategia de ahorro',a2.estrategia)+P('Obstáculos',a2.obstaculos)+P('Herramienta',a2.herramienta)+P('Aprendizaje',a2.aprendizaje)+P('Escenario más probable',a3.reflexion)+P('Consejo',a3.consejo)+P('Conexión con la carrera',a3.carrera)+P('Compromiso grupal',a4.compromisoGrupal)+P('Acompañamiento',a4.acompañamiento)
+  const answers=P('Perfil',a2.perfilData&&a2.perfilData.nombre)+P('Estrategia de ahorro',a2.estrategia)+P('Obstáculos',a2.obstaculos)+P('Herramienta',a2.herramienta)+P('Aprendizaje',a2.aprendizaje)+P('Escenario más probable',a3.reflexion)+P('Consejo',a3.consejo)+P('Conexión con la carrera',a3.carrera)+P(d.mode==='ind'?'Acción de la semana':'Compromiso grupal',a4.compromisoGrupal)+P('Acompañamiento',a4.acompañamiento)
     +d.students.map(s=>(s.d?P(`${s.m.name} · cálculo del fondo`,s.d.calculo)+P(`${s.m.name} · obstáculo para ahorrar`,s.d.obstaculo):'')+(s.c?P(`${s.m.name} · aprendizaje`,s.c.insight):'')).join('');
   return`<div class="grow${openRows.has(id)?' open':''}" data-id="${esc(id)}">
     <button type="button" class="ghead" onclick="toggleRow(this)" aria-expanded="${openRows.has(id)}">
-      <div class="gn"><b>${esc(g.groupName||'Sin nombre')}</b><small>${esc(g.groupSalon||'')} · ${nm.length} integrante${nm.length===1?'':'s'} · ${fecha}</small></div>
+      <div class="gn"><b>${esc(g.groupName||'Sin nombre')} <span class="mode-pill">${modeLbl(d.mode)}</span></b><small>${esc(g.groupSalon||'')} · ${d.mode==='ind'?'':nm+' integrante'+(nm===1?'':'s')+' · '}${fecha}</small></div>
       <div class="prog"><small>${n} de 4 actividades</small><div class="t"><i style="width:${n*25}%"></i></div></div>
       <span class="cnt ok" title="Aciertos">${ico('check')}${d.ok}</span>
       <span class="cnt bad" title="Errores">${ico('alert')}${d.bad}</span>
@@ -1741,34 +2048,33 @@ function groupRow({g,d}){
       <svg class="ic chev"><use href="#i-arrow"/></svg>
     </button>
     <div class="gbody">
-      <div class="gscores">${d.sc.s.map((v,i)=>`<div><small>${labs[i]}</small><b style="color:${d.done[i]?scoreColor(v):'var(--text3)'}">${d.done[i]?v:'—'}</b></div>`).join('')}</div>
-      <div class="chk-cols">
-        <div><div class="sublabel">Criterios del grupo</div>${chkList(d.group)}
+      <div class="chk-cols" style="margin-top:16px">
+        <div><div class="sublabel">${d.mode==='ind'?'Criterios del reto y la crisis':'Criterios del grupo'}</div>${chkList(d.group)}
           <div class="chk-area">Juego IUN por situación</div><div class="qdots">${d.quiz.map((v,i)=>`<span class="${v===null?'':v?'ok':'bad'}" title="${esc(quizItems[i].q)}">${i+1}</span>`).join('')}</div></div>
-        <div><div class="sublabel">Criterios por estudiante</div>${studs||'<div class="empty">Sin integrantes.</div>'}</div>
+        <div><div class="sublabel">${d.mode==='ind'?'Criterios personales y nota':'Nota y criterios por estudiante'}</div>${studs||'<div class="empty">Sin integrantes.</div>'}</div>
       </div>
       ${answers?`<details class="ans"><summary>Ver respuestas escritas</summary><div class="ab">${answers}</div></details>`:''}
     </div></div>`;
 }
 function toggleRow(btn){const r=btn.closest('.grow'),id=r.dataset.id,o=!r.classList.contains('open');r.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);o?openRows.add(id):openRows.delete(id)}
 function studentTable(studs){
-  return`<div class="grow"><div class="srow h"><span>Estudiante</span><span>Grupo</span><span>Aciertos</span><span>Errores</span><span>Errores principales</span></div>`+
-    studs.map(({x,s})=>{const errs=s.checks.filter(c=>c.s==='bad').map(c=>c.label);
-      return`<div class="srow"><div><b>${esc(s.m.name||'Sin nombre')}</b><small>${esc(s.m.program||'')}</small></div><div>${esc(x.g.groupName||'')}<small>${esc(x.g.groupSalon||'')}</small></div><span class="cnt ok">${ico('check')}${s.ok}</span><span class="cnt bad">${ico('alert')}${s.bad}</span><div class="err">${errs.length?esc(errs.slice(0,3).join(' · ')):'<span style="color:var(--ok-fg)">Sin errores</span>'}</div></div>`}).join('')+'</div>';
+  return`<div class="grow"><div class="srow h"><span>Estudiante</span><span>Grupo / modalidad</span><span>Nota</span><span>Errores</span><span>Errores principales</span></div>`+
+    studs.sort((a,b)=>b.s.sc.total-a.s.sc.total).map(({x,s})=>{const errs=s.checks.concat(x.d.group).filter(c=>c.s==='bad').map(c=>c.label);
+      return`<div class="srow"><div><b>${esc(s.m.name||'Sin nombre')}</b><small>${esc(s.m.program||'')} · ${esc(x.g.groupSalon||'')}</small></div><div>${x.d.mode==='ind'?'Individual':esc(x.g.groupName||'')}<small>${modeLbl(x.d.mode)}</small></div><div class="gnota" style="text-align:left">${notaTag(s)}<small>${s.sc.total}/100</small></div><span class="cnt bad">${ico('alert')}${errs.length}</span><div class="err">${errs.length?esc(errs.slice(0,3).join(' · ')):'<span style="color:var(--ok-fg)">Sin errores</span>'}</div></div>`}).join('')+'</div>';
 }
 function exportDashCSV(){
   const F=dashFiltered();if(!F.length){toast('No hay datos para exportar','err');return}
   const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
-  const rows=[['Nombre completo','Programa','Semestre','Grupo','Salon','Act1 Foto (20%)','Act2 Reto (30%)','Act3 Crisis (25%)','Act4 Compromiso (25%)','Puntaje Total','Nota Final','Estado','Aciertos','Errores','Errores principales','Juego IUN (aciertos/6)','App fondo','Meta COP','Ahorro semanal COP','Fecha']];
+  const rows=[['Nombre completo','Programa','Semestre','Modalidad','Grupo','Salon',...PARTS.map(p=>`${p.l} (${p.w}%)`),'Puntaje Total','Nota Final','Estado','Aciertos','Errores','Errores principales','Juego IUN (aciertos/6)','Saldo actual COP','Gastos esenciales mes COP','Meta COP','Ahorro semanal COP','Semanas para la meta','App fondo','Fecha'].join(',')];
   F.forEach(({g,d})=>{
-    const g_bad=d.group.filter(c=>c.s==='bad').map(c=>c.label),qok=d.quiz.filter(v=>v===true).length;
+    const gOk=d.group.filter(c=>c.s==='ok').length,gBad=d.group.filter(c=>c.s==='bad').map(c=>c.label),qok=d.quiz.filter(v=>v===true).length;
     d.students.forEach(s=>{
-      const c=s.c||{};
-      rows.push([q(s.m.name),q(s.m.program),q(s.m.semester),q(g.groupName),q(g.groupSalon),...d.sc.s,d.sc.total,d.complete?nota(d.sc.total):'',q(d.complete?'Completo':'En progreso'),
-        s.ok+d.group.filter(c=>c.s==='ok').length,s.bad+g_bad.length,q(s.checks.filter(c=>c.s==='bad').map(c=>c.label).concat(g_bad).join('; ')),qok,q(c.app),Math.round(+c.meta||0),Math.round(+c.ahorro||0),q(g._savedAt?new Date(g._savedAt).toLocaleDateString('es-CO'):'')].join(','));
+      const c=s.c||{},a=s.d||{},saldo=+a.saldo||0,w=+c.ahorro>0?Math.ceil(Math.max(0,(+c.meta||0)-saldo)/c.ahorro):'';
+      rows.push([q(s.m.name),q(s.m.program),q(s.m.semester),q(modeLbl(d.mode)),q(d.mode==='ind'?'':g.groupName),q(g.groupSalon),...s.sc.s,s.sc.total,s.complete?nota(s.sc.total):'',q(s.complete?'Completo':'En progreso'),
+        s.ok+gOk,s.bad+gBad.length,q(s.checks.filter(c=>c.s==='bad').map(c=>c.label).concat(gBad).join('; ')),qok,Math.round(saldo),Math.round(+a.gastos||0),Math.round(+c.meta||0),Math.round(+c.ahorro||0),w,q(c.app),q(g._savedAt?new Date(g._savedAt).toLocaleDateString('es-CO'):'')].join(','));
     });
   });
-  const blob=new Blob(['﻿'+rows.map(r=>Array.isArray(r)?r.join(','):r).join('\n')],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  const blob=new Blob(['﻿'+rows.join('\n')],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
   a.href=url;a.download='fondo_emergencia_docente_'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
   toast('CSV descargado: listo para Moodle','ok');
 }
@@ -1779,15 +2085,16 @@ function init(){
   applyTheme(th);
   $('mbDots').innerHTML=STEP_NAMES.map((_,i)=>`<button type="button" class="${i===0?'active':i===1?'':'locked'}" onclick="tryNav(${i})" aria-label="${STEP_NAMES[i]}">${i===0?ico('book'):i===LAST?ico('star'):i-1}</button>`).join('');
   const had=loadDraft();
-  renderMembers();renderCrisisCards();
+  applyMode();renderMembers();renderCrisisCards();
   restoreValues(document);
   updateLesson();renderQuiz.cheered=Object.keys(draft.quiz).length===quizItems.length;renderQuiz();
   if(draft.perfil&&perfiles[draft.perfil]){const el=document.querySelector(`.perfil[data-perfil="${draft.perfil}"]`);if(el){selectPerfil(el,draft.perfil);restoreValues($('perfilDetails'));calcFondo()}}
   if(draft.rating)setSelfRating(draft.rating);
   $('groupName').addEventListener('input',updateRail);
   goTo(0);updateCloud();
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('pwModal').classList.contains('open'))closeDocente();else if($('dash').classList.contains('open'))hideDash()}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('pwModal').classList.contains('open'))closeDocente();else if($('modeModal').classList.contains('open')&&draft.mode)$('modeModal').classList.remove('open');else if($('dash').classList.contains('open'))hideDash()}});
   if(location.hash==='#docente')openDocente();
+  else if(!draft.mode)$('modeModal').classList.add('open');
   if(had&&Object.keys(draft.v).length)setTimeout(()=>toast('Recuperamos tu avance anterior','ok'),500);
 }
 init();
