@@ -214,6 +214,12 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .drow .dv small{display:block;font-size:.7rem;font-weight:500;color:var(--c)}
 .dlegend{display:flex;gap:16px;font-size:.74rem;color:var(--text3);margin-top:4px}
 .dlegend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.tc{margin-top:18px;padding:18px 20px;border-radius:var(--r);background:var(--warn-bg);border:1px solid var(--warn-bd)}
+.tc h5{font-size:.95rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.tc h5 .ic{color:var(--ambar)}
+.tc>p{font-size:.84rem;color:var(--text2);margin-bottom:14px}
+.tc>p b{color:var(--text)}
+.tc .stat{background:var(--surface)}
 .punch{margin-top:18px;padding:18px 20px;border-radius:var(--r);background:var(--bad-bg);border:1px solid var(--bad-bd);display:flex;gap:14px;align-items:center}
 .punch .pn{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--rojo);letter-spacing:-.03em;line-height:1;white-space:nowrap}
 .punch p{font-size:.88rem;color:var(--text2)}
@@ -799,13 +805,14 @@ details.ans .ab p b{color:var(--text)}
       <div class="panel">
         <div class="panel-h"><div class="panel-ic" style="color:var(--rojo)"><svg class="ic"><use href="#i-alert"/></svg></div><div><h3>Lo que cuesta NO tener fondo</h3><p>Una emergencia sin ahorro casi siempre termina en deuda</p></div></div>
         <div class="slider-field">
-          <div class="slider-top"><label for="l_deuda">Valor de la emergencia (lo pagas en 3 meses)</label><output id="o_deuda">$300.000</output></div>
+          <div class="slider-top"><label for="l_deuda">Valor de la emergencia</label><output id="o_deuda">$300.000</output></div>
           <input type="range" id="l_deuda" min="100000" max="1000000" step="50000" value="300000">
         </div>
         <div class="debt" id="debtRows"></div>
         <div class="dlegend"><span style="--c:var(--azul2)">Lo que pediste</span><span style="--c:var(--rojo)">Intereses que pagas de más</span></div>
+        <div class="tc" id="tcBox"></div>
         <div class="punch" id="debtPunch"></div>
-        <p class="src">Ejemplo ilustrativo con tasas aproximadas: tarjeta de crédito ≈2% mensual; préstamo informal "gota a gota" ≈20% mensual. Los gota a gota son ilegales, cobran a diario y suelen usar intimidación. Nunca son una opción.</p>
+        <p class="src">Ejemplo ilustrativo con tasas aproximadas: tarjeta de crédito ≈2% mensual diferida a 12 cuotas fijas (sistema de cuota fija, sin incluir cuota de manejo ni seguros); préstamo informal "gota a gota" ≈20% mensual. Los gota a gota son ilegales, cobran a diario y suelen usar intimidación. Nunca son una opción.</p>
       </div>
 
       <!-- TRUCOS -->
@@ -1021,7 +1028,7 @@ const SEMESTERS=['1ro','2do','3ro','4to','5to','6to','7mo','8vo','9no','10mo'];
 const STEP_NAMES=['Aprende','Grupo','Foto financiera','Reto del semestre','Simulador de crisis','Compromiso','Resultados'];
 const LAST=STEP_NAMES.length-1;
 const DRAFT_KEY='fe_unicesmag_draft_v2',THEME_KEY='fe_unicesmag_theme';
-const WEEKS_SEM=18,CARD_RATE=.02,GOTA_RATE=.20;
+const WEEKS_SEM=18,CARD_RATE=.02,CARD_N=12,GOTA_RATE=.20;
 
 let state={step:0,maxUnlocked:1,members:[],groupName:'',groupSalon:'',act1:{},act2:{},act3:{},act4:{}};
 let selectedPerfil=null,selfRatingVal=0,currentFondo=0,draft={v:{},members:1,perfil:null,rating:0,quiz:{}},saveTimer=null;
@@ -1125,13 +1132,15 @@ function updateLesson(){
   $('jarLiquid').style.height=pct+'%';$('jarPct').textContent=pct+'%';
   $('jarCap').innerHTML=pct>=100?`¡En un semestre (${WEEKS_SEM} semanas) <b>completas tu meta</b>! Podrías subirla a 6 meses.`:`En un semestre (${WEEKS_SEM} semanas) llevarías <b>${cop(sem)}</b>: el ${pct}% de tu meta.`;
 
-  const deuda=+$('l_deuda').value,card=deuda*(Math.pow(1+CARD_RATE,3)-1),gota=deuda*GOTA_RATE*3,top=deuda+gota;
+  const deuda=+$('l_deuda').value,cuota=deuda*CARD_RATE/(1-Math.pow(1+CARD_RATE,-CARD_N)),card=cuota*CARD_N-deuda,gota=deuda*GOTA_RATE*3,top=deuda+Math.max(card,gota);
   $('o_deuda').textContent=cop(deuda);
   $('debtRows').innerHTML=[
     {l:'Con fondo',s:'Usas tu propio dinero',i:0,c:COLORS.verde},
-    {l:'Tarjeta de crédito',s:'≈2% mensual',i:card,c:COLORS.ambar},
-    {l:'Préstamo "gota a gota"',s:'≈20% mensual · ilegal',i:gota,c:COLORS.rojo}
+    {l:'Tarjeta de crédito',s:`12 cuotas de ${cop(cuota)} · ≈2% mensual`,i:card,c:COLORS.ambar},
+    {l:'Préstamo "gota a gota"',s:'≈20% mensual · 3 meses · ilegal',i:gota,c:COLORS.rojo}
   ].map(r=>`<div class="drow" style="--c:${r.c}"><div class="dl"><b>${r.l}</b><small>${r.s}</small></div><div class="dbar"><i class="base" style="width:${deuda/top*100}%"></i><i class="int" style="width:${r.i/top*100}%"></i></div><div class="dv">${cop(deuda+r.i)}<small>${r.i?'+'+cop(r.i)+' de más':'$0 de intereses'}</small></div></div>`).join('');
+  $('tcBox').innerHTML=`<h5>${ico('wallet')}Si lo pagas con tarjeta de crédito a 12 cuotas</h5><p>Durante un año completo pagarías <b>${cop(cuota)} cada mes</b>. Al final habrás entregado <b>${cop(cuota*CARD_N)}</b> por una emergencia de ${cop(deuda)}: un ${Math.round(card/deuda*100)}% más.</p>
+    <div class="sim-out"><div class="stat"><small>Cuota mensual</small><b>${cop(cuota)}</b><em>durante 12 meses</em></div><div class="stat"><small>Total pagado</small><b style="color:var(--ambar)">${cop(cuota*CARD_N)}</b><em>12 × ${cop(cuota)}</em></div><div class="stat"><small>Intereses</small><b style="color:var(--rojo)">+${cop(card)}</b><em>= ${Math.ceil(card/ahorro)} semanas de tu ahorro</em></div></div>`;
   const semGota=Math.ceil(gota/ahorro);
   $('debtPunch').innerHTML=`<div class="pn">+${cop(gota)}</div><p>Eso pagarías de más con un gota a gota. Con tu ahorro de ${cop(ahorro)} semanales, son <b>${semGota} semanas de esfuerzo</b> regaladas en intereses. El fondo te protege de esa trampa.</p>`;
 
