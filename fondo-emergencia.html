@@ -771,6 +771,7 @@ input[type=range].sync{margin-top:12px}
       </div>
     </div>
     <div class="filters">
+      <select id="fPeriodo" onchange="renderDash()" aria-label="Filtrar por periodo académico"><option value="">Todos los periodos</option></select>
       <select id="fSalon" onchange="renderDash()" aria-label="Filtrar por salón"><option value="">Todos los salones</option></select>
       <select id="fMode" onchange="renderDash()" aria-label="Filtrar por modalidad"><option value="">Individual y grupal</option><option value="ind">Solo individual</option><option value="grp">Solo grupal</option></select>
       <input type="text" id="fSearch" oninput="renderDash()" placeholder="Buscar grupo o estudiante…" aria-label="Buscar">
@@ -794,7 +795,7 @@ input[type=range].sync{margin-top:12px}
       <div class="brand-mark"><svg class="ic"><use href="#i-shield"/></svg></div>
       <div>
         <div class="brand-name">Fondo de<br>Emergencia</div>
-        <div class="brand-sub">UNICESMAG · 2026</div>
+        <div class="brand-sub" id="brandSub">UNICESMAG</div>
       </div>
       <button class="theme-btn" type="button" onclick="toggleTheme()" aria-label="Cambiar tema claro/oscuro"><svg class="ic theme-ic"><use href="#i-moon"/></svg></button>
     </div>
@@ -1156,6 +1157,8 @@ const SEMESTERS=['1ro','2do','3ro','4to','5to','6to','7mo','8vo','9no','10mo'];
 const STEP_NAMES=['Aprende','Registro','Foto financiera','Reto del semestre','Simulador de crisis','Compromiso','Resultados'];
 const LAST=STEP_NAMES.length-1;
 const DRAFT_KEY='fe_unicesmag_draft_v2',THEME_KEY='fe_unicesmag_theme';
+const periodOf=d=>{d=new Date(d);return isNaN(d)?'':d.getFullYear()+'-'+(d.getMonth()<6?1:2)};
+const CUR_PERIOD=periodOf(new Date());
 const WEEKS_SEM=18,CARD_RATE=.02,CARD_N=12,GOTA_RATE=.20;
 
 let state={step:0,maxUnlocked:1,members:[],groupName:'',groupSalon:'',act1:{},act2:{},act3:{},act4:{}};
@@ -1639,7 +1642,7 @@ const RECS={
 
 /* ───────── RESULTADOS ───────── */
 function currentRecord(){
-  return JSON.parse(JSON.stringify({_v:3,mode:draft.mode||'grp',_groupId:draft.groupId,_savedAt:new Date().toISOString(),groupName:state.groupName,groupSalon:state.groupSalon,members:state.members,maxUnlocked:state.maxUnlocked,quiz:draft.quiz,act1:state.act1,act2:state.act2,act3:state.act3,act4:state.act4}));
+  return JSON.parse(JSON.stringify({_v:3,periodo:draft.periodo||CUR_PERIOD,mode:draft.mode||'grp',_groupId:draft.groupId,_savedAt:new Date().toISOString(),groupName:state.groupName,groupSalon:state.groupSalon,members:state.members,maxUnlocked:state.maxUnlocked,quiz:draft.quiz,act1:state.act1,act2:state.act2,act3:state.act3,act4:state.act4}));
 }
 function radarSVG(sc,labs){
   const cx=130,cy=118,R=80,n=sc.length,ang=sc.map((_,i)=>(-90+360/n*i)*Math.PI/180);
@@ -1841,7 +1844,7 @@ function updateCloud(){
   el.querySelector('span').textContent=!db?'Sin nube: solo este dispositivo':cloudOn?'Conectado: el docente ve su avance':'Conectando a la nube…';
 }
 const slug=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'').slice(0,24)||'grupo';
-function ensureGroupId(){if(!draft.groupId){draft.groupId=slug(state.groupName)+'_'+slug(state.groupSalon)+'_'+Date.now().toString(36);queueSave()}}
+function ensureGroupId(){if(!draft.groupId){draft.periodo=CUR_PERIOD;draft.groupId=slug(state.groupName)+'_'+slug(state.groupSalon)+'_'+Date.now().toString(36);queueSave()}}
 const isEmpty=o=>!o||(typeof o==='object'&&!Object.keys(o).length);
 function syncCloud(){
   if(!draft.groupId||!state.groupName)return;
@@ -1970,7 +1973,8 @@ function diagnose(g){
 }
 
 /* ───────── PANEL DOCENTE ───────── */
-let dashGroups=[],dashView='g';const openRows=new Set();
+const recPeriod=g=>g.periodo||periodOf(g._savedAt)||'Sin fecha';
+let dashGroups=[],dashView='g',periodInit=false;const openRows=new Set();
 const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 async function loadDash(){
   const chip=$('srcChip');chip.className='src-chip';chip.querySelector('span').textContent='Cargando datos…';
@@ -1985,6 +1989,10 @@ async function loadDash(){
   dashGroups=list.map(g=>({g,d:diagnose(g)})).sort((a,b)=>String(b.g._savedAt||'').localeCompare(String(a.g._savedAt||'')));
   chip.className='src-chip'+(cloud?' on':'');
   chip.querySelector('span').textContent=cloud?`Nube conectada · ${dashGroups.length} registro${dashGroups.length===1?'':'s'}`:'Sin conexión a la nube · solo datos de este dispositivo';
+  const ps=$('fPeriodo'),pcur=ps.value,periodos=[...new Set(dashGroups.map(x=>recPeriod(x.g)))].sort().reverse();
+  ps.innerHTML='<option value="">Todos los periodos</option>'+periodos.map(v=>`<option value="${esc(v)}">Periodo ${esc(v)}${v===CUR_PERIOD?' (actual)':''}</option>`).join('');
+  /* la primera vez se abre en el periodo actual, si hay registros en él */
+  ps.value=!periodInit&&periodos.includes(CUR_PERIOD)?CUR_PERIOD:periodos.includes(pcur)?pcur:'';periodInit=true;
   const sel=$('fSalon'),cur=sel.value,salones=[...new Set(dashGroups.map(x=>String(x.g.groupSalon||'').trim()).filter(Boolean))].sort();
   sel.innerHTML='<option value="">Todos los salones</option>'+salones.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
   sel.value=salones.includes(cur)?cur:'';
@@ -1992,7 +2000,8 @@ async function loadDash(){
 }
 function dashFiltered(){
   const sal=$('fSalon').value,mode=$('fMode').value,q=norm($('fSearch').value.trim());
-  return dashGroups.filter(({g,d})=>(!sal||String(g.groupSalon||'').trim()===sal)&&(!mode||d.mode===mode)&&(!q||norm([g.groupName,g.groupSalon,...arr(g.members).map(m=>m&&m.name)].join(' ')).includes(q)));
+  const per=$('fPeriodo').value;
+  return dashGroups.filter(({g,d})=>(!per||recPeriod(g)===per)&&(!sal||String(g.groupSalon||'').trim()===sal)&&(!mode||d.mode===mode)&&(!q||norm([g.groupName,g.groupSalon,...arr(g.members).map(m=>m&&m.name)].join(' ')).includes(q)));
 }
 function setView(v){dashView=v;$('vtG').classList.toggle('active',v==='g');$('vtS').classList.toggle('active',v==='s');renderDash()}
 const pctColor=p=>p>=75?COLORS.verde:p>=50?COLORS.ambar:COLORS.rojo;
@@ -2040,7 +2049,7 @@ function groupRow({g,d}){
     +d.students.map(s=>(s.d?P(`${s.m.name} · cálculo del fondo`,s.d.calculo)+P(`${s.m.name} · obstáculo para ahorrar`,s.d.obstaculo):'')+(s.c?P(`${s.m.name} · aprendizaje`,s.c.insight):'')).join('');
   return`<div class="grow${openRows.has(id)?' open':''}" data-id="${esc(id)}">
     <button type="button" class="ghead" onclick="toggleRow(this)" aria-expanded="${openRows.has(id)}">
-      <div class="gn"><b>${esc(g.groupName||'Sin nombre')} <span class="mode-pill">${modeLbl(d.mode)}</span></b><small>${esc(g.groupSalon||'')} · ${d.mode==='ind'?'':nm+' integrante'+(nm===1?'':'s')+' · '}${fecha}</small></div>
+      <div class="gn"><b>${esc(g.groupName||'Sin nombre')} <span class="mode-pill">${modeLbl(d.mode)}</span></b><small>Periodo ${esc(recPeriod(g))} · ${esc(g.groupSalon||'')} · ${d.mode==='ind'?'':nm+' integrante'+(nm===1?'':'s')+' · '}${fecha}</small></div>
       <div class="prog"><small>${n} de 4 actividades</small><div class="t"><i style="width:${n*25}%"></i></div></div>
       <span class="cnt ok" title="Aciertos">${ico('check')}${d.ok}</span>
       <span class="cnt bad" title="Errores">${ico('alert')}${d.bad}</span>
@@ -2065,22 +2074,23 @@ function studentTable(studs){
 function exportDashCSV(){
   const F=dashFiltered();if(!F.length){toast('No hay datos para exportar','err');return}
   const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
-  const rows=[['Nombre completo','Programa','Semestre','Modalidad','Grupo','Salon',...PARTS.map(p=>`${p.l} (${p.w}%)`),'Puntaje Total','Nota Final','Estado','Aciertos','Errores','Errores principales','Juego IUN (aciertos/6)','Saldo actual COP','Gastos esenciales mes COP','Meta COP','Ahorro semanal COP','Semanas para la meta','App fondo','Fecha'].join(',')];
+  const rows=[['Nombre completo','Programa','Semestre','Periodo','Modalidad','Grupo','Salon',...PARTS.map(p=>`${p.l} (${p.w}%)`),'Puntaje Total','Nota Final','Estado','Aciertos','Errores','Errores principales','Juego IUN (aciertos/6)','Saldo actual COP','Gastos esenciales mes COP','Meta COP','Ahorro semanal COP','Semanas para la meta','App fondo','Fecha'].join(',')];
   F.forEach(({g,d})=>{
     const gOk=d.group.filter(c=>c.s==='ok').length,gBad=d.group.filter(c=>c.s==='bad').map(c=>c.label),qok=d.quiz.filter(v=>v===true).length;
     d.students.forEach(s=>{
       const c=s.c||{},a=s.d||{},saldo=+a.saldo||0,w=+c.ahorro>0?Math.ceil(Math.max(0,(+c.meta||0)-saldo)/c.ahorro):'';
-      rows.push([q(s.m.name),q(s.m.program),q(s.m.semester),q(modeLbl(d.mode)),q(d.mode==='ind'?'':g.groupName),q(g.groupSalon),...s.sc.s,s.sc.total,s.complete?nota(s.sc.total):'',q(s.complete?'Completo':'En progreso'),
+      rows.push([q(s.m.name),q(s.m.program),q(s.m.semester),q(recPeriod(g)),q(modeLbl(d.mode)),q(d.mode==='ind'?'':g.groupName),q(g.groupSalon),...s.sc.s,s.sc.total,s.complete?nota(s.sc.total):'',q(s.complete?'Completo':'En progreso'),
         s.ok+gOk,s.bad+gBad.length,q(s.checks.filter(c=>c.s==='bad').map(c=>c.label).concat(gBad).join('; ')),qok,Math.round(saldo),Math.round(+a.gastos||0),Math.round(+c.meta||0),Math.round(+c.ahorro||0),w,q(c.app),q(g._savedAt?new Date(g._savedAt).toLocaleDateString('es-CO'):'')].join(','));
     });
   });
   const blob=new Blob(['﻿'+rows.join('\n')],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download='fondo_emergencia_docente_'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  a.href=url;a.download='fondo_emergencia_docente_'+($('fPeriodo').value?'periodo_'+$('fPeriodo').value+'_':'')+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
   toast('CSV descargado: listo para Moodle','ok');
 }
 
 /* ───────── INIT ───────── */
 function init(){
+  $('brandSub').textContent='UNICESMAG · '+CUR_PERIOD;
   let th='light';try{th=localStorage.getItem(THEME_KEY)||'light'}catch(e){}
   applyTheme(th);
   $('mbDots').innerHTML=STEP_NAMES.map((_,i)=>`<button type="button" class="${i===0?'active':i===1?'':'locked'}" onclick="tryNav(${i})" aria-label="${STEP_NAMES[i]}">${i===0?ico('book'):i===LAST?ico('star'):i-1}</button>`).join('');
