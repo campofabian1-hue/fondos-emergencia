@@ -242,7 +242,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .field{margin-bottom:18px}
 .field>label{display:block;font-size:.84rem;font-weight:700;color:var(--text2);margin-bottom:8px;line-height:1.45}
-input[type=text],input[type=number],input[type=date],select,textarea{width:100%;padding:12px 14px;background:var(--field);border:1.5px solid var(--line2);border-radius:var(--r-sm);color:var(--text);font:500 .94rem var(--sans);transition:border-color .2s,box-shadow .2s,background .2s;outline:none}
+input[type=text],input[type=email],input[type=number],input[type=date],select,textarea{width:100%;padding:12px 14px;background:var(--field);border:1.5px solid var(--line2);border-radius:var(--r-sm);color:var(--text);font:500 .94rem var(--sans);transition:border-color .2s,box-shadow .2s,background .2s;outline:none}
 input::placeholder,textarea::placeholder{color:var(--text3);font-weight:400}
 input:hover,select:hover,textarea:hover{border-color:var(--line3)}
 input:focus,select:focus,textarea:focus{border-color:var(--celeste);box-shadow:0 0 0 4px rgba(79,116,196,.16);background:var(--surface)}
@@ -636,6 +636,9 @@ input[type=range].sync{margin-top:12px}
 }
 @media print{.me{display:block!important;page-break-before:always}.whatif input,.me .tabs{display:none}}
 
+/* datos que llegan desde Moodle: visibles pero no editables */
+.member input.from-lms{background:var(--surface2)!important;color:var(--text)!important;font-family:var(--sans);font-weight:700;border-color:var(--line2)!important;cursor:not-allowed}
+
 /* ───────── TOAST ───────── */
 #toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,140px);z-index:999;display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:40px;font-weight:800;font-size:.88rem;background:var(--surface);color:var(--text);border:1.5px solid var(--line3);box-shadow:var(--shadow-lg);transition:transform .45s var(--ease);max-width:92vw}
 #toast.show{transform:translate(-50%,0)}
@@ -971,6 +974,7 @@ input[type=range].sync{margin-top:12px}
           <button type="button" class="mode-card" data-mode="grp" onclick="setMode('grp')"><svg class="ic tick"><use href="#i-check"/></svg><div class="mi"><svg class="ic"><use href="#i-users"/></svg></div><b>Grupal</b><span>De 2 a 4 integrantes, cada uno con su nota.</span></button>
         </div>
       </div>
+      <div class="note ok" id="lmsNote" hidden><svg class="ic"><use href="#i-check"/></svg><div id="lmsTxt"></div></div>
       <div class="note info"><svg class="ic"><use href="#i-info"/></svg><div><span class="only-g">Máximo 4 integrantes. </span>El avance se guarda automáticamente en este dispositivo y se envía al docente.</div></div>
 
       <div class="panel">
@@ -1156,7 +1160,11 @@ const PROGRAMS=['Contaduría Pública','Administración de Empresas','Diseño Gr
 const SEMESTERS=['1ro','2do','3ro','4to','5to','6to','7mo','8vo','9no','10mo'];
 const STEP_NAMES=['Aprende','Registro','Foto financiera','Reto del semestre','Simulador de crisis','Compromiso','Resultados'];
 const LAST=STEP_NAMES.length-1;
-const DRAFT_KEY='fe_unicesmag_draft_v2',THEME_KEY='fe_unicesmag_theme';
+/* Variables URL de Moodle (recurso URL): ?nombre=…&email=…&usuario=…&curso=…
+   Identifican al estudiante y separan el avance guardado de cada uno en computadores compartidos. */
+const MOODLE=(()=>{try{const q=new URLSearchParams(location.search),g=k=>(q.get(k)||'').trim(),m={nombre:g('nombre'),email:g('email'),usuario:g('usuario'),curso:g('curso')};return m.nombre||m.email||m.usuario?m:null}catch(e){return null}})();
+const USER_SUFFIX=MOODLE?'_'+(MOODLE.usuario||MOODLE.email||MOODLE.nombre).toLowerCase().replace(/[^a-z0-9]+/g,'_'):'';
+const DRAFT_KEY='fe_unicesmag_draft_v2'+USER_SUFFIX,THEME_KEY='fe_unicesmag_theme';
 const periodOf=d=>{d=new Date(d);return isNaN(d)?'':d.getFullYear()+'-'+(d.getMonth()<6?1:2)};
 const CUR_PERIOD=periodOf(new Date());
 const WEEKS_SEM=18,CARD_RATE=.02,CARD_N=12,GOTA_RATE=.20;
@@ -1347,15 +1355,17 @@ function applyMode(){
 }
 
 /* ───────── MEMBERS ───────── */
-function newMember(){return{name:'',program:'Contaduría Pública',semester:'1ro'}}
-function syncMembers(){state.members=state.members.map((m,i)=>({name:$('m_name_'+i)?.value??m.name,program:$('m_prog_'+i)?.value??m.program,semester:$('m_sem_'+i)?.value??m.semester}))}
+function newMember(){return{name:'',email:'',program:'Contaduría Pública',semester:'1ro'}}
+const fromLms=i=>i===0&&!!MOODLE;
+function syncMembers(){state.members=state.members.map((m,i)=>Object.assign({name:$('m_name_'+i)?.value??m.name,email:$('m_email_'+i)?.value??m.email??'',program:$('m_prog_'+i)?.value??m.program,semester:$('m_sem_'+i)?.value??m.semester},fromLms(i)&&MOODLE.usuario?{usuario:MOODLE.usuario}:{}))}
 function renderMembers(){
   const c=$('membersContainer'),ind=isInd();
   if(!state.members.length)state.members=Array.from({length:ind?1:Math.min(4,Math.max(1,draft.members||1))},newMember);
   c.innerHTML=state.members.map((m,i)=>`
     <div class="member" style="--mc:${MCOL[i]}">
       <div class="member-top"><div class="avatar">${i+1}</div><span>${ind?'Tus datos':'Integrante '+(i+1)}</span></div>
-      <div class="field"><label for="m_name_${i}">Nombre completo *</label><input type="text" id="m_name_${i}" value="${esc(m.name)}" placeholder="Nombre y apellidos" autocomplete="off"></div>
+      <div class="field"><label for="m_name_${i}">Nombre completo *</label><input type="text" id="m_name_${i}" value="${esc(fromLms(i)&&MOODLE.nombre?MOODLE.nombre:m.name)}" placeholder="Nombre y apellidos" autocomplete="off"${fromLms(i)&&MOODLE.nombre?' readonly class="from-lms" title="Dato tomado de Moodle"':''}></div>
+      <div class="field"><label for="m_email_${i}">Correo institucional</label><input type="email" id="m_email_${i}" value="${esc(fromLms(i)&&MOODLE.email?MOODLE.email:m.email||'')}" placeholder="usuario@unicesmag.edu.co" autocomplete="off"${fromLms(i)&&MOODLE.email?' readonly class="from-lms" title="Dato tomado de Moodle"':''}></div>
       <div class="field"><label for="m_prog_${i}">Programa *</label><select id="m_prog_${i}">${PROGRAMS.map(p=>`<option value="${p}"${m.program===p?' selected':''}>${p}</option>`).join('')}</select></div>
       <div class="field"><label for="m_sem_${i}">Semestre</label><select id="m_sem_${i}">${SEMESTERS.map(s=>`<option value="${s}"${m.semester===s?' selected':''}>${s}</option>`).join('')}</select></div>
     </div>`).join('');
@@ -1831,7 +1841,7 @@ const firebaseConfig={
   messagingSenderId:"784560979565",
   appId:"1:784560979565:web:14083c77dafe977d33c964"
 };
-const GROUP_KEY='fe_unicesmag_group_v2',DOC_SESSION='fe_unicesmag_doc';
+const GROUP_KEY='fe_unicesmag_group_v2'+USER_SUFFIX,DOC_SESSION='fe_unicesmag_doc';
 /* Contraseña docente: solo se guarda su huella SHA-256, nunca el texto.
    Para cambiarla, calcula el SHA-256 de la nueva clave (p. ej. printf '%s' 'NuevaClave' | sha256sum)
    y reemplaza este valor. */
@@ -2001,7 +2011,7 @@ async function loadDash(){
 function dashFiltered(){
   const sal=$('fSalon').value,mode=$('fMode').value,q=norm($('fSearch').value.trim());
   const per=$('fPeriodo').value;
-  return dashGroups.filter(({g,d})=>(!per||recPeriod(g)===per)&&(!sal||String(g.groupSalon||'').trim()===sal)&&(!mode||d.mode===mode)&&(!q||norm([g.groupName,g.groupSalon,...arr(g.members).map(m=>m&&m.name)].join(' ')).includes(q)));
+  return dashGroups.filter(({g,d})=>(!per||recPeriod(g)===per)&&(!sal||String(g.groupSalon||'').trim()===sal)&&(!mode||d.mode===mode)&&(!q||norm([g.groupName,g.groupSalon,...arr(g.members).flatMap(m=>m?[m.name,m.email,m.usuario]:[])].join(' ')).includes(q)));
 }
 function setView(v){dashView=v;$('vtG').classList.toggle('active',v==='g');$('vtS').classList.toggle('active',v==='s');renderDash()}
 const pctColor=p=>p>=75?COLORS.verde:p>=50?COLORS.ambar:COLORS.rojo;
@@ -2041,7 +2051,7 @@ const notaTag=s=>s.complete?`<b style="color:${scoreColor(s.sc.total)}">${nota(s
 function groupRow({g,d}){
   const id=String(g._groupId||g.groupName),n=d.done.filter(Boolean).length,nm=d.students.length,fecha=g._savedAt?new Date(g._savedAt).toLocaleString('es-CO',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
   const notaH=d.complete?`<b style="color:${scoreColor(d.sc.total)}">${nota(d.sc.total)}</b><small>${d.mode==='ind'?'':'prom. '}${d.sc.total}/100</small>`:`<b style="color:var(--text3);font-size:.9rem">En curso</b><small>${n} de 4</small>`;
-  const studs=d.students.map(s=>`<div class="stud"><div class="stud-h"><div class="avatar" style="--mc:${MCOL[s.i%4]}">${esc((s.m.name||'?')[0].toUpperCase())}</div><div><b>${esc(s.m.name||'Sin nombre')}</b><small>${esc(s.m.program||'')} · ${esc(s.m.semester||'')} semestre</small></div><span class="cnt ok">${ico('check')}${s.ok}</span><span class="cnt bad">${ico('alert')}${s.bad}</span><div class="gnota">${notaTag(s)}<small>${s.sc.total}/100</small></div></div>
+  const studs=d.students.map(s=>`<div class="stud"><div class="stud-h"><div class="avatar" style="--mc:${MCOL[s.i%4]}">${esc((s.m.name||'?')[0].toUpperCase())}</div><div><b>${esc(s.m.name||'Sin nombre')}</b><small>${s.m.email?esc(s.m.email)+' · ':''}${esc(s.m.program||'')} · ${esc(s.m.semester||'')} semestre</small></div><span class="cnt ok">${ico('check')}${s.ok}</span><span class="cnt bad">${ico('alert')}${s.bad}</span><div class="gnota">${notaTag(s)}<small>${s.sc.total}/100</small></div></div>
     <div class="gscores">${PARTS.map((p,k)=>`<div><small>${p.l} (${p.w}%)</small><b style="color:${scoreColor(s.sc.s[k])}">${s.sc.s[k]}</b></div>`).join('')}</div>${chkList(s.checks)}</div>`).join('');
   const a2=g.act2||{},a3=g.act3||{},a4=g.act4||{};
   const P=(k,v)=>v?`<p><b>${k}:</b> ${esc(v)}</p>`:'';
@@ -2074,12 +2084,12 @@ function studentTable(studs){
 function exportDashCSV(){
   const F=dashFiltered();if(!F.length){toast('No hay datos para exportar','err');return}
   const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
-  const rows=[['Nombre completo','Programa','Semestre','Periodo','Modalidad','Grupo','Salon',...PARTS.map(p=>`${p.l} (${p.w}%)`),'Puntaje Total','Nota Final','Estado','Aciertos','Errores','Errores principales','Juego IUN (aciertos/6)','Saldo actual COP','Gastos esenciales mes COP','Meta COP','Ahorro semanal COP','Semanas para la meta','App fondo','Fecha'].join(',')];
+  const rows=[['Nombre completo','Correo','Usuario Moodle','Programa','Semestre','Periodo','Modalidad','Grupo','Salon',...PARTS.map(p=>`${p.l} (${p.w}%)`),'Puntaje Total','Nota Final','Estado','Aciertos','Errores','Errores principales','Juego IUN (aciertos/6)','Saldo actual COP','Gastos esenciales mes COP','Meta COP','Ahorro semanal COP','Semanas para la meta','App fondo','Fecha'].join(',')];
   F.forEach(({g,d})=>{
     const gOk=d.group.filter(c=>c.s==='ok').length,gBad=d.group.filter(c=>c.s==='bad').map(c=>c.label),qok=d.quiz.filter(v=>v===true).length;
     d.students.forEach(s=>{
       const c=s.c||{},a=s.d||{},saldo=+a.saldo||0,w=+c.ahorro>0?Math.ceil(Math.max(0,(+c.meta||0)-saldo)/c.ahorro):'';
-      rows.push([q(s.m.name),q(s.m.program),q(s.m.semester),q(recPeriod(g)),q(modeLbl(d.mode)),q(d.mode==='ind'?'':g.groupName),q(g.groupSalon),...s.sc.s,s.sc.total,s.complete?nota(s.sc.total):'',q(s.complete?'Completo':'En progreso'),
+      rows.push([q(s.m.name),q(s.m.email),q(s.m.usuario),q(s.m.program),q(s.m.semester),q(recPeriod(g)),q(modeLbl(d.mode)),q(d.mode==='ind'?'':g.groupName),q(g.groupSalon),...s.sc.s,s.sc.total,s.complete?nota(s.sc.total):'',q(s.complete?'Completo':'En progreso'),
         s.ok+gOk,s.bad+gBad.length,q(s.checks.filter(c=>c.s==='bad').map(c=>c.label).concat(gBad).join('; ')),qok,Math.round(saldo),Math.round(+a.gastos||0),Math.round(+c.meta||0),Math.round(+c.ahorro||0),w,q(c.app),q(g._savedAt?new Date(g._savedAt).toLocaleDateString('es-CO'):'')].join(','));
     });
   });
@@ -2095,6 +2105,11 @@ function init(){
   applyTheme(th);
   $('mbDots').innerHTML=STEP_NAMES.map((_,i)=>`<button type="button" class="${i===0?'active':i===1?'':'locked'}" onclick="tryNav(${i})" aria-label="${STEP_NAMES[i]}">${i===0?ico('book'):i===LAST?ico('star'):i-1}</button>`).join('');
   const had=loadDraft();
+  if(MOODLE){
+    if(MOODLE.curso&&!draft.v.groupSalon)draft.v.groupSalon=MOODLE.curso;
+    $('lmsNote').hidden=false;
+    $('lmsTxt').innerHTML=`Ingresaste desde Moodle como <b>${esc(MOODLE.nombre||MOODLE.usuario||MOODLE.email)}</b>. Tu nombre${MOODLE.email?' y correo':''} se toman del aula virtual para que tu nota llegue a la persona correcta.`;
+  }
   applyMode();renderMembers();renderCrisisCards();
   restoreValues(document);
   updateLesson();renderQuiz.cheered=Object.keys(draft.quiz).length===quizItems.length;renderQuiz();
