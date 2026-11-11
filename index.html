@@ -707,8 +707,10 @@ function saveState() {
       _savedAt: new Date().toISOString(),
       _groupId: currentGroupId
     });
-    db.ref('grupos/' + currentGroupId).set(payload)
-      .catch(e => console.warn('Firebase save error:', e));
+    try {
+      db.ref('grupos/' + currentGroupId).set(JSON.parse(JSON.stringify(payload)))
+        .catch(e => console.warn('Firebase save error:', e));
+    } catch(e) { console.warn('Firebase save error:', e); }
   }
 }
 
@@ -1232,7 +1234,7 @@ function saveAct4() {
   }
   state.act4={members:members4,compromisoGrupal:compromisoG,acompañamiento:acompaña,selfRating:selfRatingVal};
   saveState();
-  generateResults();
+  try { generateResults(); } catch(e) { console.error('generateResults error:', e); }
   // Show confirmation modal before revealing results
   showConfirmModal();
 }
@@ -1319,7 +1321,7 @@ function scoreAct4() {
   return Math.min(100,Math.round(s/state.members.length));
 }
 
-function getAwards(scores,act2,act3,act4) {
+function getAwards(scores,act2,act4) {
   const awards=[];
   if(scores.act2>=85)awards.push({icon:'💡',label:'Estrategia Innovadora',color:'#5B7DB8'});
   if(scores.act3>=85)awards.push({icon:'🧠',label:'Análisis Profundo',color:'#F26A25'});
@@ -1661,30 +1663,29 @@ function getGroupCodeBadge() {
 
 // ── DOCENTE ACCESS ──
 function docenteAccess() {
-  const PIN = 'cesmagadmin*';
   document.getElementById('removeModal').innerHTML = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:900;display:flex;align-items:center;justify-content:center;padding:1rem">
       <div style="background:var(--bg2);border:1px solid rgba(45,66,113,0.6);border-radius:20px;padding:2rem;max-width:400px;width:100%;text-align:center">
         <div style="font-size:2rem;margin-bottom:.6rem">🔐</div>
         <div style="font-weight:700;font-size:1.1rem;margin-bottom:.3rem">Acceso Docente</div>
         <div style="font-size:.82rem;color:var(--text2);margin-bottom:1.2rem">Ingresa el PIN para ver resultados y exportar calificaciones sin completar el cuestionario.</div>
-        <input type="password" id="docentePin" placeholder="PIN de acceso" maxlength="6"
+        <input type="password" id="docentePin" placeholder="PIN de acceso" autocomplete="off"
           style="width:100%;padding:12px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:inherit;font-size:1.1rem;text-align:center;letter-spacing:4px;outline:none;margin-bottom:1rem"
-          onkeydown="if(event.key==='Enter')checkDocentePin('${PIN}')">
+          onkeydown="if(event.key==='Enter')checkDocentePin()">
         <div id="pinError" style="font-size:.82rem;color:#B21937;margin-bottom:.8rem;display:none">PIN incorrecto. Intenta nuevamente.</div>
         <div style="display:flex;gap:.75rem">
-          <button onclick="checkDocentePin('${PIN}')" style="flex:1;background:var(--azul);color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer">Ingresar</button>
+          <button onclick="checkDocentePin()" style="flex:1;background:var(--azul);color:#fff;border:none;border-radius:10px;padding:11px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer">Ingresar</button>
           <button onclick="closeRemoveModal()" style="flex:1;background:none;border:1px solid var(--border2);border-radius:10px;padding:11px;color:var(--text2);font-family:inherit;font-size:.9rem;cursor:pointer">Cancelar</button>
         </div>
-        <div style="margin-top:1rem;font-size:.75rem;color:var(--text3)">PIN por defecto:  — puedes cambiarlo en el código fuente</div>
       </div>
     </div>`;
   setTimeout(()=>document.getElementById('docentePin')?.focus(), 100);
 }
 
-function checkDocentePin(correctPin) {
-  const val = document.getElementById('docentePin')?.value;
-  if(val === correctPin) {
+const DOCENTE_PIN = 'cesmagadmin*';
+function checkDocentePin() {
+  const val = (document.getElementById('docentePin')?.value || '').trim();
+  if(val === DOCENTE_PIN) {
     closeRemoveModal();
     // Build a minimal demo state if no real data exists yet
     if(!state.members.length || !state.members[0].name) {
